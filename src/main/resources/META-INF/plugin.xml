@@ -25,7 +25,8 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <toolWindow factoryClass="com.example.zookeeperm.action.ListWindowFactory" id="zookeeper" anchor="bottom"/>
+        <notificationGroup displayType="BALLOON" id="notify" />
     </extensions>
     <actions>
         <action id="hello" class="com.example.zookeeperm.helloAction" text="hello">

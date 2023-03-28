@@ -7,6 +7,10 @@ group = "com.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    google()
+    maven{url = uri("https://maven.aliyun.com/repository/public/")}
+    maven{url = uri("https://maven.aliyun.com/repository/google/")}
+    maven{url = uri("https://maven.aliyun.com/repository/jcenter/")}
     mavenCentral()
 }
 
@@ -47,3 +51,4 @@ dependencies {
     implementation("org.apache.zookeeper:zookeeper:3.8.1")
 
 }
+
