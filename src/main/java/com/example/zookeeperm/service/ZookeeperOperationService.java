@@ -1,0 +1,68 @@
+package com.example.zookeeperm.service;
+
+import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.message.Notifier;
+import com.intellij.openapi.ui.MessageType;
+import com.twelvemonkeys.lang.StringUtil;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.ACL;
+import org.apache.zookeeper.data.Stat;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/* *
+ * @author nss
+ * @description zookeeper操作
+ * @date 15:08 2023/3/26
+ **/
+public class ZookeeperOperationService {
+    /**
+     * 连接zookeeper
+     */
+    public ZooKeeper connect(String connectString,int timeOut) throws IOException, InterruptedException {
+        try {
+            return new ZooKeeper(connectString, timeOut, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Notifier.notify("zookeeper链接出错："+e.getMessage(), MessageType.ERROR);
+            throw e;
+        }
+    }
+    /**
+     * 获取节点列表
+     */
+    public void getAllNode(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
+        Stat stat = new Stat();
+//        List<ACL> aclList = zooKeeper.getACL(path, stat);
+//
+//        //设置控制权限
+//        nodeData.setACLList(aclList.stream()
+//                .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
+        byte[] data = zooKeeper.getData(nodeData.getPath(), false, null);
+
+        if (data == null) {
+            return;
+        }
+        nodeData.setData(new String(data));
+        //设置数据
+        List<String> childrenList = zooKeeper.getChildren(nodeData.getPath(), false);
+
+        ArrayList<NodeData> childrenNodeList = new ArrayList<>();
+        for (String child : childrenList) {
+            NodeData childNode = new NodeData();
+            if(nodeData.getPath().equals("/")) {
+                childNode.setPath("/" + child);
+            }else {
+                childNode.setPath(nodeData.getPath()+"/"+child);
+            }
+            childrenNodeList.add(childNode);
+            getAllNode(childNode,zooKeeper);
+        }
+        nodeData.setChildrenList(childrenNodeList);
+    }
+}
