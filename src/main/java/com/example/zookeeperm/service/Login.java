@@ -3,9 +3,14 @@ package com.example.zookeeperm.service;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.ACL;
+import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.example.zookeeperm.data.LoginData.zooKeeper;
 
 /* *
  * @author nss
@@ -20,13 +25,13 @@ public class Login {
         LoginData.timeout = 50000;
 
         ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
-        LoginData.zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
+        zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
 
-        List<String> children = LoginData.zooKeeper.getChildren("/", false);
+        List<String> children = zooKeeper.getChildren("/", false);
         for (String child : children) {
             System.out.println(child);
         }
-        LoginData.zooKeeper.close();
+        zooKeeper.close();
 
     }
 
@@ -36,12 +41,17 @@ public class Login {
         LoginData.timeout = 50000;
 
         ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
-        LoginData.zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
+        zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
         NodeData nodeData = new NodeData();
         nodeData.setPath("/");
-        zookeeperOperationService.getAllNode(nodeData,LoginData.zooKeeper);
+        Stat stat = new Stat();
+        List<ACL> aclList = zooKeeper.getACL("/", stat);
+
+        //设置控制权限
+        nodeData.setACLList(aclList.stream()
+                .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
         System.out.println(nodeData);
-        LoginData.zooKeeper.close();
+        zooKeeper.close();
     }
 
 

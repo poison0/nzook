@@ -1,5 +1,7 @@
 package com.example.zookeeperm.data;
 
+import org.apache.zookeeper.data.Stat;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ public class NodeData {
     /**
      * 元数据
      */
-    private Map<String,String> metaDataList;
+    private Stat metaData;
 
     /**
      * 权限列表
@@ -45,12 +47,12 @@ public class NodeData {
         this.data = data;
     }
 
-    public Map<String, String> getMetaDataList() {
-        return metaDataList;
+    public Stat getMetaData() {
+        return metaData;
     }
 
-    public void setMetaDataList(Map<String, String> metaDataList) {
-        this.metaDataList = metaDataList;
+    public void setMetaData(Stat metaData) {
+        this.metaData = metaData;
     }
 
     public List<Acl> getACLList() {
@@ -101,6 +103,122 @@ public class NodeData {
 
         public void setPerms(String perms) {
             this.perms = perms;
+        }
+    }
+
+    public static class Stat{
+        private long czxid;
+        private long mzxid;
+        private long ctime;
+        private long mtime;
+        private int version;
+        private int cversion;
+        private int aversion;
+        private long ephemeralOwner;
+        private int dataLength;
+        private int numChildren;
+        private long pzxid;
+
+        public Stat(org.apache.zookeeper.data.Stat stat) {
+            this.czxid = stat.getCzxid();
+            this.mzxid = stat.getMzxid();
+            this.ctime = stat.getCtime();
+            this.mtime = stat.getMtime();
+            this.version = stat.getVersion();
+            this.cversion = stat.getCversion();
+            this.aversion = stat.getAversion();
+            this.ephemeralOwner = stat.getEphemeralOwner();
+            this.dataLength = stat.getDataLength();
+            this.numChildren = stat.getNumChildren();
+            this.pzxid = stat.getPzxid();
+        }
+
+        public long getCzxid() {
+            return czxid;
+        }
+
+        public void setCzxid(long czxid) {
+            this.czxid = czxid;
+        }
+
+        public long getMzxid() {
+            return mzxid;
+        }
+
+        public void setMzxid(long mzxid) {
+            this.mzxid = mzxid;
+        }
+
+        public long getCtime() {
+            return ctime;
+        }
+
+        public void setCtime(long ctime) {
+            this.ctime = ctime;
+        }
+
+        public long getMtime() {
+            return mtime;
+        }
+
+        public void setMtime(long mtime) {
+            this.mtime = mtime;
+        }
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
+
+        public int getCversion() {
+            return cversion;
+        }
+
+        public void setCversion(int cversion) {
+            this.cversion = cversion;
+        }
+
+        public int getAversion() {
+            return aversion;
+        }
+
+        public void setAversion(int aversion) {
+            this.aversion = aversion;
+        }
+
+        public long getEphemeralOwner() {
+            return ephemeralOwner;
+        }
+
+        public void setEphemeralOwner(long ephemeralOwner) {
+            this.ephemeralOwner = ephemeralOwner;
+        }
+
+        public int getDataLength() {
+            return dataLength;
+        }
+
+        public void setDataLength(int dataLength) {
+            this.dataLength = dataLength;
+        }
+
+        public int getNumChildren() {
+            return numChildren;
+        }
+
+        public void setNumChildren(int numChildren) {
+            this.numChildren = numChildren;
+        }
+
+        public long getPzxid() {
+            return pzxid;
+        }
+
+        public void setPzxid(long pzxid) {
+            this.pzxid = pzxid;
         }
     }
 }

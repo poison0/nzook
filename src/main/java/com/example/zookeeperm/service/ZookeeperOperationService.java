@@ -34,17 +34,10 @@ public class ZookeeperOperationService {
         }
     }
     /**
-     * 获取节点列表
+     * 递归获取节点列表
      */
     public void getAllNode(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
-        Stat stat = new Stat();
-//        List<ACL> aclList = zooKeeper.getACL(path, stat);
-//
-//        //设置控制权限
-//        nodeData.setACLList(aclList.stream()
-//                .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
         byte[] data = zooKeeper.getData(nodeData.getPath(), false, null);
-
         if (data == null) {
             return;
         }
@@ -64,5 +57,17 @@ public class ZookeeperOperationService {
             getAllNode(childNode,zooKeeper);
         }
         nodeData.setChildrenList(childrenNodeList);
+    }
+    /**
+     * 设置控制权限和元数据
+     */
+    public void setStatAndAcl(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
+        Stat stat = new Stat();
+        List<ACL> aclList = zooKeeper.getACL(nodeData.getPath(), stat);
+
+        //设置控制权限
+        nodeData.setACLList(aclList.stream()
+                .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
+        nodeData.setMetaData(new NodeData.Stat(stat));
     }
 }
