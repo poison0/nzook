@@ -30,7 +30,7 @@ public class TreeCell extends ColoredTreeCellRenderer {
 
     private void appendCreateTime(long createTime) {
         if (createTime != 0) {
-            append("  "+DateUtils.toAge(createTime)+"...", SimpleTextAttributes.GRAY_ATTRIBUTES);
+            append("   "+DateUtils.toAge(createTime)+"...", SimpleTextAttributes.GRAY_ATTRIBUTES);
         }
     }
 

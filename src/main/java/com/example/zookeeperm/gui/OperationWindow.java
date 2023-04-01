@@ -1,26 +1,18 @@
 package com.example.zookeeperm.gui;
 
+import com.example.zookeeperm.action.rightclick.*;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
-import com.intellij.ide.ui.laf.darcula.ui.DarculaSplitPaneUI;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.EditorSettings;
+import com.intellij.openapi.actionSystem.ActionPlaces;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.ui.*;
+import com.intellij.ui.JBSplitter;
+import com.intellij.ui.OnePixelSplitter;
+import com.intellij.ui.PopupHandler;
 import com.intellij.ui.components.JBComboBoxLabel;
-import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
-import com.intellij.ui.treeStructure.SimpleTree;
-import com.intellij.ui.treeStructure.Tree;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.util.ui.JBUI;
-import com.intellij.xdebugger.impl.ui.TextViewer;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
@@ -47,16 +39,40 @@ public class OperationWindow {
         rightPane.add(jbComboBoxLabel,BorderLayout.CENTER);
     }
 
-    private JTree createTree(NodeData nodeData) {
+    /**
+     * Create tree.
+     */
+    private PathTree createTree(NodeData nodeData) {
 
         if (nodeData == null) {
-            return new SimpleTree();
+            return new PathTree();
         }
 
         DefaultTreeModel defaultTreeModel = new DefaultTreeModel(getTreeNode(nodeData));
-        SimpleTree fieldTree = new SimpleTree(defaultTreeModel);
+        PathTree fieldTree = new PathTree(defaultTreeModel);
         fieldTree.setCellRenderer(new TreeCell());
+        installPopupMenu(fieldTree);
         return fieldTree;
+    }
+    /**
+     *  安装右键菜单
+     */
+    private void installPopupMenu(PathTree tree) {
+        tree.setShowsRootHandles(true);
+        tree.expandRow(0);
+
+        var group = new DefaultActionGroup();
+        group.add(new AddAction());
+        group.addSeparator();
+        group.add(new CopyPathAction());
+        group.add(new CopyPathFromRootAction());
+        group.addSeparator();
+        group.add(new ExpandAllAction());
+        group.add(new CollapseAllAction());
+        group.addSeparator();
+        group.add(new DeleteAction());
+        group.addSeparator();
+        PopupHandler.installPopupMenu(tree, group, ActionPlaces.TODO_VIEW_POPUP);
     }
 
     private DefaultMutableTreeNode getTreeNode(NodeData nodeData) {
