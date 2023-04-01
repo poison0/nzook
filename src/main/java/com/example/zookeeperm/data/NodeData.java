@@ -17,6 +17,8 @@ public class NodeData {
      * 数据
      */
     private String data;
+
+    private String nodeValue;
     /**
      * 元数据
      */
@@ -30,6 +32,29 @@ public class NodeData {
      * 子节点列表
      */
     private List<NodeData> childrenList;
+
+    public NodeData(String path, String nodeValue) {
+        this.path = path;
+        this.nodeValue = nodeValue;
+    }
+
+    @Override
+    public String toString() {
+        return "NodeData{" +
+                "nodeValue='" + nodeValue + '\'' +
+                '}';
+    }
+
+    public NodeData() {
+    }
+
+    public String getNodeValue() {
+        return nodeValue;
+    }
+
+    public void setNodeValue(String nodeValue) {
+        this.nodeValue = nodeValue;
+    }
 
     public String getPath() {
         return path;

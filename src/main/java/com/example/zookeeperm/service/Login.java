@@ -18,32 +18,27 @@ import static com.example.zookeeperm.data.LoginData.zooKeeper;
  * @date 14:39 2023/3/26
  **/
 public class Login {
-    public static void login() throws IOException, InterruptedException, KeeperException {
+    public static NodeData login() throws IOException, InterruptedException, KeeperException {
         //todo 添加登录信息
         LoginData.ip = "101.33.208.136";
         LoginData.port = "2181";
-        LoginData.timeout = 50000;
+        LoginData.timeout = 500000;
 
         ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
         zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
-
-        List<String> children = zooKeeper.getChildren("/", false);
-        for (String child : children) {
-            System.out.println(child);
-        }
-        zooKeeper.close();
-
+        NodeData nodeData = new NodeData("/","/");
+        zookeeperOperationService.getAllNode(nodeData,zooKeeper);
+        return nodeData;
     }
 
     public static void main(String[] args)throws IOException, InterruptedException, KeeperException {
         LoginData.ip = "101.33.208.136";
         LoginData.port = "2181";
-        LoginData.timeout = 50000;
+        LoginData.timeout = 500000;
 
         ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
         zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
-        NodeData nodeData = new NodeData();
-        nodeData.setPath("/");
+        NodeData nodeData = new NodeData("/","/");
         Stat stat = new Stat();
         List<ACL> aclList = zooKeeper.getACL("/", stat);
 

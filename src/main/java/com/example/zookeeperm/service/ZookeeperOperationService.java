@@ -3,7 +3,6 @@ package com.example.zookeeperm.service;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.message.Notifier;
 import com.intellij.openapi.ui.MessageType;
-import com.twelvemonkeys.lang.StringUtil;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
@@ -11,7 +10,6 @@ import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +24,8 @@ public class ZookeeperOperationService {
      */
     public ZooKeeper connect(String connectString,int timeOut) throws IOException, InterruptedException {
         try {
-            return new ZooKeeper(connectString, timeOut, null);
+            ZooKeeper zooKeeper = new ZooKeeper(connectString, timeOut, null);
+            return zooKeeper;
         } catch (IOException e) {
             e.printStackTrace();
             Notifier.notify("zookeeper链接出错："+e.getMessage(), MessageType.ERROR);
@@ -37,11 +36,12 @@ public class ZookeeperOperationService {
      * 递归获取节点列表
      */
     public void getAllNode(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
-        byte[] data = zooKeeper.getData(nodeData.getPath(), false, null);
-        if (data == null) {
-            return;
+        Stat stat = new Stat();
+        byte[] data = zooKeeper.getData(nodeData.getPath(), false, stat);
+        nodeData.setMetaData(new NodeData.Stat(stat));
+        if (data != null) {
+            nodeData.setData(new String(data));
         }
-        nodeData.setData(new String(data));
         //设置数据
         List<String> childrenList = zooKeeper.getChildren(nodeData.getPath(), false);
 
@@ -53,6 +53,7 @@ public class ZookeeperOperationService {
             }else {
                 childNode.setPath(nodeData.getPath()+"/"+child);
             }
+            childNode.setNodeValue(child);
             childrenNodeList.add(childNode);
             getAllNode(childNode,zooKeeper);
         }
