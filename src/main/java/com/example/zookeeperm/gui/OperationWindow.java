@@ -10,6 +10,7 @@ import com.intellij.ui.JBSplitter;
 import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.components.JBComboBoxLabel;
+import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 
 import javax.swing.*;
@@ -21,20 +22,22 @@ public class OperationWindow {
 
     private JScrollPane leftPane;
     private JBSplitter splitter;
-    private JPanel rightPane;
     public void init(ToolWindow toolWindow,NodeData nodeData) {
         leftPane = new JBScrollPane();
-        rightPane = new JPanel(new BorderLayout());
         splitter = new OnePixelSplitter(true, 0.85f, 0.01f, 0.99f);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
         splitter.setFirstComponent(leftPane);
-        splitter.setSecondComponent(rightPane);
+
+        JBTabbedPane detailsTab = new JBTabbedPane();
+        detailsTab.insertTab("Data", null, new DataPane(), "Node data", 0);
+        detailsTab.insertTab("Metadata", null, new JBPanel<>(), "Stat data", 1);
+        detailsTab.insertTab("ACL", null, new JBPanel<>(), "Access control list", 2);
+        splitter.setSecondComponent(detailsTab);
+
+
         leftPane.setViewportView(createTree(nodeData));
         leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
-        JBComboBoxLabel jbComboBoxLabel = new JBComboBoxLabel();
-        jbComboBoxLabel.setText("test");
-        rightPane.add(jbComboBoxLabel,BorderLayout.CENTER);
     }
 
     /**
@@ -61,6 +64,7 @@ public class OperationWindow {
 
         var group = new DefaultActionGroup();
         group.add(new AddAction());
+        group.add(new EditAction());
         group.addSeparator();
         group.add(new CopyPathAction());
         group.add(new CopyPathFromRootAction());
