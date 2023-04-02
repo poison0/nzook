@@ -1,10 +1,10 @@
 package com.example.zookeeperm.gui;
 
-import com.intellij.ui.treeStructure.Tree;
+import com.intellij.ui.treeStructure.SimpleTree;
 
 import javax.swing.tree.TreeModel;
 
-public class PathTree extends Tree {
+public class PathTree extends SimpleTree {
 
     public PathTree() {
     }

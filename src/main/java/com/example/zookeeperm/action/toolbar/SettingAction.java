@@ -5,12 +5,12 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class RefreshTabAction extends AnAction {
+public class SettingAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        //todo
+        //todo 加配置
     }
-    public RefreshTabAction() {
-        super("Refresh", "Refresh button", AllIcons.Actions.Refresh);
+    public SettingAction() {
+        super("Options", "Options", AllIcons.Actions.InlayGear);
     }
 }

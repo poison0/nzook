@@ -29,8 +29,5 @@
         <notificationGroup displayType="BALLOON" id="notify" />
     </extensions>
     <actions>
-        <action id="hello" class="com.example.zookeeperm.helloAction" text="hello">
-            <add-to-group group-id="HelpMenu" anchor="first"/>
-        </action>
     </actions>
 </idea-plugin>

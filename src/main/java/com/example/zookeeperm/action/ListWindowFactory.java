@@ -1,8 +1,8 @@
 package com.example.zookeeperm.action;
 
-import com.example.zookeeperm.action.toolbar.RefreshTabAction;
-import com.example.zookeeperm.action.toolbar.SignInAction;
-import com.example.zookeeperm.action.toolbar.SignOutAction;
+import com.example.zookeeperm.action.toolbar.SettingAction;
+import com.example.zookeeperm.action.toolbar.ExecuteAction;
+import com.example.zookeeperm.action.toolbar.SuspendAction;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.service.Login;
@@ -38,9 +38,9 @@ public class ListWindowFactory implements ToolWindowFactory {
 
     private ActionToolbar createToolBar(JBPanel<?> jbPanel) {
         DefaultActionGroup group = new DefaultActionGroup();
-        group.add(new SignInAction());
-        group.add(new RefreshTabAction());
-        group.add(new SignOutAction());
+        group.add(new ExecuteAction());
+        group.add(new SuspendAction());
+        group.add(new SettingAction());
         ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("zookeeperMToolsBar", group, false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.setTargetComponent(jbPanel);

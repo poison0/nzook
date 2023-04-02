@@ -5,12 +5,14 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class SignInAction extends AnAction {
+public class SuspendAction extends AnAction {
+
+    public SuspendAction() {
+        super("Stop", "Stop", AllIcons.Actions.Suspend);
+    }
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         //todo
-    }
-    public SignInAction() {
-        super("Sign In", "Sign in button", AllIcons.General.Add);
     }
 }

@@ -19,15 +19,13 @@ import java.awt.*;
 
 public class OperationWindow {
 
-    private static final String RIGHT_SPLITTER_KEY = "sonarlint_rule_configuration_splitter_right";
-    private static final float DIVIDER_PROPORTION_RULE_DEFAULT = 0.85f;
     private JScrollPane leftPane;
     private JBSplitter splitter;
     private JPanel rightPane;
     public void init(ToolWindow toolWindow,NodeData nodeData) {
         leftPane = new JBScrollPane();
         rightPane = new JPanel(new BorderLayout());
-        splitter = new OnePixelSplitter(false, 0.85f, 0.01f, 0.99f);
+        splitter = new OnePixelSplitter(true, 0.85f, 0.01f, 0.99f);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
         splitter.setFirstComponent(leftPane);
@@ -67,10 +65,10 @@ public class OperationWindow {
         group.add(new CopyPathAction());
         group.add(new CopyPathFromRootAction());
         group.addSeparator();
+        group.add(new DeleteAction());
+        group.addSeparator();
         group.add(new ExpandAllAction());
         group.add(new CollapseAllAction());
-        group.addSeparator();
-        group.add(new DeleteAction());
         group.addSeparator();
         PopupHandler.installPopupMenu(tree, group, ActionPlaces.TODO_VIEW_POPUP);
     }
