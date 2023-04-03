@@ -12,6 +12,6 @@ public class EditAction  extends AnAction {
     }
 
     public EditAction() {
-        super("Edit Path", "Edit path", AllIcons.Actions.Edit);
+        super("Edit Node", "Edit node", AllIcons.Actions.Edit);
     }
 }

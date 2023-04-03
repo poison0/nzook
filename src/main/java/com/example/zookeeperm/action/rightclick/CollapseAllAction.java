@@ -11,6 +11,6 @@ public class CollapseAllAction extends AnAction {
         //todo
     }
     public CollapseAllAction() {
-        super("Collapse All", "Collapse all path", AllIcons.Actions.Collapseall);
+        super("Collapse All", "Collapse all node", AllIcons.Actions.Collapseall);
     }
 }

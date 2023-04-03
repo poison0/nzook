@@ -2,9 +2,9 @@ package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.util.DateUtils;
+import com.example.zookeeperm.util.IconsUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.treeView.NodeRenderer;
-import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.SimpleTextAttributes;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,7 @@ public class TreeCell extends NodeRenderer {
         Object userObject = defaultMutableTreeNode.getUserObject();
         if (userObject instanceof NodeData) {
             NodeData nodeData = (NodeData) userObject;
-            appendType(nodeData.getMetaData().getEphemeralOwner(),leaf);
+            appendIcon(nodeData.getMetaData().getEphemeralOwner(),leaf);
             append(nodeData.getNodeValue(),SimpleTextAttributes.REGULAR_ATTRIBUTES, true);
             if (!leaf) {
                 appendCount(defaultMutableTreeNode.getChildCount());
@@ -32,8 +32,6 @@ public class TreeCell extends NodeRenderer {
     private void appendCreateTime(long createTime) {
         if (createTime != 0) {
             append("   "+DateUtils.toAge(createTime)+"...", SimpleTextAttributes.GRAY_ATTRIBUTES);
-        }else {
-            setIcon(AllIcons.Nodes.Module);
         }
     }
 
@@ -45,11 +43,20 @@ public class TreeCell extends NodeRenderer {
         append(" ("+countStr+")", SimpleTextAttributes.GRAYED_BOLD_ATTRIBUTES);
     }
 
-    private void appendType(long type,boolean leaf) {
+    private void appendIcon(long type, boolean leaf) {
         if (type == 0) {
-            setIcon(AllIcons.Nodes.IdeaProject);
+            setIcon(AllIcons.Nodes.Models);
         } else {
-            setIcon(AllIcons.Nodes.Module);
+            setIcon(IconsUtil.grayModels);
         }
     }
+//    private void appendType(long type,boolean leaf) {
+//        if (type == 0) {
+//            setIcon(grayIconAllIcons.Nodes.Models));
+//        } else {
+//            setIcon(AllIcons.Nodes.Models);
+//        }
+//    }
+
+
 }

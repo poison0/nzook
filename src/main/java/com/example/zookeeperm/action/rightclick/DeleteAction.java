@@ -11,6 +11,6 @@ public class DeleteAction extends AnAction {
         //todo
     }
     public DeleteAction() {
-        super("Delete Path", "Delete path", null);
+        super("Delete Node", "Delete node", AllIcons.General.Remove);
     }
 }

@@ -22,6 +22,6 @@ public class SuspendAction extends AbstractAction {
     // 该方法用于设置Action的可用性
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return false;
+        return true;
     }
 }

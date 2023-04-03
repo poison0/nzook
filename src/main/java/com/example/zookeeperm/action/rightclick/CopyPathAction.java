@@ -11,6 +11,6 @@ public class CopyPathAction extends AnAction {
         //todo
     }
     public CopyPathAction() {
-        super("Copy Path", "Copy the path to the current node", AllIcons.Actions.Copy);
+        super("Copy", "Copy the path to the current node", AllIcons.Actions.Copy);
     }
 }
