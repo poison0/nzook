@@ -1,16 +1,16 @@
-package com.example.zookeeperm.action.rightclick;
+package com.example.zookeeperm.action.menu;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class DeleteAction extends AnAction {
+public class ExpandAllAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         //todo
     }
-    public DeleteAction() {
-        super("Delete Node", "Delete node", AllIcons.General.Remove);
+    public ExpandAllAction() {
+        super("Expand All", "Copy the path starting at the root node", AllIcons.Actions.Expandall);
     }
 }

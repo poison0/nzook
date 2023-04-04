@@ -1,6 +1,6 @@
 package com.example.zookeeperm.gui;
 
-import com.example.zookeeperm.action.rightclick.*;
+import com.example.zookeeperm.action.menu.*;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.intellij.openapi.actionSystem.ActionPlaces;
@@ -9,14 +9,12 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.JBSplitter;
 import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
-import com.intellij.ui.components.JBComboBoxLabel;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
 
 public class OperationWindow {
 
