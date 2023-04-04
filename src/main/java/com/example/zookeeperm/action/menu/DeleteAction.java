@@ -1,5 +1,6 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,6 +12,6 @@ public class DeleteAction extends AnAction {
         //todo
     }
     public DeleteAction() {
-        super("Delete Node", "Delete node", AllIcons.General.Remove);
+        super(Bundle.getString("action.DeleteAction.text"), Bundle.getString("action.DeleteAction.description"), AllIcons.General.Remove);
     }
 }

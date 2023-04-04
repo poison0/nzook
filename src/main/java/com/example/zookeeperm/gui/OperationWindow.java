@@ -1,6 +1,8 @@
 package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.action.menu.*;
+import com.example.zookeeperm.action.toolbar.CollapseAllAction;
+import com.example.zookeeperm.action.toolbar.ExpandAllAction;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.intellij.openapi.actionSystem.ActionPlaces;
@@ -69,8 +71,6 @@ public class OperationWindow {
         group.addSeparator();
         group.add(new DeleteAction());
         group.addSeparator();
-        group.add(new ExpandAllAction());
-        group.add(new CollapseAllAction());
         group.addSeparator();
         PopupHandler.installPopupMenu(tree, group, ActionPlaces.TODO_VIEW_POPUP);
     }

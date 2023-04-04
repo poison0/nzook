@@ -1,5 +1,6 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,6 +12,6 @@ public class CopyPathAction extends AnAction {
         //todo
     }
     public CopyPathAction() {
-        super("Copy", "Copy the path to the current node", AllIcons.Actions.Copy);
+        super(Bundle.getString("action.CopyPathAction.text"), Bundle.getString("action.CopyPathAction.description"), AllIcons.Actions.Copy);
     }
 }

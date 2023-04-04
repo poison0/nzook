@@ -1,5 +1,6 @@
-package com.example.zookeeperm.action.menu;
+package com.example.zookeeperm.action.toolbar;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,6 +12,6 @@ public class ExpandAllAction extends AnAction {
         //todo
     }
     public ExpandAllAction() {
-        super("Expand All", "Copy the path starting at the root node", AllIcons.Actions.Expandall);
+        super(Bundle.getString("action.ExpandAllAction.text"), Bundle.getString("action.ExpandAllAction.description"), AllIcons.Actions.Expandall);
     }
 }

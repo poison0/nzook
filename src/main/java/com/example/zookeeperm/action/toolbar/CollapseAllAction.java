@@ -1,5 +1,6 @@
-package com.example.zookeeperm.action.menu;
+package com.example.zookeeperm.action.toolbar;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,6 +12,6 @@ public class CollapseAllAction extends AnAction {
         //todo
     }
     public CollapseAllAction() {
-        super("Collapse All", "Collapse all node", AllIcons.Actions.Collapseall);
+        super(Bundle.getString("action.CollapseAllAction.text"), Bundle.getString("action.CollapseAllAction.description"), AllIcons.Actions.Collapseall);
     }
 }

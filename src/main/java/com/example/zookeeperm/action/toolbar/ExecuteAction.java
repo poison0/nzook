@@ -1,5 +1,6 @@
 package com.example.zookeeperm.action.toolbar;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,7 +12,7 @@ public class ExecuteAction extends AbstractAction {
         //todo
     }
     public ExecuteAction() {
-        super("Connection", "Connection", AllIcons.Actions.Execute);
+        super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.Actions.Execute);
     }
 
     @Override

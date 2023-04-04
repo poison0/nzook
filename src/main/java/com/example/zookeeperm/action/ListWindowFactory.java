@@ -1,8 +1,6 @@
 package com.example.zookeeperm.action;
 
-import com.example.zookeeperm.action.toolbar.SettingAction;
-import com.example.zookeeperm.action.toolbar.ExecuteAction;
-import com.example.zookeeperm.action.toolbar.SuspendAction;
+import com.example.zookeeperm.action.toolbar.*;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.service.Login;
@@ -41,6 +39,9 @@ public class ListWindowFactory implements ToolWindowFactory {
         group.add(new ExecuteAction());
         group.add(new SuspendAction());
         group.add(new SettingAction());
+        group.addSeparator();
+        group.add(new ExpandAllAction());
+        group.add(new CollapseAllAction());
         ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("zookeeperMToolsBar", group, false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.setTargetComponent(jbPanel);

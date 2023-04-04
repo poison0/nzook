@@ -1,17 +1,14 @@
 package com.example.zookeeperm.action.toolbar;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.Presentation;
-import com.intellij.openapi.editor.Editor;
 import org.jetbrains.annotations.NotNull;
 
 public class SuspendAction extends AbstractAction {
 
     public SuspendAction() {
-        super("Stop", "Stop", AllIcons.Actions.Suspend);
+        super(Bundle.getString("action.SuspendAction.text"), Bundle.getString("action.SuspendAction.description"), AllIcons.Actions.Suspend);
     }
 
     @Override

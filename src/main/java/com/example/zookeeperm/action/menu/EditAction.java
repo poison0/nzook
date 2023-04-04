@@ -1,5 +1,6 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -12,6 +13,6 @@ public class EditAction  extends AnAction {
     }
 
     public EditAction() {
-        super("Edit Node", "Edit node", AllIcons.Actions.Edit);
+        super(Bundle.getString("action.EditAction.text"), Bundle.getString("action.EditAction.description"), AllIcons.Actions.Edit);
     }
 }

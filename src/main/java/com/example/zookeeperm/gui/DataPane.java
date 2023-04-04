@@ -1,14 +1,6 @@
 package com.example.zookeeperm.gui;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.EditorKind;
-import com.intellij.openapi.editor.impl.DocumentImpl;
-import com.intellij.openapi.editor.impl.EditorComponentImpl;
-import com.intellij.openapi.editor.impl.EditorFactoryImpl;
-import com.intellij.openapi.editor.impl.EditorImpl;
-import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.scale.JBUIScale;
