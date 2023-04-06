@@ -65,12 +65,12 @@ public class OperationWindow {
         var group = new DefaultActionGroup();
         group.add(new AddAction());
         group.add(new EditAction());
+        group.add(new RefreshAction());
         group.addSeparator();
         group.add(new CopyPathAction());
         group.add(new CopyPathFromRootAction());
         group.addSeparator();
         group.add(new DeleteAction());
-        group.addSeparator();
         group.addSeparator();
         PopupHandler.installPopupMenu(tree, group, ActionPlaces.TODO_VIEW_POPUP);
     }
