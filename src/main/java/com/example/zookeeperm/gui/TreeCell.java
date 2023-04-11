@@ -2,7 +2,6 @@ package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.util.DateUtils;
-import com.example.zookeeperm.util.IconsUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.ui.SimpleTextAttributes;
@@ -45,18 +44,11 @@ public class TreeCell extends NodeRenderer {
 
     private void appendIcon(long type, boolean leaf) {
         if (type == 0) {
-            setIcon(AllIcons.Nodes.Models);
+            setIcon(AllIcons.Nodes.Folder);
         } else {
-            setIcon(IconsUtil.grayModels);
+            // 表示临时节点
+            setIcon(AllIcons.Nodes.WebFolder);
         }
     }
-//    private void appendType(long type,boolean leaf) {
-//        if (type == 0) {
-//            setIcon(grayIconAllIcons.Nodes.Models));
-//        } else {
-//            setIcon(AllIcons.Nodes.Models);
-//        }
-//    }
-
 
 }
