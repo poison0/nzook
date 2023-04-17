@@ -27,7 +27,7 @@ public class ListWindowFactory implements ToolWindowFactory {
         ContentFactory instance = ContentFactory.SERVICE.getInstance();
         SimpleToolWindowPanel panel = new SimpleToolWindowPanel(false,true);
         Content content = instance.createContent(panel, "", false);
-        OperationWindow operationWindow = new OperationWindow(toolWindow, getNodeData());
+        OperationWindow operationWindow = new OperationWindow(project,toolWindow, getNodeData());
         JPanel contentPanel = operationWindow.getContentPanel();
         panel.setContent(contentPanel);
         panel.setToolbar(createToolBar(panel).getComponent());

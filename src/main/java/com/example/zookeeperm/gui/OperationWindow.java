@@ -5,14 +5,18 @@ import com.example.zookeeperm.action.toolbar.CollapseAllAction;
 import com.example.zookeeperm.action.toolbar.ExpandAllAction;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.gui.editor.TextEditor;
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.JBSplitter;
 import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,6 +25,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class OperationWindow {
 
     private JScrollPane leftPane;
+    private static Project project;
     private JBSplitter splitter;
     public void init(ToolWindow toolWindow,NodeData nodeData) {
         leftPane = new JBScrollPane();
@@ -30,9 +35,9 @@ public class OperationWindow {
         splitter.setFirstComponent(leftPane);
 
         JBTabbedPane detailsTab = new JBTabbedPane();
-        detailsTab.insertTab("Data", null, new DataPane(), "Node data", 0);
-        detailsTab.insertTab("Metadata", null, new JBPanel<>(), "Stat data", 1);
-        detailsTab.insertTab("ACL", null, new JBPanel<>(), "Access control list", 2);
+        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new TextEditor(project,TextEditor.JSON_FILE_TYPE), Bundle.getString("table.header.nodeData.description"),0);
+        detailsTab.insertTab(Bundle.getString("table.header.statData"), null, new JBPanel<>(), Bundle.getString("table.header.statData.description"),1);
+        detailsTab.insertTab(Bundle.getString("table.header.acl"), null, new JBPanel<>(), Bundle.getString("table.header.acl.description"), 2);
         splitter.setSecondComponent(detailsTab);
 
 
@@ -87,7 +92,8 @@ public class OperationWindow {
     }
 
 
-    public OperationWindow(ToolWindow toolWindow, NodeData nodeData) {
+    public OperationWindow(@NotNull Project project,ToolWindow toolWindow, NodeData nodeData) {
+        OperationWindow.project = project;
         init(toolWindow,nodeData);
     }
 
