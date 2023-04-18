@@ -16,23 +16,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DataPane extends JBPanel<DataPane> {
-    private JBLabel headerLabel = new JBLabel();
-    private JBPanel<HttpView> descriptionPanel = new JBPanel<>(new BorderLayout());
+//    private final JBLabel headerLabel = new JBLabel();
+//    private final JBPanel<?> descriptionPanel = new JBPanel<>(new BorderLayout());
 
     public DataPane(Project project) {
         super();
         setLayout(new BorderLayout());
-        headerLabel.setIcon(AllIcons.General.BalloonInformation);
-        headerLabel.setFont(UIUtil.getLabelFont().deriveFont((UIUtil.getLabelFont().getSize2D() + JBUIScale.scale(2))).deriveFont(Font.BOLD));
-        headerLabel.setBorder(JBUI.Borders.empty(5, 10));
-        ////--------
-        headerLabel.setText("/zookeepe");
-        ////--------
-        add(headerLabel, BorderLayout.NORTH);
-        descriptionPanel.add(new TextEditor(project), BorderLayout.CENTER);
+//        headerLabel.setIcon(AllIcons.General.BalloonInformation);
+//        headerLabel.setFont(UIUtil.getLabelFont().deriveFont((UIUtil.getLabelFont().getSize2D() + JBUIScale.scale(2))).deriveFont(Font.BOLD));
+//        headerLabel.setBorder(JBUI.Borders.empty(5, 10));
+//        ////--------
+//        headerLabel.setText("/zookeepe");
+//        ////--------
+//        add(headerLabel, BorderLayout.NORTH);
+//        descriptionPanel.add(new TextEditor(project), BorderLayout.CENTER);
 
-        add(descriptionPanel, BorderLayout.CENTER);
-
+        add(new TextEditor(project), BorderLayout.CENTER);
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
         bodyFileTypePanel.add(new JBLabel("Select the display type of Body"), BorderLayout.WEST);
         ComboBox<FileType> requestBodyFileType = new ComboBox<>(new FileType[]{
@@ -43,7 +42,7 @@ public class DataPane extends JBPanel<DataPane> {
         });
         requestBodyFileType.setFocusable(false);
         bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
-        bodyFileTypePanel.setBorder(JBUI.Borders.emptyLeft(3));
+//        bodyFileTypePanel.setBorder(JBUI.Borders.emptyLeft(0));
         add(bodyFileTypePanel, BorderLayout.SOUTH);
 
     }
