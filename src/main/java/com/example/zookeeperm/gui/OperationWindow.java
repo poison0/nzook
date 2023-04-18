@@ -35,7 +35,7 @@ public class OperationWindow {
         splitter.setFirstComponent(leftPane);
 
         JBTabbedPane detailsTab = new JBTabbedPane();
-        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new TextEditor(project,TextEditor.JSON_FILE_TYPE), Bundle.getString("table.header.nodeData.description"),0);
+        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new DataPane(project), Bundle.getString("table.header.nodeData.description"),0);
         detailsTab.insertTab(Bundle.getString("table.header.statData"), null, new JBPanel<>(), Bundle.getString("table.header.statData.description"),1);
         detailsTab.insertTab(Bundle.getString("table.header.acl"), null, new JBPanel<>(), Bundle.getString("table.header.acl.description"), 2);
         splitter.setSecondComponent(detailsTab);
