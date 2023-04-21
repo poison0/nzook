@@ -12,7 +12,10 @@ import java.awt.image.BufferedImage;
  */
 public class IconsUtil {
 
-    public static Icon grayModels = grayIcon(AllIcons.Nodes.Models);
+    private IconsUtil() {
+    }
+
+    public static final Icon GRAY_MODELS = grayIcon(AllIcons.Nodes.Models);
 
     public static Icon grayIcon(Icon icon) {
         BufferedImage bufferedImage = ImageUtil.createImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);

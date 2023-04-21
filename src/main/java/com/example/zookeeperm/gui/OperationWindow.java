@@ -5,7 +5,6 @@ import com.example.zookeeperm.action.toolbar.CollapseAllAction;
 import com.example.zookeeperm.action.toolbar.ExpandAllAction;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
-import com.example.zookeeperm.gui.editor.TextEditor;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
