@@ -4,6 +4,7 @@ import com.example.zookeeperm.gui.editor.TextEditor;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.fileTypes.impl.FileTypeRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.components.JBLabel;
@@ -34,17 +35,16 @@ public class DataPane extends JBPanel<DataPane> {
         add(descriptionPanel, BorderLayout.CENTER);
 
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
-        bodyFileTypePanel.add(new JBLabel("Select the display type of Body"), BorderLayout.WEST);
         ComboBox<FileType> requestBodyFileType = new ComboBox<>(new FileType[]{
                 TextEditor.TEXT_FILE_TYPE,
                 TextEditor.JSON_FILE_TYPE,
                 TextEditor.HTML_FILE_TYPE,
                 TextEditor.XML_FILE_TYPE
         });
+        requestBodyFileType.setRenderer(new FileTypeRenderer());
         requestBodyFileType.setFocusable(false);
         bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
-        bodyFileTypePanel.setBorder(JBUI.Borders.emptyLeft(3));
-        add(bodyFileTypePanel, BorderLayout.SOUTH);
+        add(bodyFileTypePanel, BorderLayout.NORTH);
 
     }
 }
