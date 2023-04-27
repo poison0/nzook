@@ -33,7 +33,6 @@ public class DataPane extends JBPanel<DataPane> {
         requestBodyFileType.setRenderer(new FileTypeRenderer());
         requestBodyFileType.setFocusable(false);
         bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
-        add(bodyFileTypePanel, BorderLayout.NORTH);
-
+        add(bodyFileTypePanel, BorderLayout.SOUTH);
     }
 }
