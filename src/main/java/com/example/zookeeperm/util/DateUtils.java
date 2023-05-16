@@ -12,40 +12,40 @@ public class DateUtils {
 
         var years = ChronoUnit.YEARS.between(creation, now);
         if (years > 0) {
-            return pluralize(years, "year");
+            return pluralize(years, Bundle.getString("description.date.year"));
         }
         var months = ChronoUnit.MONTHS.between(creation, now);
         if (months > 0) {
-            return pluralize(months, "month");
+            return pluralize(months, Bundle.getString("description.date.month"));
         }
         var days = ChronoUnit.DAYS.between(creation, now);
         if (days > 0) {
-            return pluralize(days, "day");
+            return pluralize(days, Bundle.getString("description.date.day"));
         }
         var hours = ChronoUnit.HOURS.between(creation, now);
         if (hours > 0) {
-            return pluralize(hours, "hour");
+            return pluralize(hours, Bundle.getString("description.date.hour"));
         }
         var minutes = ChronoUnit.MINUTES.between(creation, now);
         if (minutes > 0) {
-            return pluralize(minutes, "minute");
+            return pluralize(minutes, Bundle.getString("description.date.minute"));
         }
         var seconds = ChronoUnit.SECONDS.between(creation, now);
         if (seconds > 0) {
-            return pluralize(seconds, "seconds");
+            return pluralize(seconds, Bundle.getString("description.date.seconds"));
         }
 
-        return "few seconds ago";
+        return Bundle.getString("description.date.few");
     }
 
     private static String pluralize(long strictlyPositiveCount, String singular) {
-        return pluralize(strictlyPositiveCount, singular, singular + "s");
+        return pluralize(strictlyPositiveCount, singular, singular + Bundle.getString("description.date.Plural"));
     }
 
     private static String pluralize(long strictlyPositiveCount, String singular, String plural) {
         if (strictlyPositiveCount == 1) {
-            return "1 " + singular + " ago";
+            return "1 " + singular + " "+Bundle.getString("description.date.ago");
         }
-        return strictlyPositiveCount + " " + plural + " ago";
+        return strictlyPositiveCount + " " + plural + " "+Bundle.getString("description.date.ago");
     }
 }
