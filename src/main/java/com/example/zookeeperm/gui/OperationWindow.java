@@ -1,10 +1,9 @@
 package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.action.menu.*;
-import com.example.zookeeperm.action.toolbar.CollapseAllAction;
-import com.example.zookeeperm.action.toolbar.ExpandAllAction;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.gui.renderer.TreeCell;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
@@ -34,9 +33,9 @@ public class OperationWindow {
         splitter.setFirstComponent(leftPane);
 
         JBTabbedPane detailsTab = new JBTabbedPane();
-        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new DataPane(project), Bundle.getString("table.header.nodeData.description"),0);
-        detailsTab.insertTab(Bundle.getString("table.header.statData"), null, new JBPanel<>(), Bundle.getString("table.header.statData.description"),1);
-        detailsTab.insertTab(Bundle.getString("table.header.acl"), null, new JBPanel<>(), Bundle.getString("table.header.acl.description"), 2);
+        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new DataPane(project,nodeData.getData()), Bundle.getString("table.header.nodeData.description"),0);
+        detailsTab.insertTab(Bundle.getString("table.header.statData"), null, new ListViewPane(nodeData.getMetaData().getViewData()), Bundle.getString("table.header.statData.description"),1);
+        detailsTab.insertTab(Bundle.getString("table.header.acl"), null, new ListViewPane(nodeData.getAclList()), Bundle.getString("table.header.acl.description"), 2);
         splitter.setSecondComponent(detailsTab);
 
 

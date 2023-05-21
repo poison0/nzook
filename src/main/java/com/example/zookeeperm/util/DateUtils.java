@@ -39,13 +39,14 @@ public class DateUtils {
     }
 
     private static String pluralize(long strictlyPositiveCount, String singular) {
-        return pluralize(strictlyPositiveCount, singular, singular + Bundle.getString("description.date.Plural"));
+        return pluralize(strictlyPositiveCount, singular, singular + Bundle.getString("description.date.plural"));
     }
 
     private static String pluralize(long strictlyPositiveCount, String singular, String plural) {
+        String separator = Bundle.getString("description.date.separator");
         if (strictlyPositiveCount == 1) {
-            return "1 " + singular + " "+Bundle.getString("description.date.ago");
+            return "1" + separator + singular + separator + Bundle.getString("description.date.ago");
         }
-        return strictlyPositiveCount + " " + plural + " "+Bundle.getString("description.date.ago");
+        return strictlyPositiveCount + separator + plural + separator +Bundle.getString("description.date.ago");
     }
 }

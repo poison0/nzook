@@ -1,4 +1,4 @@
-package com.example.zookeeperm.gui;
+package com.example.zookeeperm.gui.renderer;
 
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.util.DateUtils;

@@ -2,6 +2,7 @@ package com.example.zookeeperm.data;
 
 import org.apache.zookeeper.data.Stat;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,18 @@ public class NodeData {
     }
 
     public NodeData() {
+    }
+
+    public List<ListItem> getAclList(){
+        if(ACLList == null) {
+            return new ArrayList<>();
+        }
+        List<ListItem> listItems = new ArrayList<>();
+        for (Acl acl : ACLList) {
+            listItems.addAll(acl.getViewData());
+        }
+        listItems.add(new ListItem());
+        return listItems;
     }
 
     public String getNodeValue() {
@@ -105,6 +118,13 @@ public class NodeData {
             this.perms = perms;
             this.scheme = scheme;
         }
+        public List<ListItem> getViewData(){
+            List<ListItem> listItems = new ArrayList<>();
+            listItems.add(new ListItem("scheme",scheme));
+            listItems.add(new ListItem("id",id));
+            listItems.add(new ListItem("perms",perms));
+            return listItems;
+        }
 
         public String getScheme() {
             return scheme;
@@ -156,6 +176,22 @@ public class NodeData {
             this.dataLength = stat.getDataLength();
             this.numChildren = stat.getNumChildren();
             this.pzxid = stat.getPzxid();
+        }
+
+        public List<ListItem> getViewData() {
+            List<ListItem> list = new ArrayList<>();
+            list.add(new ListItem("czxid", String.valueOf(czxid)));
+            list.add(new ListItem("mzxid", String.valueOf(mzxid)));
+            list.add(new ListItem("ctime", String.valueOf(ctime)));
+            list.add(new ListItem("mtime", String.valueOf(mtime)));
+            list.add(new ListItem("version", String.valueOf(version)));
+            list.add(new ListItem("cversion", String.valueOf(cversion)));
+            list.add(new ListItem("aversion", String.valueOf(aversion)));
+            list.add(new ListItem("ephemeralOwner", String.valueOf(ephemeralOwner)));
+            list.add(new ListItem("dataLength", String.valueOf(dataLength)));
+            list.add(new ListItem("numChildren", String.valueOf(numChildren)));
+            list.add(new ListItem("pzxid", String.valueOf(pzxid)));
+            return list;
         }
 
         public long getCzxid() {
