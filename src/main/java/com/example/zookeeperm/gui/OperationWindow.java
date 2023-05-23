@@ -70,8 +70,10 @@ public class OperationWindow {
         fieldTree.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("mouseClicked");
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) fieldTree.getLastSelectedPathComponent();
+                if(node == null){
+                    return;
+                }
                 NodeData userObject = (NodeData)node.getUserObject();
                 try {
                     switchNode(userObject);

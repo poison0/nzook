@@ -17,7 +17,6 @@ public class DataPane extends JBPanel<DataPane> {
         setLayout(new BorderLayout());
         textEditor = new TextEditor(project);
         textEditor.setText(text);
-        textEditor.setFileType(TextEditor.JSON_FILE_TYPE);
         add(textEditor, BorderLayout.CENTER);
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
         ComboBox<FileType> requestBodyFileType = new ComboBox<>(new FileType[]{
@@ -27,6 +26,13 @@ public class DataPane extends JBPanel<DataPane> {
                 TextEditor.XML_FILE_TYPE
         });
         requestBodyFileType.setRenderer(new FileTypeRenderer());
+        requestBodyFileType.addItemListener(e -> {
+            Object selectedObject = e.getItemSelectable().getSelectedObjects()[0];
+            if (selectedObject instanceof FileType) {
+                FileType fileType = (FileType) selectedObject;
+                textEditor.setFileType(fileType);
+            }
+        });
         requestBodyFileType.setFocusable(false);
         bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
         add(bodyFileTypePanel, BorderLayout.SOUTH);

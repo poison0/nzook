@@ -26,7 +26,7 @@ public class ListCell extends ColoredListCellRenderer<ListItem> {
                 && value.getValue() != null && !"0".equals(value.getValue())) {
             Instant instant = Instant.ofEpochMilli(Long.parseLong(value.getValue()));
             LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-            append(" ["+localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"))+"]", SimpleTextAttributes.GRAY_ATTRIBUTES);
+            append(" ("+localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"))+")", SimpleTextAttributes.GRAY_ATTRIBUTES);
         }
         appendTextPadding(30);
     }
