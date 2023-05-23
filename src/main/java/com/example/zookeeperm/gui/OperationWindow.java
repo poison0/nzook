@@ -14,31 +14,34 @@ import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
+import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import static com.example.zookeeperm.data.LoginData.zooKeeper;
+import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 public class OperationWindow {
 
     private JScrollPane leftPane;
     private static Project project;
     private JBSplitter splitter;
+
+    private JBTabbedPane detailsTab;
+
     public void init(ToolWindow toolWindow,NodeData nodeData) {
         leftPane = new JBScrollPane();
         splitter = new OnePixelSplitter(true, 0.85f, 0.01f, 0.99f);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
         splitter.setFirstComponent(leftPane);
-
-        JBTabbedPane detailsTab = new JBTabbedPane();
-        detailsTab.insertTab(Bundle.getString("table.header.nodeData"), null, new DataPane(project,nodeData.getData()), Bundle.getString("table.header.nodeData.description"),0);
-        detailsTab.insertTab(Bundle.getString("table.header.statData"), null, new ListViewPane(nodeData.getMetaData().getViewData()), Bundle.getString("table.header.statData.description"),1);
-        detailsTab.insertTab(Bundle.getString("table.header.acl"), null, new ListViewPane(nodeData.getAclList()), Bundle.getString("table.header.acl.description"), 2);
+        detailsTab = new JBTabbedPane(nodeData, project);
         splitter.setSecondComponent(detailsTab);
-
-
         leftPane.setViewportView(createTree(nodeData));
         leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
     }
@@ -54,10 +57,40 @@ public class OperationWindow {
 
         DefaultTreeModel defaultTreeModel = new DefaultTreeModel(getTreeNode(nodeData));
         PathTree fieldTree = new PathTree(defaultTreeModel);
+        addMouseClicked(fieldTree);
         fieldTree.setCellRenderer(new TreeCell());
         installPopupMenu(fieldTree);
         return fieldTree;
     }
+
+    /**
+     * 添加鼠标点击事件
+     */
+    private void addMouseClicked(PathTree fieldTree) {
+        fieldTree.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("mouseClicked");
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) fieldTree.getLastSelectedPathComponent();
+                NodeData userObject = (NodeData)node.getUserObject();
+                try {
+                    switchNode(userObject);
+                } catch (InterruptedException ex) {
+                    //todo
+                    throw new RuntimeException(ex);
+                } catch (KeeperException ex) {
+                    //todo
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+    }
+
+    public void switchNode(NodeData nodeData) throws InterruptedException, KeeperException {
+        zookeeperOperationService.setAcl(nodeData,zooKeeper);
+        detailsTab.setNodeData(nodeData);
+    }
+
     /**
      *  安装右键菜单
      */

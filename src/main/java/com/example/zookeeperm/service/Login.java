@@ -1,5 +1,6 @@
 package com.example.zookeeperm.service;
 
+import com.example.zookeeperm.data.ListItem;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import org.apache.zookeeper.KeeperException;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.zookeeperm.data.LoginData.zooKeeper;
+import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 /* *
  * @author nss
@@ -24,10 +26,10 @@ public class Login {
         LoginData.port = "2181";
         LoginData.timeout = 500000;
 
-        ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
         zooKeeper = zookeeperOperationService.connect(LoginData.ip + ":" + LoginData.port, LoginData.timeout);
         NodeData nodeData = new NodeData("/","/");
         zookeeperOperationService.getAllNode(nodeData,zooKeeper);
+        zookeeperOperationService.setAcl(nodeData,zooKeeper);
         return nodeData;
     }
 

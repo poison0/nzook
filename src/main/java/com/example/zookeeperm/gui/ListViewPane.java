@@ -9,15 +9,20 @@ import javax.swing.*;
 import java.util.List;
 
 public class ListViewPane extends JBScrollPane {
-
+    DefaultListModel<ListItem> tableModel;
     public ListViewPane(List<ListItem> listItems) {
         super();
-        DefaultListModel<ListItem> tableModel = new DefaultListModel<>();
+        tableModel = new DefaultListModel<>();
         tableModel.addAll(listItems);
         JBList<ListItem> table = new JBList<>(tableModel);
         table.setCellRenderer(new ListCell());
         table.setModel(tableModel);
         setViewportView(table);
+    }
+
+    public void setList(List<ListItem> listItems) {
+        tableModel.clear();
+        tableModel.addAll(listItems);
     }
 
 }

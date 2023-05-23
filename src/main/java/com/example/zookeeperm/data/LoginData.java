@@ -1,5 +1,6 @@
 package com.example.zookeeperm.data;
 
+import com.example.zookeeperm.service.ZookeeperOperationService;
 import org.apache.zookeeper.ZooKeeper;
 
 /* *
@@ -25,4 +26,6 @@ public class LoginData {
      * zookeeper链接
      */
     public static ZooKeeper zooKeeper;
+
+    public static ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
 }

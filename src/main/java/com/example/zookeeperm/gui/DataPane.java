@@ -11,11 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DataPane extends JBPanel<DataPane> {
-
+    private final TextEditor textEditor;
     public DataPane(Project project,String text) {
         super();
         setLayout(new BorderLayout());
-        TextEditor textEditor = new TextEditor(project);
+        textEditor = new TextEditor(project);
         textEditor.setText(text);
         add(textEditor, BorderLayout.CENTER);
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
@@ -29,5 +29,9 @@ public class DataPane extends JBPanel<DataPane> {
         requestBodyFileType.setFocusable(false);
         bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
         add(bodyFileTypePanel, BorderLayout.SOUTH);
+    }
+
+    public void setText(String text) {
+        this.textEditor.setText(text);
     }
 }

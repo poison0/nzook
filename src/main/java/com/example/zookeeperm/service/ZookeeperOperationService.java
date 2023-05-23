@@ -13,19 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/* *
- * @author nss
- * @description zookeeper操作
+/**
+ * zookeeper操作
+ * @author niu
  * @date 15:08 2023/3/26
  **/
 public class ZookeeperOperationService {
     /**
      * 连接zookeeper
      */
-    public ZooKeeper connect(String connectString,int timeOut) throws IOException, InterruptedException {
+    public ZooKeeper connect(String connectString,int timeOut) throws IOException {
         try {
-            ZooKeeper zooKeeper = new ZooKeeper(connectString, timeOut, null);
-            return zooKeeper;
+            return new ZooKeeper(connectString, timeOut, null);
         } catch (IOException e) {
             e.printStackTrace();
             Notifier.notify("zookeeper链接出错："+e.getMessage(), MessageType.ERROR);
@@ -48,7 +47,7 @@ public class ZookeeperOperationService {
         ArrayList<NodeData> childrenNodeList = new ArrayList<>();
         for (String child : childrenList) {
             NodeData childNode = new NodeData();
-            if(nodeData.getPath().equals("/")) {
+            if("/".equals(nodeData.getPath())) {
                 childNode.setPath("/" + child);
             }else {
                 childNode.setPath(nodeData.getPath()+"/"+child);
@@ -60,15 +59,14 @@ public class ZookeeperOperationService {
         nodeData.setChildrenList(childrenNodeList);
     }
     /**
-     * 设置控制权限和元数据
+     * 设置控制权限
      */
-    public void setStatAndAcl(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
+    public void setAcl(NodeData nodeData,ZooKeeper zooKeeper) throws InterruptedException, KeeperException {
         Stat stat = new Stat();
         List<ACL> aclList = zooKeeper.getACL(nodeData.getPath(), stat);
 
         //设置控制权限
         nodeData.setACLList(aclList.stream()
                 .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
-        nodeData.setMetaData(new NodeData.Stat(stat));
     }
 }

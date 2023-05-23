@@ -122,7 +122,7 @@ public class NodeData {
             List<ListItem> listItems = new ArrayList<>();
             listItems.add(new ListItem("scheme",scheme));
             listItems.add(new ListItem("id",id));
-            listItems.add(new ListItem("perms",perms));
+            listItems.add(new ListItem("permissions",perms));
             return listItems;
         }
 
