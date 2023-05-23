@@ -43,7 +43,10 @@ public class DateUtils {
     }
 
     private static String pluralize(long strictlyPositiveCount, String singular, String plural) {
-        String separator = Bundle.getString("description.date.separator");
+        String separator = "";
+        if ("1".equals(Bundle.getString("description.date.separator"))) {
+            separator = " ";
+        }
         if (strictlyPositiveCount == 1) {
             return "1" + separator + singular + separator + Bundle.getString("description.date.ago");
         }

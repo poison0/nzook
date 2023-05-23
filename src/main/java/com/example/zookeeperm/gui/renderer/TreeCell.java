@@ -30,7 +30,7 @@ public class TreeCell extends NodeRenderer {
 
     private void appendCreateTime(long createTime) {
         if (createTime != 0) {
-            append("   "+DateUtils.toAge(createTime)+"...", SimpleTextAttributes.GRAY_ATTRIBUTES);
+            append("   "+DateUtils.toAge(createTime)+"...", SimpleTextAttributes.GRAY_SMALL_ATTRIBUTES);
         }
     }
 

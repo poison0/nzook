@@ -67,6 +67,28 @@ public class ZookeeperOperationService {
 
         //设置控制权限
         nodeData.setACLList(aclList.stream()
-                .map(acl->new NodeData.Acl(acl.getId().getId(),acl.getId().getScheme(),String.valueOf(acl.getPerms()))).collect(Collectors.toList()));
+                .map(acl->new NodeData.Acl(acl.getId().getId(),getAclPerms(acl.getPerms()),acl.getId().getScheme())).collect(Collectors.toList()));
+    }
+
+    private String getAclPerms(int perms) {
+        String binaryString = Integer.toBinaryString(perms);
+        List<String> result = new ArrayList<>();
+        char[] charArray = binaryString.toCharArray();
+        if (charArray[0] == '1') {
+            result.add("create");
+        }
+        if(charArray.length > 1 && charArray[1] == '1') {
+            result.add("read");
+        }
+        if(charArray.length > 2 && charArray[2] == '1') {
+            result.add("write");
+        }
+        if(charArray.length > 3 && charArray[3] == '1') {
+            result.add("delete");
+        }
+        if(charArray.length > 4 && charArray[4] == '1') {
+            result.add("admin");
+        }
+        return String.join(",",result);
     }
 }

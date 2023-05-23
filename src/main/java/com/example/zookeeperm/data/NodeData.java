@@ -120,9 +120,9 @@ public class NodeData {
         }
         public List<ListItem> getViewData(){
             List<ListItem> listItems = new ArrayList<>();
-            listItems.add(new ListItem("scheme",scheme));
-            listItems.add(new ListItem("id",id));
-            listItems.add(new ListItem("permissions",perms));
+            listItems.add(new ListItem("Scheme",scheme));
+            listItems.add(new ListItem("ID",id));
+            listItems.add(new ListItem("Permissions",perms));
             return listItems;
         }
 
@@ -180,17 +180,17 @@ public class NodeData {
 
         public List<ListItem> getViewData() {
             List<ListItem> list = new ArrayList<>();
-            list.add(new ListItem("czxid", String.valueOf(czxid)));
-            list.add(new ListItem("mzxid", String.valueOf(mzxid)));
-            list.add(new ListItem("ctime", String.valueOf(ctime)));
-            list.add(new ListItem("mtime", String.valueOf(mtime)));
-            list.add(new ListItem("version", String.valueOf(version)));
-            list.add(new ListItem("cversion", String.valueOf(cversion)));
-            list.add(new ListItem("aversion", String.valueOf(aversion)));
-            list.add(new ListItem("ephemeralOwner", String.valueOf(ephemeralOwner)));
-            list.add(new ListItem("dataLength", String.valueOf(dataLength)));
-            list.add(new ListItem("numChildren", String.valueOf(numChildren)));
-            list.add(new ListItem("pzxid", String.valueOf(pzxid)));
+            list.add(new ListItem("Creation ID", String.valueOf(czxid)));
+            list.add(new ListItem("Modified ID", String.valueOf(mzxid)));
+            list.add(new ListItem("Creation Time", String.valueOf(ctime)));
+            list.add(new ListItem("Last Modified Time", String.valueOf(mtime)));
+            list.add(new ListItem("Data Version", String.valueOf(version)));
+            list.add(new ListItem("Children Version", String.valueOf(cversion)));
+            list.add(new ListItem("ACL Version", String.valueOf(aversion)));
+            list.add(new ListItem("Ephemeral Owner", String.valueOf(ephemeralOwner)));
+            list.add(new ListItem("Data Length", String.valueOf(dataLength)));
+            list.add(new ListItem("Num of Children", String.valueOf(numChildren)));
+            list.add(new ListItem("Node ID", String.valueOf(pzxid)));
             return list;
         }
 

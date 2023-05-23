@@ -17,6 +17,7 @@ public class DataPane extends JBPanel<DataPane> {
         setLayout(new BorderLayout());
         textEditor = new TextEditor(project);
         textEditor.setText(text);
+        textEditor.setFileType(TextEditor.JSON_FILE_TYPE);
         add(textEditor, BorderLayout.CENTER);
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
         ComboBox<FileType> requestBodyFileType = new ComboBox<>(new FileType[]{
