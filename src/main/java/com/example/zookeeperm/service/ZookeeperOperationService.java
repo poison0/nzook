@@ -3,6 +3,7 @@ package com.example.zookeeperm.service;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.message.Notifier;
 import com.intellij.openapi.ui.MessageType;
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
@@ -58,6 +59,37 @@ public class ZookeeperOperationService {
         }
         nodeData.setChildrenList(childrenNodeList);
     }
+
+    /**
+     * 创建节点
+     */
+    public NodeData addNode(ZooKeeper zooKeeper,String path,String nodeValue,List<ACL> acl,CreateMode createMode){
+        try {
+            zooKeeper.create(path, nodeValue.getBytes(), acl, createMode);
+            NodeData nodeData = new NodeData();
+            nodeData.setPath(path);
+            nodeData.setNodeValue(nodeValue);
+            return nodeData;
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+            Notifier.notify("创建节点出错："+e.getMessage(), MessageType.ERROR);
+        }
+        return null;
+    }
+
+    /**
+     * 删除节点
+     */
+    public void deleteNode(ZooKeeper zooKeeper,String path) {
+        try {
+            zooKeeper.delete(path, -1);
+        } catch (InterruptedException | KeeperException e) {
+            e.printStackTrace();
+            Notifier.notify("删除节点出错：" + e.getMessage(), MessageType.ERROR);
+        }
+    }
+
+
     /**
      * 设置控制权限
      */
