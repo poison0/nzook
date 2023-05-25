@@ -29,11 +29,5 @@
         <notificationGroup displayType="BALLOON" id="notify" />
     </extensions>
     <actions>
-        <action id="SonarLint.toolwindow.Cancel"
-                class="com.example.zookeeperm.action.toolbar.SuspendAction"
-                text="Cancel SonarLint Analysis"
-                description="Cancel the SonarLint analysis running"
-                icon="com.intellij.icons.AllIcons.Actions.Suspend">
-        </action>
     </actions>
 </idea-plugin>
