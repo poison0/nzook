@@ -1,8 +1,13 @@
 package com.example.zookeeperm.gui.pop;
 
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.OnePixelSplitter;
+import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.border.CustomLineBorder;
+import com.intellij.ui.components.JBLabel;
+import com.intellij.util.ui.CheckBox;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,23 +27,35 @@ public class UpdateNode extends DialogWrapper {
 
     @Override
     protected @Nullable JComponent createCenterPanel() {
-        OnePixelSplitter onePixelSplitter = new OnePixelSplitter(false, 0.4f);
         JPanel dialogPanel = new JPanel(new BorderLayout());
-        dialogPanel.add(onePixelSplitter, BorderLayout.CENTER);
 
-        JPanel left = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("left");
-        left.add(label, BorderLayout.CENTER);
 
-        onePixelSplitter.setFirstComponent(left);
+        JPanel left = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        JBLabel label = new JBLabel("CreateMode:");
+        left.add(label, c);
+        ComboBox<String> comboBox = new ComboBox<>(new String[]{
+                "PERSISTENT",
+                "PERSISTENT_SEQUENTIAL",
+                "EPHEMERAL",
+                "EPHEMERAL_SEQUENTIAL"
+        });
+        comboBox.setFocusable(false);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0;
+        c.gridx = 1;
+        c.gridy = 0;
+        left.add(comboBox, c);
+        c.gridy = 2;
+        TitledSeparator titledSeparator = new TitledSeparator("Node Data");
+        left.add(titledSeparator, c);
+        dialogPanel.add(left, BorderLayout.WEST);
 
-        JPanel reght = new JPanel(new BorderLayout());
-        JLabel rightLabel = new JLabel("rightLabel");
-        reght.add(rightLabel, BorderLayout.CENTER);
-
-        onePixelSplitter.setSecondComponent(reght);
-
-        dialogPanel.setPreferredSize(new Dimension(400, 200));
+        dialogPanel.setPreferredSize(new Dimension(600, 300));
 
         return dialogPanel;
     }
