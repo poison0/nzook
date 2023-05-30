@@ -50,7 +50,10 @@ public class UpdateNode extends DialogWrapper {
         c.gridx = 1;
         c.gridy = 0;
         left.add(comboBox, c);
-        c.gridy = 2;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         TitledSeparator titledSeparator = new TitledSeparator("Node Data");
         left.add(titledSeparator, c);
         dialogPanel.add(left, BorderLayout.WEST);
