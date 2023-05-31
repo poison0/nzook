@@ -94,14 +94,6 @@ public class TextEditor extends EditorTextField {
     }
 
     @Override
-    protected @NotNull EditorEx createEditor() {
-        EditorEx editor = super.createEditor();
-        initOneLineMode(editor);
-        setupTextFieldEditor(editor);
-        return editor;
-    }
-
-    @Override
     public void repaint(long tm, int x, int y, int width, int height) {
         super.repaint(tm, x, y, width, height);
         if (getEditor() instanceof EditorEx) {
