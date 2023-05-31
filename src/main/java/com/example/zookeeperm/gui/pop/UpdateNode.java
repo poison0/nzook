@@ -7,6 +7,7 @@ import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.border.CustomLineBorder;
 import com.intellij.ui.components.JBLabel;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.util.ui.CheckBox;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nullable;
@@ -28,15 +29,18 @@ public class UpdateNode extends DialogWrapper {
     @Override
     protected @Nullable JComponent createCenterPanel() {
         JPanel dialogPanel = new JPanel(new BorderLayout());
-
-
-        JPanel left = new JPanel(new GridBagLayout());
+        TitledSeparator titledSeparator = new TitledSeparator("Node Data");
+        dialogPanel.add(titledSeparator, BorderLayout.NORTH);
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.columnWeights = new double[]{1.0};
+        JPanel left = new JPanel(gridBagLayout);
+        left.setBorder(JBUI.Borders.empty(0, 10));
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.WEST;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        JBLabel label = new JBLabel("CreateMode:");
+        JBLabel label = new JBLabel("CreateMode");
         left.add(label, c);
         ComboBox<String> comboBox = new ComboBox<>(new String[]{
                 "PERSISTENT",
@@ -45,19 +49,18 @@ public class UpdateNode extends DialogWrapper {
                 "EPHEMERAL_SEQUENTIAL"
         });
         comboBox.setFocusable(false);
+        comboBox.setMinimumAndPreferredWidth(400);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0;
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 0;
         left.add(comboBox, c);
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = GridBagConstraints.REMAINDER;
-        TitledSeparator titledSeparator = new TitledSeparator("Node Data");
-        left.add(titledSeparator, c);
-        dialogPanel.add(left, BorderLayout.WEST);
-
+        dialogPanel.add(left, BorderLayout.CENTER);
+        dialogPanel.setMinimumSize(new Dimension(600, 300));
         dialogPanel.setPreferredSize(new Dimension(600, 300));
 
         return dialogPanel;
