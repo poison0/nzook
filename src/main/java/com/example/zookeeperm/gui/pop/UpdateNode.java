@@ -29,18 +29,16 @@ public class UpdateNode extends DialogWrapper {
     @Override
     protected @Nullable JComponent createCenterPanel() {
         JPanel dialogPanel = new JPanel(new BorderLayout());
-        TitledSeparator titledSeparator = new TitledSeparator("Node Data");
-        dialogPanel.add(titledSeparator, BorderLayout.NORTH);
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWeights = new double[]{1.0};
         JPanel left = new JPanel(gridBagLayout);
+        left.setMaximumSize(new Dimension(600, 300));
         left.setBorder(JBUI.Borders.empty(0, 10));
         GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
         c.gridy = 0;
-        JBLabel label = new JBLabel("CreateMode");
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 0;
+        c.ipadx = 100;
+        JBLabel label = new JBLabel("CreateMode: ");
         left.add(label, c);
         ComboBox<String> comboBox = new ComboBox<>(new String[]{
                 "PERSISTENT",
@@ -51,14 +49,9 @@ public class UpdateNode extends DialogWrapper {
         comboBox.setFocusable(false);
         comboBox.setMinimumAndPreferredWidth(400);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0;
-        c.gridx = 2;
-        c.gridy = 0;
-        left.add(comboBox, c);
         c.weightx = 1;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = GridBagConstraints.REMAINDER;
+        left.add(comboBox, c);
+
         dialogPanel.add(left, BorderLayout.CENTER);
         dialogPanel.setMinimumSize(new Dimension(600, 300));
         dialogPanel.setPreferredSize(new Dimension(600, 300));
