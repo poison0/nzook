@@ -4,6 +4,7 @@ import com.example.zookeeperm.action.toolbar.*;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.service.Login;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
@@ -28,7 +29,7 @@ public class ListWindowFactory implements ToolWindowFactory {
         SimpleToolWindowPanel panel = new SimpleToolWindowPanel(false,true);
         Content content = instance.createContent(panel, "", false);
         OperationWindow operationWindow = new OperationWindow(project,toolWindow, getNodeData());
-        JPanel contentPanel = operationWindow.getContentPanel();
+        JPanel contentPanel = operationWindow.getContentPanel(panel);
         panel.setContent(contentPanel);
         panel.setToolbar(createToolBar(panel).getComponent());
         toolWindow.getContentManager().addContent(content);

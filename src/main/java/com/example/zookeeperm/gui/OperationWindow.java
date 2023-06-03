@@ -1,14 +1,20 @@
 package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.action.menu.*;
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.renderer.TreeCell;
 import com.example.zookeeperm.util.Bundle;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowAnchor;
+import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.openapi.wm.ex.ToolWindowManagerListener;
 import com.intellij.ui.JBSplitter;
 import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
@@ -31,19 +37,49 @@ public class OperationWindow {
     private JScrollPane leftPane;
     private static Project project;
     private JBSplitter splitter;
+    private JComponent parentPanel;
 
     private JBTabbedPane detailsTab;
 
     public void init(ToolWindow toolWindow,NodeData nodeData) {
         leftPane = new JBScrollPane();
-        splitter = new OnePixelSplitter(true, 0.85f, 0.01f, 0.99f);
+        leftPane.setViewportView(createTree(nodeData));
+        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
+        splitter = getSplitter(toolWindow);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
         splitter.setFirstComponent(leftPane);
         detailsTab = new JBTabbedPane(nodeData, project);
         splitter.setSecondComponent(detailsTab);
-        leftPane.setViewportView(createTree(nodeData));
-        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
+    }
+    public OnePixelSplitter getSplitter(ToolWindow toolWindow) {
+        OnePixelSplitter onePixelSplitter = new OnePixelSplitter(splitVertically(project), 0.85f, 0.01f, 0.99f);
+        final var listener = new ToolWindowManagerListener() {
+            @Override
+            public void stateChanged(@NotNull ToolWindowManager toolWindowManager) {
+                onePixelSplitter.setOrientation(splitVertically(project));
+                parentPanel.revalidate();
+                parentPanel.repaint();
+            }
+        };
+        project.getMessageBus().connect(toolWindow.getContentManager()).subscribe(ToolWindowManagerListener.TOPIC, listener);
+        Disposer.register(toolWindow.getContentManager(), () -> {
+            parentPanel.remove(splitter);
+            splitter.dispose();
+        });
+        return onePixelSplitter;
+    }
+
+
+    public static boolean splitVertically(Project project) {
+        ToolWindowManager instance = ToolWindowManager.getInstance(project);
+        final var toolWindow = instance.getToolWindow(Constant.TOOL_WINDOW_ID);
+        var splitVertically = false;
+        if (toolWindow != null) {
+            final var anchor = toolWindow.getAnchor();
+            splitVertically = anchor == ToolWindowAnchor.LEFT || anchor == ToolWindowAnchor.RIGHT;
+        }
+        return splitVertically;
     }
 
     /**
@@ -130,7 +166,8 @@ public class OperationWindow {
         init(toolWindow,nodeData);
     }
 
-    public JPanel getContentPanel() {
+    public JPanel getContentPanel(JComponent parentPanel) {
+        this.parentPanel = parentPanel;
         return splitter;
     }
 }

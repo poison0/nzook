@@ -1,5 +1,6 @@
 package com.example.zookeeperm.gui.pop;
 
+import com.example.zookeeperm.constant.PermissionEnum;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -175,7 +176,7 @@ public class UpdateNode extends DialogWrapper {
     /**
      * 创建多选框
      */
-    private JBCheckBox createCheckBoxOption(JPanel panel, int gridy, String title) {
+    private void createCheckBoxOption(JPanel panel, int gridy, String title) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.NONE;
         c.gridy = gridy;
@@ -189,26 +190,11 @@ public class UpdateNode extends DialogWrapper {
         c.weightx = 1;
         JPanel checkBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        JBCheckBox read = new JBCheckBox("Read");
-        read.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
-        checkBoxPanel.add(read);
-
-        JBCheckBox write = new JBCheckBox("Write");
-        write.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
-        checkBoxPanel.add(write);
-
-        JBCheckBox create = new JBCheckBox("Create");
-        create.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
-        checkBoxPanel.add(create);
-
-        JBCheckBox delete = new JBCheckBox("Delete");
-        delete.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
-        checkBoxPanel.add(delete);
-
-        JBCheckBox admin = new JBCheckBox("Admin");
-        checkBoxPanel.add(admin);
-
+        for (PermissionEnum value : PermissionEnum.values()) {
+            JBCheckBox checkBox = new JBCheckBox(value.getName());
+            checkBox.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
+            checkBoxPanel.add(checkBox);
+        }
         panel.add(checkBoxPanel, c);
-        return read;
     }
 }
