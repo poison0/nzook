@@ -1,19 +1,14 @@
 package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.gui.editor.TextEditor;
-import com.intellij.openapi.editor.event.DocumentEvent;
-import com.intellij.openapi.editor.event.DocumentListener;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.impl.FileTypeRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.components.JBPanel;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class DataPane extends JBPanel<DataPane> {
     private final TextEditor textEditor;

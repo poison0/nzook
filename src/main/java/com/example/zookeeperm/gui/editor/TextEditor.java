@@ -56,7 +56,6 @@ public class TextEditor extends EditorTextField {
         settings.setFoldingOutlineShown(true);
         settings.setLineNumbersShown(true);
         settings.setIndentGuidesShown(true);
-        settings.setShowVisualFormattingLayer(true);
         settings.setUseSoftWraps(true);
         editor.setHorizontalScrollbarVisible(true);
         editor.setVerticalScrollbarVisible(true);
@@ -99,6 +98,15 @@ public class TextEditor extends EditorTextField {
         if (getEditor() instanceof EditorEx) {
             initOneLineMode(((EditorEx) getEditor()));
         }
+    }
+
+
+    @Override
+    protected @NotNull EditorEx createEditor() {
+        EditorEx editor = super.createEditor();
+        initOneLineMode(editor);
+        setupTextFieldEditor(editor);
+        return editor;
     }
 
     @Override

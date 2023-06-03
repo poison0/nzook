@@ -12,10 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class AddAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        if (new UpdateNode().showAndGet()) {
-            // user pressed OK
-            System.out.println("OK");
-        }
+        new UpdateNode(Bundle.getString("updateNodeDialog.title.addNode")).showAndGet();
     }
     public AddAction() {
         super(Bundle.getString("action.AddAction.text"), Bundle.getString("action.AddAction.description"), AllIcons.General.Add);
