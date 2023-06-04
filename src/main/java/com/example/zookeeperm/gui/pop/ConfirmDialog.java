@@ -10,12 +10,12 @@ import java.awt.*;
 /**
  * @auth nss
  */
-public class DefaultDialog extends DialogWrapper {
+public class ConfirmDialog extends DialogWrapper {
 
 
     private final String message;
 
-    public DefaultDialog(@Nullable Project project,String title,String message, boolean canBeParent) {
+    public ConfirmDialog(@Nullable Project project, String title, String message, boolean canBeParent) {
         super(project, canBeParent);
         this.message = message;
         setTitle(title);
