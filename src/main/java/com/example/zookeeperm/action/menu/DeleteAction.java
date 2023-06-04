@@ -11,7 +11,10 @@ public class DeleteAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         ConfirmDialog dialog = new ConfirmDialog(anActionEvent.getProject(), Bundle.getString("action.DeleteAction.text"),"Confirm deletion of node 'node'",true);
-        dialog.show();
+        if (dialog.showAndGet()) {
+            System.out.println("delete");
+        }
+
     }
     public DeleteAction() {
         super(Bundle.getString("action.DeleteAction.text"), Bundle.getString("action.DeleteAction.description"), AllIcons.General.Remove);

@@ -1,6 +1,7 @@
 package com.example.zookeeperm.gui.pop;
 
 import com.example.zookeeperm.constant.PermissionEnum;
+import com.intellij.application.options.codeStyle.arrangement.util.InsetsPanel;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.TitledSeparator;
@@ -153,6 +154,40 @@ public abstract class AbstractDialog extends DialogWrapper {
         panel.add(textArea, c);
         return textArea;
     }
+    protected void createBlackLine(JPanel panel, int gridy) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        c.gridy = gridy;
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        panel.add(new JPanel(), c);
+    }
+
+    protected JPanel createNewLine(JPanel panel, int gridy) {
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        c.gridy = gridy;
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        panel.add(buttonPanel, c);
+        return buttonPanel;
+    }
+
+    /**
+     * 创建button
+     */
+    protected JButton createButton(JPanel panel, int gridy,String buttonName) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.NONE;
+        c.gridy = gridy;
+        c.weightx = 0;
+        c.insets = JBUI.insetsLeft(BORDER_LEFT);
+        c.anchor = GridBagConstraints.WEST;
+        JButton jButton = new JButton(buttonName);
+        panel.add(jButton, c);
+        return jButton;
+    }
     /**
      * 创建多选框
      */
@@ -163,13 +198,13 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.weightx = 0;
         c.insets = JBUI.insetsLeft(BORDER_LEFT);
         c.anchor = GridBagConstraints.WEST;
+        JBLabel label;
         if (title != null) {
-            JBLabel label = new JBLabel(title+"：");
-            panel.add(label, c);
+            label = new JBLabel(title + "：");
         }else {
-            JBLabel label = new JBLabel("");
-            panel.add(label, c);
+            label = new JBLabel("");
         }
+        panel.add(label, c);
         c.insets = JBUI.insetsLeft(getInsetLeft());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;

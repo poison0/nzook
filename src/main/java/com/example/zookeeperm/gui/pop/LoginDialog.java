@@ -16,11 +16,11 @@ public class LoginDialog extends AbstractDialog {
     /**
      * 对话框大小
      */
-    private static final Integer WIDTH = 230;
+    private static final Integer WIDTH = 300;
     /**
      * 对话框大小
      */
-    private static final Integer HEIGHT = 60;
+    private static final Integer HEIGHT = 90;
 
     public LoginDialog(String title) {
         super(title);
@@ -44,7 +44,10 @@ public class LoginDialog extends AbstractDialog {
 
         createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"));
         createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"));
-        createCheckBoxOption(panel, 2, null, Collections.singletonList("Save"));
+        createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
+        createBlackLine(panel, 3);
+        JPanel buttonPanel = createNewLine(panel, 4);
+        createButton(buttonPanel, 0, "Test Connection");
 
         return createDefaultPanel(panel);
     }
