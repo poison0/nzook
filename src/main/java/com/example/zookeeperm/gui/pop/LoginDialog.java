@@ -47,7 +47,7 @@ public class LoginDialog extends AbstractDialog {
         createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
         createBlackLine(panel, 3);
         JPanel buttonPanel = createNewLine(panel, 4);
-        createButton(buttonPanel, 0, "Test Connection");
+        createButton(buttonPanel, 0, Bundle.getString("loginDialog.button.testConnection"));
 
         return createDefaultPanel(panel);
     }
