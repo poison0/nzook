@@ -11,7 +11,11 @@ import org.jetbrains.annotations.NotNull;
 public class SettingAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        new LoginDialog(Bundle.getString("loginDialog.title")).showAndGet();
+        LoginDialog loginDialog = new LoginDialog(Bundle.getString("loginDialog.title"));
+        boolean ok = loginDialog.showAndGet();
+        if (ok) {
+
+        }
     }
     public SettingAction() {
         super(Bundle.getString("action.SettingAction.text"), Bundle.getString("action.SettingAction.description"), AllIcons.Actions.InlayGear);
