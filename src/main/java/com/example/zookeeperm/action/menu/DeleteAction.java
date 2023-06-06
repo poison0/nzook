@@ -1,5 +1,6 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.gui.pop.ConfirmDialog;
 import com.example.zookeeperm.message.Notifier;
@@ -16,9 +17,11 @@ import javax.swing.tree.DefaultTreeModel;
 public class DeleteAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+        Object selectedObject = OperationWindow.tree.getLastSelectedPathComponent();
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedObject;
+        NodeData userObject = (NodeData)selectedNode.getUserObject();
+        ConfirmDialog dialog = new ConfirmDialog(anActionEvent.getProject(), Bundle.getString("action.DeleteAction.text"),Bundle.getString("confirmDialog.message.deleteNode")+" '"+userObject.getNodeValue()+"'",true);
 
-
-        ConfirmDialog dialog = new ConfirmDialog(anActionEvent.getProject(), Bundle.getString("action.DeleteAction.text"),"Confirm deletion of node 'node'",true);
         if (dialog.showAndGet()) {
             deleteNode();
         }
@@ -31,10 +34,10 @@ public class DeleteAction extends AnAction {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedObject;
         if (selectedNode != null) {
             if (selectedNode.isRoot ()) {
-                Notifier.notify("the root node cannot be deleted!", MessageType.WARNING);
+                Notifier.notify(Bundle.getString("notify.warning.treeRootNodeNotDeleted"), MessageType.WARNING);
             }
             else {
-                model.removeNodeFromParent (selectedNode); //如果不是根节点，就从父节点中删除
+                model.removeNodeFromParent (selectedNode);
             }
         }
     }

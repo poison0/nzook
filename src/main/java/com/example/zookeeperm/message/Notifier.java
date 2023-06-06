@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.MessageType;
 
 /**
  * 异常弹框
+ * @author niu
  */
 public class Notifier {
     //通知弹框
