@@ -17,8 +17,6 @@ import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 /* *
  * @author nss
- * @description 登录
- * @date 14:39 2023/3/26
  **/
 public class Login {
     public static NodeData login(LoginDataDto data) throws IOException, InterruptedException, KeeperException {

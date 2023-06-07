@@ -12,20 +12,7 @@ public class LoginData {
     /**
      * 状态
      **/
-    private static StatusEnum status = StatusEnum.NOT_SAVE;
-    /*
-     * @description 端口号
-     **/
-    public static String port;
-    /* *
-     * @description ip地址
-     **/
-    public static String ip;
-
-    /**
-     * 超时时间
-     */
-    public static Integer timeout;
+    private static StatusEnum status = StatusEnum.NOT_CONNECT;
     /**
      * zookeeper链接
      */

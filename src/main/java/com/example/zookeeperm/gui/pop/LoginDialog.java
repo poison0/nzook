@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.DocumentAdapter;
+import com.intellij.ui.components.JBCheckBox;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @auth nss
@@ -30,6 +33,7 @@ public class LoginDialog extends AbstractDialog {
 
     JTextField hostField;
     JTextField portField;
+    JBCheckBox saveCheckBox;
     JTextField timeoutField;
 
     public LoginDialog(String title) {
@@ -55,11 +59,8 @@ public class LoginDialog extends AbstractDialog {
         hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
         portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByHost(portField);
-//        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
-//        createBlackLine(panel, 3);
-//        JPanel buttonPanel = createNewLine(panel, 4);
-//        createButton(buttonPanel, 0, Bundle.getString("loginDialog.button.testConnection"));
-
+        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
+        saveCheckBox = remember.get(0);
         return createDefaultPanel(panel);
     }
 
@@ -67,6 +68,7 @@ public class LoginDialog extends AbstractDialog {
         LoginDataDto loginData = new LoginDataDto();
         loginData.setIp(hostField.getText());
         loginData.setPort(portField.getText());
+        loginData.setSave(saveCheckBox.isSelected());
         loginData.setTimeout(10000);
         return loginData;
     }

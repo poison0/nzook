@@ -1,20 +1,76 @@
 package com.example.zookeeperm.action.toolbar;
 
+import com.example.zookeeperm.action.ListWindowFactory;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
+import com.example.zookeeperm.data.LoginDataDto;
+import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.gui.pop.LoginDialog;
+import com.example.zookeeperm.message.Notifier;
+import com.example.zookeeperm.service.Login;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.MessageType;
+import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
+import java.io.IOException;
+
+import static com.example.zookeeperm.data.LoginData.zooKeeper;
+
 public class ExecuteAction extends AbstractAction {
-    private Boolean isEnable;
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        //todo
+        Project project = anActionEvent.getProject();
+        LoginDialog loginDialog = new LoginDialog(Bundle.getString("loginDialog.title"));
+        boolean ok = loginDialog.showAndGet();
+        if (ok) {
+            //保存登录信息
+            LoginDataDto loginData = loginDialog.getLoginData();
+            LoginData.setStatus(StatusEnum.CONNECTING);
+            if (Boolean.TRUE.equals(loginData.getSave())) {
+                //数据持久化
+                PropertiesComponent instance = PropertiesComponent.getInstance();
+                instance.setValue("zookeeper.m.ip", loginData.getIp());
+                instance.setValue("zookeeper.m.port", loginData.getPort());
+            }
+            load(project,loginData);
+        }
     }
+
+    private void load(Project project,LoginDataDto loginData) {
+        ProgressManager.getInstance().run(new Task.Backgroundable(project,"Loading...") {
+            @Override
+            public void run(@NotNull ProgressIndicator progressIndicator) {
+                try {
+                    NodeData data = Login.login(loginData);
+                    SwingUtilities.invokeLater(() -> {
+                        // 你要更新GUI的代码
+                        ListWindowFactory.operationWindow.init(data);
+                        LoginData.setStatus(StatusEnum.CONNECTED);
+                    });
+
+                } catch (IOException | InterruptedException | KeeperException e) {
+                    Notifier.notify(e.getMessage(), MessageType.ERROR);
+                    try {
+                        zooKeeper.close();
+                    } catch (InterruptedException ex) {
+                        Notifier.notify(e.getMessage(), MessageType.ERROR);
+                    }
+                }
+            }
+        });
+    }
+
     public ExecuteAction() {
-        super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.Actions.Execute);
+        super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.Toolbar.AddSlot);
     }
 
     @Override

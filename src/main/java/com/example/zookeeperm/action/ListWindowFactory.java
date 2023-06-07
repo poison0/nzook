@@ -42,7 +42,7 @@ public class ListWindowFactory implements ToolWindowFactory {
         DefaultActionGroup group = new DefaultActionGroup();
         group.add(new ExecuteAction());
         group.add(new SuspendAction());
-        group.add(new SettingAction());
+//        group.add(new SettingAction());
         group.addSeparator();
         group.add(new ExpandAllAction());
         group.add(new CollapseAllAction());

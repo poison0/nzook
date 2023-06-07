@@ -1,7 +1,7 @@
 package com.example.zookeeperm.util;
 
-import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
+import com.intellij.ide.util.PropertiesComponent;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -24,16 +24,17 @@ public class DataUtil {
         clipboard.setContents(trans, null);
     }
     public static LoginDataDto getCurrentLoginData() {
+        PropertiesComponent instance = PropertiesComponent.getInstance();
+        String ip = instance.getValue("zookeeper.m.ip");
+        String port = instance.getValue("zookeeper.m.port");
         LoginDataDto loginDataDto = new LoginDataDto();
-        if (LoginData.ip != null && !LoginData.ip.isEmpty()) {
-            loginDataDto.setIp(LoginData.ip);
+        if (ip != null && !ip.isEmpty()) {
+            loginDataDto.setIp(ip);
         }
-        if (LoginData.port != null && !LoginData.port.isEmpty()) {
-            loginDataDto.setPort(LoginData.port);
+        if (port != null && !port.isEmpty()) {
+            loginDataDto.setPort(port);
         }
-        if (LoginData.timeout != null) {
-            loginDataDto.setTimeout(LoginData.timeout);
-        }
+        loginDataDto.setTimeout(10000);
         return loginDataDto;
     }
 }

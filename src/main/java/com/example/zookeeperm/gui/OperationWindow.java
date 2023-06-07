@@ -46,7 +46,7 @@ public class OperationWindow {
         leftPane = new JBScrollPane();
         tree = createTree(nodeData);
         leftPane.setViewportView(tree);
-        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
+//        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
         splitter = getSplitter(toolWindow);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
