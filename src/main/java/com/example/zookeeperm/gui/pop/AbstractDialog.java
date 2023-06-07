@@ -14,6 +14,7 @@ import kotlin.Unit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,11 +116,16 @@ public abstract class AbstractDialog extends DialogWrapper {
         panel.add(comboBox, c);
         return comboBox;
     }
-
     /**
      * 创建基本输入选项
      */
     protected JTextField createFieldOption(JPanel panel, int gridy, String title) {
+        return createFieldOption(panel,gridy,title,"");
+    }
+    /**
+     * 创建基本输入选项
+     */
+    protected JTextField createFieldOption(JPanel panel, int gridy, String title,String defaultValue) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.NONE;
         c.gridy = gridy;
@@ -132,6 +138,7 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
         JTextField textField = new JTextField();
+        textField.setText(defaultValue);
         panel.add(textField, c);
         return textField;
     }
@@ -191,7 +198,7 @@ public abstract class AbstractDialog extends DialogWrapper {
     /**
      * 创建多选框
      */
-    protected void createCheckBoxOption(JPanel panel, int gridy, String title, List<String> options) {
+    protected List<JBCheckBox> createCheckBoxOption(JPanel panel, int gridy, String title, List<String> options) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.NONE;
         c.gridy = gridy;
@@ -209,13 +216,15 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
         JPanel checkBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
+        List<JBCheckBox> checkBoxList = new ArrayList<>();
         for (String value : options) {
             JBCheckBox checkBox = new JBCheckBox(value);
             checkBox.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
+            checkBoxList.add(checkBox);
             checkBoxPanel.add(checkBox);
         }
         panel.add(checkBoxPanel, c);
+        return checkBoxList;
     }
 
 }

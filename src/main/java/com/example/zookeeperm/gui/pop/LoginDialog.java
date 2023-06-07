@@ -1,11 +1,8 @@
 package com.example.zookeeperm.gui.pop;
 
-import com.example.zookeeperm.data.LoginData;
-import com.example.zookeeperm.data.loginDataDto;
-import com.example.zookeeperm.gui.OperationWindow;
+import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.util.Bundle;
-import com.intellij.openapi.project.DefaultProjectFactory;
-import com.intellij.openapi.project.Project;
+import com.example.zookeeperm.util.DataUtil;
 import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.text.StringUtil;
@@ -17,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
-import java.util.Collections;
 
 /**
  * @auth nss
@@ -55,11 +51,11 @@ public class LoginDialog extends AbstractDialog {
         GridBagLayout gridBagLayout = new GridBagLayout();
         JPanel panel = new JPanel(gridBagLayout);
         panel.setBorder(JBUI.Borders.empty(0, 10));
-
-        hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"));
-        portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"));
+        LoginDataDto loginData = DataUtil.getCurrentLoginData();
+        hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
+        portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByHost(portField);
-        createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
+//        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
 //        createBlackLine(panel, 3);
 //        JPanel buttonPanel = createNewLine(panel, 4);
 //        createButton(buttonPanel, 0, Bundle.getString("loginDialog.button.testConnection"));
@@ -67,8 +63,8 @@ public class LoginDialog extends AbstractDialog {
         return createDefaultPanel(panel);
     }
 
-    public loginDataDto getLoginData() {
-        loginDataDto loginData = new loginDataDto();
+    public LoginDataDto getLoginData() {
+        LoginDataDto loginData = new LoginDataDto();
         loginData.setIp(hostField.getText());
         loginData.setPort(portField.getText());
         loginData.setTimeout(10000);

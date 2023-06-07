@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -30,16 +31,18 @@ import static com.example.zookeeperm.data.LoginData.zooKeeper;
 import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 public class OperationWindow {
+    public static PathTree tree;
+    public ToolWindow toolWindow;
 
     private JScrollPane leftPane;
     private static Project project;
-    public static PathTree tree;
+    public JPanel mainPanel = new JPanel(new BorderLayout());
     private JBSplitter splitter;
     private JComponent parentPanel;
 
     private JBTabbedPane detailsTab;
 
-    public void init(ToolWindow toolWindow,NodeData nodeData) {
+    public void init(NodeData nodeData) {
         leftPane = new JBScrollPane();
         tree = createTree(nodeData);
         leftPane.setViewportView(tree);
@@ -50,6 +53,7 @@ public class OperationWindow {
         splitter.setFirstComponent(leftPane);
         detailsTab = new JBTabbedPane(nodeData, project);
         splitter.setSecondComponent(detailsTab);
+        mainPanel.add(splitter, BorderLayout.CENTER);
     }
     public OnePixelSplitter getSplitter(ToolWindow toolWindow) {
         OnePixelSplitter onePixelSplitter = new OnePixelSplitter(splitVertically(project), 0.85f, 0.01f, 0.99f);
@@ -160,13 +164,13 @@ public class OperationWindow {
     }
 
 
-    public OperationWindow(@NotNull Project project,ToolWindow toolWindow, NodeData nodeData) {
+    public OperationWindow(@NotNull Project project,ToolWindow toolWindow) {
         OperationWindow.project = project;
-        init(toolWindow,nodeData);
+        this.toolWindow = toolWindow;
     }
 
     public JPanel getContentPanel(JComponent parentPanel) {
         this.parentPanel = parentPanel;
-        return splitter;
+        return mainPanel;
     }
 }

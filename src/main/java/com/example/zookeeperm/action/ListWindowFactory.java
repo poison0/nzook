@@ -22,13 +22,16 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class ListWindowFactory implements ToolWindowFactory {
+
+    public static OperationWindow operationWindow;
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
         ContentFactory instance = ContentFactory.SERVICE.getInstance();
         SimpleToolWindowPanel panel = new SimpleToolWindowPanel(false,true);
         Content content = instance.createContent(panel, "", false);
-        OperationWindow operationWindow = new OperationWindow(project,toolWindow, getNodeData());
+        operationWindow = new OperationWindow(project,toolWindow);
         JPanel contentPanel = operationWindow.getContentPanel(panel);
         panel.setContent(contentPanel);
         panel.setToolbar(createToolBar(panel).getComponent());
@@ -47,19 +50,6 @@ public class ListWindowFactory implements ToolWindowFactory {
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.setTargetComponent(jbPanel);
         return toolbar;
-    }
-
-    private NodeData getNodeData() {
-        //todo
-        try {
-            return Login.login();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (KeeperException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

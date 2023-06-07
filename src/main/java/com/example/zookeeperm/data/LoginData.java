@@ -1,14 +1,18 @@
 package com.example.zookeeperm.data;
 
+import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.service.ZookeeperOperationService;
 import org.apache.zookeeper.ZooKeeper;
 
 /* *
  * @author nss
- * @description 登录信息
- * @date 15:20 2023/3/26
  **/
 public class LoginData {
+
+    /**
+     * 状态
+     **/
+    private static StatusEnum status = StatusEnum.NOT_SAVE;
     /*
      * @description 端口号
      **/
@@ -28,4 +32,12 @@ public class LoginData {
     public static ZooKeeper zooKeeper;
 
     public static ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
+
+    public static void setStatus(StatusEnum status) {
+        LoginData.status = status;
+    }
+
+    public static StatusEnum getStatus() {
+        return status;
+    }
 }

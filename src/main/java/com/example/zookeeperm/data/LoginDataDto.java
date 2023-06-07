@@ -3,7 +3,7 @@ package com.example.zookeeperm.data;
 /**
  * @auth nss
  */
-public class loginDataDto {
+public class LoginDataDto {
     /*
      * @description 端口号
      **/
@@ -17,6 +17,16 @@ public class loginDataDto {
      * 超时时间
      */
     private Integer timeout;
+
+    private Boolean isSave;
+
+    public Boolean getSave() {
+        return isSave;
+    }
+
+    public void setSave(Boolean save) {
+        isSave = save;
+    }
 
     public String getPort() {
         return port;
