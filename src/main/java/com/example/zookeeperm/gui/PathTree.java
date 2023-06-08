@@ -4,6 +4,9 @@ import com.intellij.ui.treeStructure.SimpleTree;
 
 import javax.swing.tree.TreeModel;
 
+/**
+ * @author niu
+ */
 public class PathTree extends SimpleTree {
 
     public PathTree() {

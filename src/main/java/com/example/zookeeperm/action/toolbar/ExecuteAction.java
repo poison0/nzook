@@ -58,7 +58,12 @@ public class ExecuteAction extends AbstractAction {
                     });
 
                 } catch (IOException | InterruptedException | KeeperException e) {
-                    Notifier.notify(e.getMessage(), MessageType.ERROR);
+                    if (e.getMessage().contains("ConnectionLoss for /")) {
+                        Notifier.notify("There is an error in host or port, connection failed!", MessageType.ERROR);
+                    } else {
+                        Notifier.notify(e.getMessage(), MessageType.ERROR);
+                    }
+                    LoginData.setStatus(StatusEnum.NOT_CONNECT);
                     try {
                         zooKeeper.close();
                     } catch (InterruptedException ex) {

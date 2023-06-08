@@ -1,5 +1,9 @@
 package com.example.zookeeperm.constant;
 
+/**
+ * @author niu
+ */
+
 public enum StatusEnum {
     NOT_CONNECT("未连接"),
     CONNECTED("已连接"),

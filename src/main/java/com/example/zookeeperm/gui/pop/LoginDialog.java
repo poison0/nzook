@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @auth nss
+ * @author nss
  */
 public class LoginDialog extends AbstractDialog {
     /**
@@ -56,6 +56,9 @@ public class LoginDialog extends AbstractDialog {
         JPanel panel = new JPanel(gridBagLayout);
         panel.setBorder(JBUI.Borders.empty(0, 10));
         LoginDataDto loginData = DataUtil.getCurrentLoginData();
+        if (loginData.getPort() == null) {
+            loginData.setPort("2181");
+        }
         hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
         portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByHost(portField);

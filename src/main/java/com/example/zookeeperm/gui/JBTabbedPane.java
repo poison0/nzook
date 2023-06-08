@@ -9,17 +9,18 @@ import org.jetbrains.annotations.Nls;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
 
 import static com.intellij.ui.components.JBTabbedPane.LABEL_FROM_TABBED_PANE;
 
-public class JBTabbedPane extends JTabbedPane implements HierarchyListener {
+/**
+ * @author niu
+ */
+public class JBTabbedPane extends JTabbedPane {
 
     private final Insets myTabComponentInsets = UIUtil.PANEL_SMALL_INSETS;
-    private DataPane dataPane;
-    private ListViewPane metaPane;
-    private ListViewPane aclPane;
+    private final DataPane dataPane;
+    private final ListViewPane metaPane;
+    private final ListViewPane aclPane;
 
     public JBTabbedPane(NodeData nodeData, Project project) {
         dataPane = new DataPane(project, nodeData.getData());
@@ -30,10 +31,6 @@ public class JBTabbedPane extends JTabbedPane implements HierarchyListener {
         insertTab(Bundle.getString("table.header.acl"), null, aclPane, Bundle.getString("table.header.acl.description"), 2);
     }
 
-    @Override
-    public void hierarchyChanged(HierarchyEvent e) {
-        //todo
-    }
     @Override
     public void insertTab(@Nls(capitalization = Nls.Capitalization.Title) String title, Icon icon, Component component,
                           @Nls(capitalization = Nls.Capitalization.Sentence) String tip, int index) {
@@ -46,10 +43,7 @@ public class JBTabbedPane extends JTabbedPane implements HierarchyListener {
         label.setFont(getFont());
         setTabComponentAt(index, label);
         label.putClientProperty(LABEL_FROM_TABBED_PANE, Boolean.TRUE);
-
-        component.addHierarchyListener(this);
         setInsets(component);
-
         revalidate();
         repaint();
     }

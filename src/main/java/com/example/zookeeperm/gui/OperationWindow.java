@@ -173,4 +173,9 @@ public class OperationWindow {
         this.parentPanel = parentPanel;
         return mainPanel;
     }
+    public void clearAll() {
+        mainPanel.removeAll();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
 }

@@ -7,6 +7,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * @author niu
+ */
 public abstract class AbstractAction extends AnAction {
 
     protected AbstractAction(@Nullable @NlsActions.ActionText String text, @Nullable @NlsActions.ActionDescription String description, @Nullable Icon icon) {

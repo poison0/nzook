@@ -1,15 +1,10 @@
 package com.example.zookeeperm.data;
 
-import org.apache.zookeeper.data.Stat;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /* *
  * @author nss
- * @description 节点数据
- * @date 22:49 2023/3/28
  **/
 public class NodeData {
 

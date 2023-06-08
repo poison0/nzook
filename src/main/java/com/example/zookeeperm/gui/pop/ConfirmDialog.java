@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @auth nss
+ * @author nss
  */
 public class ConfirmDialog extends DialogWrapper {
 

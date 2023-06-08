@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @auth nss
+ * @author nss
  */
 public abstract class AbstractDialog extends DialogWrapper {
 

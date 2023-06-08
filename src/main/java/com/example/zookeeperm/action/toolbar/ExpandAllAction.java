@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.TreePath;
 
+/**
+ * @author niu
+ */
 public class ExpandAllAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {

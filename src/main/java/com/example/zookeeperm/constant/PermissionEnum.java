@@ -1,6 +1,6 @@
 package com.example.zookeeperm.constant;
 /**
- * @auth nss
+ * @author nss
  */
 public enum PermissionEnum {
     READ("Read"),

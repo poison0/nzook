@@ -1,7 +1,7 @@
 package com.example.zookeeperm.data;
 
 /**
- * @auth nss
+ * @author nss
  */
 public class LoginDataDto {
     /*
