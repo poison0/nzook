@@ -1,8 +1,6 @@
 package com.example.zookeeperm.util;
 
-import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.gui.PathTree;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -11,7 +9,7 @@ import java.util.Enumeration;
 /**
  * @auth nss
  */
-public class ExpandUtil {
+public class ExpandUtils {
     /**
      * 展开或关闭tree视图
      */

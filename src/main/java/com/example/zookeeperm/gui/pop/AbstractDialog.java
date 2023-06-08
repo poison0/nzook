@@ -1,7 +1,5 @@
 package com.example.zookeeperm.gui.pop;
 
-import com.example.zookeeperm.constant.PermissionEnum;
-import com.intellij.application.options.codeStyle.arrangement.util.InsetsPanel;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.TitledSeparator;

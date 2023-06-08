@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class DeleteAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        Object selectedObject = OperationWindow.tree.getLastSelectedPathComponent();
+        Object selectedObject = OperationWindow.getTree().getLastSelectedPathComponent();
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedObject;
         NodeData userObject = (NodeData)selectedNode.getUserObject();
         ConfirmDialog dialog = new ConfirmDialog(anActionEvent.getProject(), Bundle.getString("action.DeleteAction.text"),Bundle.getString("confirmDialog.message.deleteNode")+" '"+userObject.getNodeValue()+"'",true);
@@ -29,8 +29,8 @@ public class DeleteAction extends AnAction {
     }
 
     private void deleteNode() {
-        DefaultTreeModel model = (DefaultTreeModel)OperationWindow.tree.getModel();
-        Object selectedObject = OperationWindow.tree.getLastSelectedPathComponent();
+        DefaultTreeModel model = (DefaultTreeModel)OperationWindow.getTree().getModel();
+        Object selectedObject = OperationWindow.getTree().getLastSelectedPathComponent();
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedObject;
         if (selectedNode != null) {
             if (selectedNode.isRoot ()) {

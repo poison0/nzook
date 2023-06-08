@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 public class ListCell extends ColoredListCellRenderer<ListItem> {
     @Override
     protected void customizeCellRenderer(@NotNull JList<? extends ListItem> list, ListItem value, int index, boolean selected, boolean hasFocus) {
-        if (value.getBlack()) {
+        if (Boolean.TRUE.equals(value.getBlack())) {
             return;
         }
         append(value.getKey()+":  ", SimpleTextAttributes.GRAYED_ATTRIBUTES,true);

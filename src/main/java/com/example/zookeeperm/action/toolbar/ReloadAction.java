@@ -2,7 +2,9 @@ package com.example.zookeeperm.action.toolbar;
 
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
+import com.example.zookeeperm.service.Login;
 import com.example.zookeeperm.util.Bundle;
+import com.example.zookeeperm.util.DataUtils;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +20,7 @@ public class ReloadAction extends AbstractAction{
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-
+        Login.load(e.getProject(), DataUtils.getCurrentLoginData());
     }
 
     @Override

@@ -2,12 +2,15 @@ package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.action.menu.*;
 import com.example.zookeeperm.constant.Constant;
-import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.renderer.TreeCell;
+import com.example.zookeeperm.message.Notifier;
+import com.example.zookeeperm.service.Login;
+import com.example.zookeeperm.util.DataUtils;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.MessageType;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
@@ -31,7 +34,7 @@ import static com.example.zookeeperm.data.LoginData.zooKeeper;
 import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 public class OperationWindow {
-    public static PathTree tree;
+    private static PathTree tree;
     public ToolWindow toolWindow;
 
     private JScrollPane leftPane;
@@ -44,7 +47,7 @@ public class OperationWindow {
 
     public void init(NodeData nodeData) {
         leftPane = new JBScrollPane();
-        tree = createTree(nodeData);
+        setTree(createTree(nodeData));
         leftPane.setViewportView(tree);
 //        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
         splitter = getSplitter(toolWindow);
@@ -73,6 +76,12 @@ public class OperationWindow {
         return onePixelSplitter;
     }
 
+    public static PathTree getTree() {
+        return tree;
+    }
+    public static void setTree(PathTree tree) {
+        OperationWindow.tree = tree;
+    }
 
     public static boolean splitVertically(Project project) {
         ToolWindowManager instance = ToolWindowManager.getInstance(project);
@@ -116,12 +125,11 @@ public class OperationWindow {
                 NodeData userObject = (NodeData)node.getUserObject();
                 try {
                     switchNode(userObject);
-                } catch (InterruptedException ex) {
-                    //todo
-                    throw new RuntimeException(ex);
                 } catch (KeeperException ex) {
-                    //todo
-                    throw new RuntimeException(ex);
+                    Notifier.notify(ex.getMessage(), MessageType.ERROR);
+                } catch (InterruptedException ex) {
+                    Notifier.notify(ex.getMessage(), MessageType.ERROR);
+                    Thread.currentThread().interrupt();
                 }
             }
         });
@@ -167,6 +175,9 @@ public class OperationWindow {
     public OperationWindow(@NotNull Project project,ToolWindow toolWindow) {
         OperationWindow.project = project;
         this.toolWindow = toolWindow;
+        if (DataUtils.isLogin()) {
+            Login.load(project, DataUtils.getCurrentLoginData());
+        }
     }
 
     public JPanel getContentPanel(JComponent parentPanel) {

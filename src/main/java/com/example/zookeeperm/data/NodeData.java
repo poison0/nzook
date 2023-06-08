@@ -23,7 +23,7 @@ public class NodeData {
     /**
      * 权限列表
      */
-    private List<Acl> ACLList;
+    private List<Acl> aclList;
     /**
      * 子节点列表
      */
@@ -44,12 +44,12 @@ public class NodeData {
     public NodeData() {
     }
 
-    public List<ListItem> getAclList(){
-        if(ACLList == null) {
+    public List<ListItem> getAclItemList(){
+        if(aclList == null) {
             return new ArrayList<>();
         }
         List<ListItem> listItems = new ArrayList<>();
-        for (Acl acl : ACLList) {
+        for (Acl acl : aclList) {
             listItems.addAll(acl.getViewData());
         }
         listItems.add(new ListItem());
@@ -88,12 +88,12 @@ public class NodeData {
         this.metaData = metaData;
     }
 
-    public List<Acl> getACLList() {
-        return ACLList;
+    public List<Acl> getAclList() {
+        return aclList;
     }
 
-    public void setACLList(List<Acl> ACLList) {
-        this.ACLList = ACLList;
+    public void setAclList(List<Acl> aclList) {
+        this.aclList = aclList;
     }
 
     public List<NodeData> getChildrenList() {

@@ -10,6 +10,9 @@ import com.intellij.openapi.ui.MessageType;
  * @author niu
  */
 public class Notifier {
+
+    private Notifier() {
+    }
     //通知弹框
     public static void notify(String content,MessageType type) {
         Project defaultProject = DefaultProjectFactory.getInstance().getDefaultProject();

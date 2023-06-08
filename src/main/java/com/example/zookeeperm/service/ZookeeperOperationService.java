@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * zookeeper操作
  * @author niu
- * @date 15:08 2023/3/26
  **/
 public class ZookeeperOperationService {
     /**
@@ -71,8 +69,8 @@ public class ZookeeperOperationService {
             nodeData.setNodeValue(nodeValue);
             return nodeData;
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
             Notifier.notify("创建节点出错："+e.getMessage(), MessageType.ERROR);
+            Thread.currentThread().interrupt();
         }
         return null;
     }
@@ -84,8 +82,8 @@ public class ZookeeperOperationService {
         try {
             zooKeeper.delete(path, -1);
         } catch (InterruptedException | KeeperException e) {
-            e.printStackTrace();
             Notifier.notify("删除节点出错：" + e.getMessage(), MessageType.ERROR);
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -98,7 +96,7 @@ public class ZookeeperOperationService {
         List<ACL> aclList = zooKeeper.getACL(nodeData.getPath(), stat);
 
         //设置控制权限
-        nodeData.setACLList(aclList.stream()
+        nodeData.setAclList(aclList.stream()
                 .map(acl->new NodeData.Acl(acl.getId().getId(),getAclPerms(acl.getPerms()),acl.getId().getScheme())).collect(Collectors.toList()));
     }
 

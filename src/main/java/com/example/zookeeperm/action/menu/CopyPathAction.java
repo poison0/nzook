@@ -4,7 +4,7 @@ import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
-import com.example.zookeeperm.util.DataUtil;
+import com.example.zookeeperm.util.DataUtils;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -16,11 +16,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CopyPathAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        Object selectedObject = OperationWindow.tree.getLastSelectedPathComponent();
+        Object selectedObject = OperationWindow.getTree().getLastSelectedPathComponent();
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedObject;
         NodeData userObject = (NodeData)selectedNode.getUserObject();
         String path = userObject.getNodeValue();
-        DataUtil.setClipboardString(path);
+        DataUtils.setClipboardString(path);
         Notifier.notify(Bundle.getString("notify.info.copyPathSuccess"), MessageType.INFO);
     }
     public CopyPathAction() {

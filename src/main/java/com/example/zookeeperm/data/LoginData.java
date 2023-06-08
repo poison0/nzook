@@ -18,7 +18,10 @@ public class LoginData {
      */
     public static ZooKeeper zooKeeper;
 
-    public static ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
+
+    public static LoginDataDto loginData;
+
+    public static final ZookeeperOperationService zookeeperOperationService = new ZookeeperOperationService();
 
     public static void setStatus(StatusEnum status) {
         LoginData.status = status;

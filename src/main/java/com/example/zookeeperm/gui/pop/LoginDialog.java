@@ -2,7 +2,7 @@ package com.example.zookeeperm.gui.pop;
 
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.util.Bundle;
-import com.example.zookeeperm.util.DataUtil;
+import com.example.zookeeperm.util.DataUtils;
 import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.text.StringUtil;
@@ -55,7 +55,7 @@ public class LoginDialog extends AbstractDialog {
         GridBagLayout gridBagLayout = new GridBagLayout();
         JPanel panel = new JPanel(gridBagLayout);
         panel.setBorder(JBUI.Borders.empty(0, 10));
-        LoginDataDto loginData = DataUtil.getCurrentLoginData();
+        LoginDataDto loginData = DataUtils.getCurrentLoginData();
         if (loginData.getPort() == null) {
             loginData.setPort("2181");
         }

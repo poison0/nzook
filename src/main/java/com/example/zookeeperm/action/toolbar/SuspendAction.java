@@ -7,6 +7,7 @@ import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.MessageType;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +24,8 @@ public class SuspendAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         try {
+            PropertiesComponent instance = PropertiesComponent.getInstance();
+            instance.setValue("zookeeper.m.login", "false");
             LoginData.zooKeeper.close();
             LoginData.setStatus(StatusEnum.NOT_CONNECT);
             ListWindowFactory.operationWindow.clearAll();

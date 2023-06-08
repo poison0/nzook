@@ -17,7 +17,7 @@ import static com.intellij.ui.components.JBTabbedPane.LABEL_FROM_TABBED_PANE;
  */
 public class JBTabbedPane extends JTabbedPane {
 
-    private final Insets myTabComponentInsets = UIUtil.PANEL_SMALL_INSETS;
+    private static final Insets myTabComponentInsets = UIUtil.PANEL_SMALL_INSETS;
     private final DataPane dataPane;
     private final ListViewPane metaPane;
     private final ListViewPane aclPane;
@@ -25,7 +25,7 @@ public class JBTabbedPane extends JTabbedPane {
     public JBTabbedPane(NodeData nodeData, Project project) {
         dataPane = new DataPane(project, nodeData.getData());
         metaPane = new ListViewPane(nodeData.getMetaData().getViewData());
-        aclPane = new ListViewPane(nodeData.getAclList());
+        aclPane = new ListViewPane(nodeData.getAclItemList());
         insertTab(Bundle.getString("table.header.nodeData"), null, dataPane, Bundle.getString("table.header.nodeData.description"),0);
         insertTab(Bundle.getString("table.header.statData"), null,metaPane , Bundle.getString("table.header.statData.description"),1);
         insertTab(Bundle.getString("table.header.acl"), null, aclPane, Bundle.getString("table.header.acl.description"), 2);
@@ -57,6 +57,6 @@ public class JBTabbedPane extends JTabbedPane {
     public void setNodeData(NodeData nodeData) {
         dataPane.setText(nodeData.getData());
         metaPane.setList(nodeData.getMetaData().getViewData());
-        aclPane.setList(nodeData.getAclList());
+        aclPane.setList(nodeData.getAclItemList());
     }
 }

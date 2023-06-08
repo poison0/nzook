@@ -35,44 +35,20 @@ public class ExecuteAction extends AbstractAction {
             //保存登录信息
             LoginDataDto loginData = loginDialog.getLoginData();
             LoginData.setStatus(StatusEnum.CONNECTING);
+            LoginData.loginData = loginData;
             if (Boolean.TRUE.equals(loginData.getSave())) {
                 //数据持久化
                 PropertiesComponent instance = PropertiesComponent.getInstance();
                 instance.setValue("zookeeper.m.ip", loginData.getIp());
                 instance.setValue("zookeeper.m.port", loginData.getPort());
+                //是否登录
+                instance.setValue("zookeeper.m.login", "true");
             }
-            load(project,loginData);
+            Login.load(project,loginData);
         }
     }
 
-    private void load(Project project,LoginDataDto loginData) {
-        ProgressManager.getInstance().run(new Task.Backgroundable(project,"Loading...") {
-            @Override
-            public void run(@NotNull ProgressIndicator progressIndicator) {
-                try {
-                    NodeData data = Login.login(loginData);
-                    SwingUtilities.invokeLater(() -> {
-                        // 你要更新GUI的代码
-                        ListWindowFactory.operationWindow.init(data);
-                        LoginData.setStatus(StatusEnum.CONNECTED);
-                    });
 
-                } catch (IOException | InterruptedException | KeeperException e) {
-                    if (e.getMessage().contains("ConnectionLoss for /")) {
-                        Notifier.notify("There is an error in host or port, connection failed!", MessageType.ERROR);
-                    } else {
-                        Notifier.notify(e.getMessage(), MessageType.ERROR);
-                    }
-                    LoginData.setStatus(StatusEnum.NOT_CONNECT);
-                    try {
-                        zooKeeper.close();
-                    } catch (InterruptedException ex) {
-                        Notifier.notify(e.getMessage(), MessageType.ERROR);
-                    }
-                }
-            }
-        });
-    }
 
     public ExecuteAction() {
         super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.Toolbar.AddSlot);

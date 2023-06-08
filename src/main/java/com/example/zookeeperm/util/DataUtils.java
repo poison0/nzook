@@ -11,7 +11,9 @@ import java.awt.datatransfer.Transferable;
 /**
  * @author nss
  */
-public class DataUtil {
+public class DataUtils {
+
+    private DataUtils() {}
     /**
      * 把文本设置到剪贴板（复制）
      */
@@ -23,6 +25,15 @@ public class DataUtil {
         // 把文本内容设置到系统剪贴板
         clipboard.setContents(trans, null);
     }
+
+    public static Boolean isLogin() {
+        PropertiesComponent instance = PropertiesComponent.getInstance();
+        String ip = instance.getValue("zookeeper.m.ip");
+        String port = instance.getValue("zookeeper.m.port");
+        String login = instance.getValue("zookeeper.m.login");
+        return ip != null && !ip.isEmpty() && port != null && !port.isEmpty() && login != null && !login.isEmpty() && !login.equals("false");
+    }
+
     public static LoginDataDto getCurrentLoginData() {
         PropertiesComponent instance = PropertiesComponent.getInstance();
         String ip = instance.getValue("zookeeper.m.ip");
