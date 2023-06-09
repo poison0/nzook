@@ -1,31 +1,21 @@
 package com.example.zookeeperm.action.toolbar;
 
-import com.example.zookeeperm.action.ListWindowFactory;
 import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
-import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.pop.LoginDialog;
-import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.service.Login;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.MessageType;
-import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.io.IOException;
-
-import static com.example.zookeeperm.data.LoginData.zooKeeper;
-
+/**
+ * @author niu
+ */
 public class ExecuteAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
