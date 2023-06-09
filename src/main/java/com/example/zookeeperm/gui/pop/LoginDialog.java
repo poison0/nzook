@@ -1,6 +1,7 @@
 package com.example.zookeeperm.gui.pop;
 
 import com.example.zookeeperm.constant.Constant;
+import com.example.zookeeperm.data.CheckBoxOptionDto;
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.util.Bundle;
 import com.example.zookeeperm.util.DataUtils;
@@ -63,7 +64,8 @@ public class LoginDialog extends AbstractDialog {
         hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
         portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByHost(portField);
-        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList("Remember"));
+
+        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
         saveCheckBox = remember.get(0);
         return createDefaultPanel(panel);
     }

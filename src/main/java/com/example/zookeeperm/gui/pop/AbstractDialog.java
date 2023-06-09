@@ -1,5 +1,6 @@
 package com.example.zookeeperm.gui.pop;
 
+import com.example.zookeeperm.data.CheckBoxOptionDto;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.TitledSeparator;
@@ -196,7 +197,7 @@ public abstract class AbstractDialog extends DialogWrapper {
     /**
      * 创建多选框
      */
-    protected List<JBCheckBox> createCheckBoxOption(JPanel panel, int gridy, String title, List<String> options) {
+    protected List<JBCheckBox> createCheckBoxOption(JPanel panel, int gridy, String title, List<CheckBoxOptionDto> options) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.NONE;
         c.gridy = gridy;
@@ -215,8 +216,9 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.weightx = 1;
         JPanel checkBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         List<JBCheckBox> checkBoxList = new ArrayList<>();
-        for (String value : options) {
-            JBCheckBox checkBox = new JBCheckBox(value);
+        for (CheckBoxOptionDto value : options) {
+            JBCheckBox checkBox = new JBCheckBox(value.getValue());
+            checkBox.setSelected(value.getCheck());
             checkBox.setBorder(JBUI.Borders.emptyRight(CHECK_INSET_RIGHT));
             checkBoxList.add(checkBox);
             checkBoxPanel.add(checkBox);

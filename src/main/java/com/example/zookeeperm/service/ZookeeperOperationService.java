@@ -1,5 +1,7 @@
 package com.example.zookeeperm.service;
 
+import com.example.zookeeperm.constant.Constant;
+import com.example.zookeeperm.constant.PermissionEnum;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
@@ -46,10 +48,10 @@ public class ZookeeperOperationService {
         ArrayList<NodeData> childrenNodeList = new ArrayList<>();
         for (String child : childrenList) {
             NodeData childNode = new NodeData();
-            if("/".equals(nodeData.getPath())) {
-                childNode.setPath("/" + child);
+            if(Constant.ROOT.equals(nodeData.getPath())) {
+                childNode.setPath(Constant.NODE_SPLIT + child);
             }else {
-                childNode.setPath(nodeData.getPath()+"/"+child);
+                childNode.setPath(nodeData.getPath()+Constant.NODE_SPLIT+child);
             }
             childNode.setNodeValue(child);
             childrenNodeList.add(childNode);
@@ -105,19 +107,19 @@ public class ZookeeperOperationService {
         List<String> result = new ArrayList<>();
         char[] charArray = binaryString.toCharArray();
         if (charArray[0] == '1') {
-            result.add("create");
+            result.add(PermissionEnum.CREATE.getName());
         }
         if(charArray.length > 1 && charArray[1] == '1') {
-            result.add("read");
+            result.add(PermissionEnum.READ.getName());
         }
         if(charArray.length > 2 && charArray[2] == '1') {
-            result.add("write");
+            result.add(PermissionEnum.WRITE.getName());
         }
         if(charArray.length > 3 && charArray[3] == '1') {
-            result.add("delete");
+            result.add(PermissionEnum.DELETE.getName());
         }
         if(charArray.length > 4 && charArray[4] == '1') {
-            result.add("admin");
+            result.add(PermissionEnum.ADMIN.getName());
         }
         return String.join(",",result);
     }

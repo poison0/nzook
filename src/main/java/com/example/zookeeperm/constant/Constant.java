@@ -10,6 +10,10 @@ public class Constant {
      */
     public static final String TOOL_WINDOW_ID = "zookeeper";
 
+    public static final String ROOT = "/";
+
+    public static final String NODE_SPLIT = "/";
+
     /**
      * 默认时间格式
      */
@@ -40,6 +44,13 @@ public class Constant {
     public static final String LOGIN_LOADING_TITLE = "Loading...";
 
     public static final String TIMER_KEY = "Loading...";
+
+    public static final String[] CREATE_MODE_OPTIONS = new String[]{
+            "PERSISTENT",
+            "PERSISTENT_SEQUENTIAL",
+            "EPHEMERAL",
+            "EPHEMERAL_SEQUENTIAL"
+    };
 
 
 }

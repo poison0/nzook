@@ -32,7 +32,7 @@ public class Login {
 
     private static NodeData login(LoginDataDto data) throws IOException, InterruptedException, KeeperException {
         zooKeeper = zookeeperOperationService.connect(data.getIp() + ":" + data.getPort(), data.getTimeout());
-        NodeData nodeData = new NodeData("/","/");
+        NodeData nodeData = new NodeData(Constant.ROOT,Constant.ROOT);
         zookeeperOperationService.getAllNode(nodeData,zooKeeper);
         zookeeperOperationService.setAcl(nodeData,zooKeeper);
         return nodeData;

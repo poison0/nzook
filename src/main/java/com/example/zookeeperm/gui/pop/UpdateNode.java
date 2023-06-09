@@ -1,10 +1,11 @@
 package com.example.zookeeperm.gui.pop;
 
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.PermissionEnum;
+import com.example.zookeeperm.data.CheckBoxOptionDto;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nullable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -56,17 +57,12 @@ public class UpdateNode extends AbstractDialog {
 
         JPanel advancedPanel = createCollapsibleTitledSeparator(panel, 4, Bundle.getString("updateNodeDialog.titledSeparator.advanced"));
 
-        createComboBoxOption(advancedPanel, 0, Bundle.getString("updateNodeDialog.label.createMode"), new String[]{
-                "PERSISTENT",
-                "PERSISTENT_SEQUENTIAL",
-                "EPHEMERAL",
-                "EPHEMERAL_SEQUENTIAL"
-        });
+        createComboBoxOption(advancedPanel, 0, Bundle.getString("updateNodeDialog.label.createMode"), Constant.CREATE_MODE_OPTIONS);
         createFieldOption(advancedPanel, 1, Bundle.getString("updateNodeDialog.label.scheme"));
         createFieldOption(advancedPanel, 2, Bundle.getString("updateNodeDialog.label.id"));
 
 
-        createCheckBoxOption(advancedPanel, 3, Bundle.getString("updateNodeDialog.label.permissions"), Arrays.stream(PermissionEnum.values()).map(PermissionEnum::getName).collect(Collectors.toList()));
+        createCheckBoxOption(advancedPanel, 3, Bundle.getString("updateNodeDialog.label.permissions"), Arrays.stream(PermissionEnum.values()).map(value->new CheckBoxOptionDto(value.getName())).collect(Collectors.toList()));
 
         return createDefaultPanel(panel);
     }
