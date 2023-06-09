@@ -1,8 +1,13 @@
 package com.example.zookeeperm.gui.pop;
 
 import com.example.zookeeperm.data.CheckBoxOptionDto;
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
+import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.ValidationInfo;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
@@ -10,8 +15,10 @@ import com.intellij.ui.components.fields.ExpandableTextField;
 import com.intellij.ui.dsl.builder.impl.CollapsibleTitledSeparator;
 import com.intellij.util.ui.JBUI;
 import kotlin.Unit;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +88,26 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.gridy = gridy + 1;
         panel.add(advancedPanel, c);
         return advancedPanel;
+    }
+
+    /**
+     * 空校验
+     */
+    protected ComponentValidator addValidatorEmptyByField(JTextField field,String message) {
+        ComponentValidator hostValidator = new ComponentValidator(getDisposable()).withValidator(() -> {
+            String pt = field.getText();
+            if (StringUtil.isEmpty(pt)) {
+                return new ValidationInfo(message, field);
+            }
+            return null;
+        }).installOn(field);
+        field.getDocument().addDocumentListener(new DocumentAdapter() {
+            @Override
+            protected void textChanged(@NotNull DocumentEvent e) {
+                ComponentValidator.getInstance(field).ifPresent(ComponentValidator::revalidate);
+            }
+        });
+        return hostValidator;
     }
 
     /**

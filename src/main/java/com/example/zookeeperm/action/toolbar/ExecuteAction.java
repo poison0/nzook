@@ -20,23 +20,7 @@ public class ExecuteAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         Project project = anActionEvent.getProject();
-        LoginDialog loginDialog = new LoginDialog(Bundle.getString("loginDialog.title"));
-        boolean ok = loginDialog.showAndGet();
-        if (ok) {
-            //保存登录信息
-            LoginDataDto loginData = loginDialog.getLoginData();
-            LoginData.setStatus(StatusEnum.CONNECTING);
-            LoginData.loginData = loginData;
-            if (Boolean.TRUE.equals(loginData.getSave())) {
-                //数据持久化
-                PropertiesComponent instance = PropertiesComponent.getInstance();
-                instance.setValue(Constant.PROPERTIES_COMPONENT_IP, loginData.getIp());
-                instance.setValue(Constant.PROPERTIES_COMPONENT_PORT, loginData.getPort());
-                //是否登录
-                instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "true");
-            }
-            Login.load(project,loginData);
-        }
+        Login.popupLoginDialog(project);
     }
 
 

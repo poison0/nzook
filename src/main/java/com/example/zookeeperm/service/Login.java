@@ -6,8 +6,10 @@ import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.gui.pop.LoginDialog;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
+import com.example.zookeeperm.util.DataUtils;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
@@ -29,6 +31,34 @@ import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
  **/
 public class Login {
     private Login() {}
+
+    public static void popupLoginDialog(Project project) {
+        if(LoginData.getStatus() != StatusEnum.NOT_CONNECT){
+            return;
+        }
+        LoginDialog loginDialog = new LoginDialog(Bundle.getString("loginDialog.title"));
+        boolean ok = loginDialog.showAndGet();
+        if (ok) {
+            //保存登录信息
+            LoginDataDto loginData = loginDialog.getLoginData();
+            LoginData.setStatus(StatusEnum.CONNECTING);
+            LoginData.loginData = loginData;
+            if (Boolean.TRUE.equals(loginData.getSave())) {
+                //数据持久化
+                PropertiesComponent instance = PropertiesComponent.getInstance();
+                instance.setValue(Constant.PROPERTIES_COMPONENT_IP, loginData.getIp());
+                instance.setValue(Constant.PROPERTIES_COMPONENT_PORT, loginData.getPort());
+                //是否登录
+                instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, true);
+            }else {
+                PropertiesComponent instance = PropertiesComponent.getInstance();
+                instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
+                instance.unsetValue(Constant.PROPERTIES_COMPONENT_IP);
+                instance.unsetValue(Constant.PROPERTIES_COMPONENT_PORT);
+            }
+            Login.load(project,loginData);
+        }
+    }
 
     private static NodeData login(LoginDataDto data) throws IOException, InterruptedException, KeeperException {
         zooKeeper = zookeeperOperationService.connect(data.getIp() + ":" + data.getPort(), data.getTimeout());
@@ -60,15 +90,20 @@ public class Login {
                     } else {
                         Notifier.notify(e.getMessage(), MessageType.ERROR);
                     }
+                    DataUtils.removeLoginData();
                     LoginData.setStatus(StatusEnum.NOT_CONNECT);
                     try {
                         PropertiesComponent instance = PropertiesComponent.getInstance();
-                        instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "false");
+                        instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
                         zooKeeper.close();
                     } catch (InterruptedException ex) {
                         Notifier.notify(e.getMessage(), MessageType.ERROR);
                         Thread.currentThread().interrupt();
                     }
+                } catch (Exception e) {
+                    Notifier.notify(e.getMessage(), MessageType.ERROR);
+                    LoginData.setStatus(StatusEnum.NOT_CONNECT);
+                    DataUtils.removeLoginData();
                 }
             }
         });

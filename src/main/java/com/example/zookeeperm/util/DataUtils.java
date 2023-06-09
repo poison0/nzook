@@ -33,8 +33,14 @@ public class DataUtils {
         PropertiesComponent instance = PropertiesComponent.getInstance();
         String ip = instance.getValue(Constant.PROPERTIES_COMPONENT_IP);
         String port = instance.getValue(Constant.PROPERTIES_COMPONENT_PORT);
-        String login = instance.getValue(Constant.PROPERTIES_COMPONENT_LOGIN);
-        return ip != null && !ip.isEmpty() && port != null && !port.isEmpty() && login != null && !login.isEmpty() && !"false".equals(login);
+        boolean login = instance.getBoolean(Constant.PROPERTIES_COMPONENT_LOGIN);
+        return ip != null && !ip.isEmpty() && port != null && !port.isEmpty() && login;
+    }
+    public static void removeLoginData() {
+        PropertiesComponent instance = PropertiesComponent.getInstance();
+        instance.unsetValue(Constant.PROPERTIES_COMPONENT_IP);
+        instance.unsetValue(Constant.PROPERTIES_COMPONENT_PORT);
+        instance.unsetValue(Constant.PROPERTIES_COMPONENT_LOGIN);
     }
 
     public static LoginDataDto getCurrentLoginData() {

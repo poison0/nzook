@@ -26,12 +26,14 @@ public class SuspendAction extends AbstractAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         try {
             PropertiesComponent instance = PropertiesComponent.getInstance();
-            instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "false");
+            instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
             LoginData.zooKeeper.close();
             LoginData.setStatus(StatusEnum.NOT_CONNECT);
             ListWindowFactory.operationWindow.clearAll();
+            ListWindowFactory.operationWindow.setDefaultPanel();
         } catch (InterruptedException ex) {
             Notifier.notify(ex.getMessage(), MessageType.ERROR);
+            Thread.currentThread().interrupt();
         }
     }
 

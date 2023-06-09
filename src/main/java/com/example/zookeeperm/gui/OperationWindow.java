@@ -6,6 +6,7 @@ import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.renderer.TreeCell;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.service.Login;
+import com.example.zookeeperm.util.Bundle;
 import com.example.zookeeperm.util.DataUtils;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
@@ -174,7 +175,8 @@ public class OperationWindow {
     public OperationWindow(@NotNull Project project,ToolWindow toolWindow) {
         OperationWindow.project = project;
         this.toolWindow = toolWindow;
-        if (DataUtils.isLogin()) {
+        setDefaultPanel();
+        if (Boolean.TRUE.equals(DataUtils.isLogin())) {
             Login.load(project, DataUtils.getCurrentLoginData());
         }
     }
@@ -183,6 +185,12 @@ public class OperationWindow {
         this.parentPanel = parentPanel;
         return mainPanel;
     }
+    public void setDefaultPanel() {
+        EmptyTextPanel emptyText = new EmptyTextPanel();
+        emptyText.withEmptyText(Bundle.getString("panel.empty.description")+" ",Bundle.getString("panel.empty.link"), e -> Login.popupLoginDialog(project));
+        mainPanel.add(emptyText, BorderLayout.CENTER);
+    }
+
     public void clearAll() {
         mainPanel.removeAll();
         mainPanel.revalidate();

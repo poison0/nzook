@@ -33,6 +33,10 @@ public class LoginDialog extends AbstractDialog {
      */
     private static final Integer HEIGHT = 90;
 
+    private ComponentValidator hostValidator;
+
+    private ComponentValidator portValidator;
+
     JTextField hostField;
     JTextField portField;
     JBCheckBox saveCheckBox;
@@ -63,7 +67,8 @@ public class LoginDialog extends AbstractDialog {
         }
         hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
         portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
-        addValidatorByHost(portField);
+        addValidatorByPort(portField);
+        addValidatorByHost(hostField);
 
         List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
         saveCheckBox = remember.get(0);
@@ -79,28 +84,48 @@ public class LoginDialog extends AbstractDialog {
         return loginData;
     }
 
+    @Override
+    protected @Nullable ValidationInfo doValidate() {
+        if (StringUtil.isEmpty(hostField.getText())) {
+            return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.host.empty"), hostField);
+        }
+        if (StringUtil.isEmpty(portField.getText())) {
+            return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port.empty"), portField);
+        }
+        if(hostValidator != null && hostValidator.getValidationInfo() != null){
+            return hostValidator.getValidationInfo();
+        }
+        if(portValidator != null && portValidator.getValidationInfo() != null){
+            return portValidator.getValidationInfo();
+        }
+        return null;
+    }
+
     private void addValidatorByHost(JTextField host) {
-        new ComponentValidator(getDisposable()).withValidator(() -> {
-            String pt = host.getText();
+        hostValidator = addValidatorEmptyByField(host, Bundle.getString("validationInfo.loginDialog.host.empty"));
+    }
+    private void addValidatorByPort(JTextField port) {
+        portValidator = new ComponentValidator(getDisposable()).withValidator(() -> {
+            String pt = port.getText();
             if (StringUtil.isNotEmpty(pt)) {
                 try {
                     int portValue = Integer.parseInt(pt);
                     if (portValue >= 0 && portValue <= 65535) {
                         return null;
                     } else {
-                       return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), host);
+                        return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), port);
                     }
                 } catch (NumberFormatException nfe) {
-                    return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), host);
+                    return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), port);
                 }
             } else {
-                return null;
+                return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port.empty"), port);
             }
-        }).installOn(host);
-        host.getDocument().addDocumentListener(new DocumentAdapter() {
+        }).installOn(port);
+        port.getDocument().addDocumentListener(new DocumentAdapter() {
             @Override
             protected void textChanged(@NotNull DocumentEvent e) {
-                ComponentValidator.getInstance(host).ifPresent(ComponentValidator::revalidate);
+                ComponentValidator.getInstance(port).ifPresent(ComponentValidator::revalidate);
             }
         });
 
