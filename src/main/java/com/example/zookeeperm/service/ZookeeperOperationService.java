@@ -2,6 +2,7 @@ package com.example.zookeeperm.service;
 
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.message.Notifier;
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.ui.MessageType;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
@@ -25,8 +26,7 @@ public class ZookeeperOperationService {
         try {
             return new ZooKeeper(connectString, timeOut, null);
         } catch (IOException e) {
-            e.printStackTrace();
-            Notifier.notify("zookeeper链接出错："+e.getMessage(), MessageType.ERROR);
+            Notifier.notify(Bundle.getString("notify.error.connection.io") +e.getMessage(), MessageType.ERROR);
             throw e;
         }
     }
@@ -69,7 +69,7 @@ public class ZookeeperOperationService {
             nodeData.setNodeValue(nodeValue);
             return nodeData;
         } catch (KeeperException | InterruptedException e) {
-            Notifier.notify("创建节点出错："+e.getMessage(), MessageType.ERROR);
+            Notifier.notify(Bundle.getString("notify.error.connection.create")+e.getMessage(), MessageType.ERROR);
             Thread.currentThread().interrupt();
         }
         return null;
@@ -82,7 +82,7 @@ public class ZookeeperOperationService {
         try {
             zooKeeper.delete(path, -1);
         } catch (InterruptedException | KeeperException e) {
-            Notifier.notify("删除节点出错：" + e.getMessage(), MessageType.ERROR);
+            Notifier.notify(Bundle.getString("notify.error.connection.delete") + e.getMessage(), MessageType.ERROR);
             Thread.currentThread().interrupt();
         }
     }

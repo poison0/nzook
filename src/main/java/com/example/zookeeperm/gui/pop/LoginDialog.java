@@ -1,5 +1,6 @@
 package com.example.zookeeperm.gui.pop;
 
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.util.Bundle;
 import com.example.zookeeperm.util.DataUtils;
@@ -57,7 +58,7 @@ public class LoginDialog extends AbstractDialog {
         panel.setBorder(JBUI.Borders.empty(0, 10));
         LoginDataDto loginData = DataUtils.getCurrentLoginData();
         if (loginData.getPort() == null) {
-            loginData.setPort("2181");
+            loginData.setPort(Constant.DEFAULT_PORT);
         }
         hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
         portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
@@ -72,7 +73,7 @@ public class LoginDialog extends AbstractDialog {
         loginData.setIp(hostField.getText());
         loginData.setPort(portField.getText());
         loginData.setSave(saveCheckBox.isSelected());
-        loginData.setTimeout(10000);
+        loginData.setTimeout(Constant.DEFAULT_TIMEOUT);
         return loginData;
     }
 
@@ -85,10 +86,10 @@ public class LoginDialog extends AbstractDialog {
                     if (portValue >= 0 && portValue <= 65535) {
                         return null;
                     } else {
-                       return new ValidationInfo("The port number should be between 0 and 65535", host);
+                       return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), host);
                     }
                 } catch (NumberFormatException nfe) {
-                    return new ValidationInfo("The port number should be between 0 and 65535", host);
+                    return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port"), host);
                 }
             } else {
                 return null;

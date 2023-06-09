@@ -1,6 +1,7 @@
 package com.example.zookeeperm.action.toolbar;
 
 import com.example.zookeeperm.action.ListWindowFactory;
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
@@ -39,10 +40,10 @@ public class ExecuteAction extends AbstractAction {
             if (Boolean.TRUE.equals(loginData.getSave())) {
                 //数据持久化
                 PropertiesComponent instance = PropertiesComponent.getInstance();
-                instance.setValue("zookeeper.m.ip", loginData.getIp());
-                instance.setValue("zookeeper.m.port", loginData.getPort());
+                instance.setValue(Constant.PROPERTIES_COMPONENT_IP, loginData.getIp());
+                instance.setValue(Constant.PROPERTIES_COMPONENT_PORT, loginData.getPort());
                 //是否登录
-                instance.setValue("zookeeper.m.login", "true");
+                instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "true");
             }
             Login.load(project,loginData);
         }

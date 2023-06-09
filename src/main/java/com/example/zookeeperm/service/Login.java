@@ -1,11 +1,13 @@
 package com.example.zookeeperm.service;
 
 import com.example.zookeeperm.action.ListWindowFactory;
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.message.Notifier;
+import com.example.zookeeperm.util.Bundle;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
@@ -18,10 +20,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.io.IOException;
 
+import static com.example.zookeeperm.constant.Constant.LOGIN_LOADING_TITLE;
 import static com.example.zookeeperm.data.LoginData.zooKeeper;
 import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
-/* *
+/**
  * @author nss
  **/
 public class Login {
@@ -38,7 +41,7 @@ public class Login {
      * 加载数据，渲染GUI
      **/
     public static void load(Project project, LoginDataDto loginData) {
-        ProgressManager.getInstance().run(new Task.Backgroundable(project,"Loading...") {
+        ProgressManager.getInstance().run(new Task.Backgroundable(project,LOGIN_LOADING_TITLE) {
             @Override
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 try {
@@ -53,14 +56,14 @@ public class Login {
 
                 } catch (IOException | InterruptedException | KeeperException e) {
                     if (e.getMessage().contains("ConnectionLoss for /")) {
-                        Notifier.notify("There is an error in host or port, connection failed!", MessageType.ERROR);
+                        Notifier.notify(Bundle.getString("notify.error.connection.parameters"), MessageType.ERROR);
                     } else {
                         Notifier.notify(e.getMessage(), MessageType.ERROR);
                     }
                     LoginData.setStatus(StatusEnum.NOT_CONNECT);
                     try {
                         PropertiesComponent instance = PropertiesComponent.getInstance();
-                        instance.setValue("zookeeper.m.login", "false");
+                        instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "false");
                         zooKeeper.close();
                     } catch (InterruptedException ex) {
                         Notifier.notify(e.getMessage(), MessageType.ERROR);

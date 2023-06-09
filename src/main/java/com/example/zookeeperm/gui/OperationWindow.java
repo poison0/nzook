@@ -37,7 +37,6 @@ public class OperationWindow {
     private static PathTree tree;
     public ToolWindow toolWindow;
 
-    private JScrollPane leftPane;
     private static Project project;
     public JPanel mainPanel = new JPanel(new BorderLayout());
     private JBSplitter splitter;
@@ -46,7 +45,7 @@ public class OperationWindow {
     private JBTabbedPane detailsTab;
 
     public void init(NodeData nodeData) {
-        leftPane = new JBScrollPane();
+        JScrollPane leftPane = new JBScrollPane();
         setTree(createTree(nodeData));
         leftPane.setViewportView(tree);
 //        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));

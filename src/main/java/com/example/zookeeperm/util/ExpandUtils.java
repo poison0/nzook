@@ -7,7 +7,7 @@ import javax.swing.tree.TreePath;
 import java.util.Enumeration;
 
 /**
- * @auth nss
+ * @author niu
  */
 public class ExpandUtils {
     /**

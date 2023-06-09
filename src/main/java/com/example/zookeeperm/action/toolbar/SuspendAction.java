@@ -1,6 +1,7 @@
 package com.example.zookeeperm.action.toolbar;
 
 import com.example.zookeeperm.action.ListWindowFactory;
+import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.gui.OperationWindow;
@@ -25,7 +26,7 @@ public class SuspendAction extends AbstractAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         try {
             PropertiesComponent instance = PropertiesComponent.getInstance();
-            instance.setValue("zookeeper.m.login", "false");
+            instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, "false");
             LoginData.zooKeeper.close();
             LoginData.setStatus(StatusEnum.NOT_CONNECT);
             ListWindowFactory.operationWindow.clearAll();
