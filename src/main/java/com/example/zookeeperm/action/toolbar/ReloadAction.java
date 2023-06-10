@@ -20,6 +20,7 @@ public class ReloadAction extends AbstractAction{
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        Login.close();
         Login.load(e.getProject(), DataUtils.getCurrentLoginData());
     }
 

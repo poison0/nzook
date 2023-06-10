@@ -4,7 +4,6 @@ import com.example.zookeeperm.action.ListWindowFactory;
 import com.example.zookeeperm.constant.Constant;
 import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
-import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
 import com.intellij.icons.AllIcons;

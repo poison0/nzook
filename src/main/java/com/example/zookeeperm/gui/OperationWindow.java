@@ -10,6 +10,7 @@ import com.example.zookeeperm.util.Bundle;
 import com.example.zookeeperm.util.DataUtils;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MessageType;
 import com.intellij.openapi.util.Disposer;
@@ -36,25 +37,25 @@ import static com.example.zookeeperm.data.LoginData.zookeeperOperationService;
 
 public class OperationWindow {
     private static PathTree tree;
-    public ToolWindow toolWindow;
+    private final ToolWindow toolWindow;
 
     private static Project project;
-    public JPanel mainPanel = new JPanel(new BorderLayout());
+    private final JPanel mainPanel = new JPanel(new BorderLayout());
     private JBSplitter splitter;
     private JComponent parentPanel;
 
-    private JBTabbedPane detailsTab;
+    private MyJBTabbedPane detailsTab;
 
     public void init(NodeData nodeData) {
         JScrollPane leftPane = new JBScrollPane();
         setTree(createTree(nodeData));
         leftPane.setViewportView(tree);
-//        leftPane.setColumnHeaderView(new JLabel(LoginData.ip + ":" + LoginData.port));
+        leftPane.setColumnHeaderView(new JLabel(DataUtils.getCurrentLoginData().getIp()+" "+DataUtils.getCurrentLoginData().getPort()));
         splitter = getSplitter(toolWindow);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
         splitter.setFirstComponent(leftPane);
-        detailsTab = new JBTabbedPane(nodeData, project);
+        detailsTab = new MyJBTabbedPane(nodeData, project);
         splitter.setSecondComponent(detailsTab);
         mainPanel.add(splitter, BorderLayout.CENTER);
     }

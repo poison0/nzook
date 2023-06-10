@@ -1,5 +1,8 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.action.toolbar.AbstractAction;
+import com.example.zookeeperm.constant.StatusEnum;
+import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.gui.pop.ConfirmDialog;
@@ -14,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-public class DeleteAction extends AnAction {
+public class DeleteAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         Object selectedObject = OperationWindow.getTree().getLastSelectedPathComponent();
@@ -44,5 +47,10 @@ public class DeleteAction extends AnAction {
 
     public DeleteAction() {
         super(Bundle.getString("action.DeleteAction.text"), Bundle.getString("action.DeleteAction.description"), AllIcons.General.Remove);
+    }
+
+    @Override
+    protected boolean isEnabled(AnActionEvent e) {
+        return LoginData.getStatus() == StatusEnum.CONNECTED;
     }
 }

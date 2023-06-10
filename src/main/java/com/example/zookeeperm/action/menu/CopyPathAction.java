@@ -1,5 +1,8 @@
 package com.example.zookeeperm.action.menu;
 
+import com.example.zookeeperm.action.toolbar.AbstractAction;
+import com.example.zookeeperm.constant.StatusEnum;
+import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.gui.OperationWindow;
 import com.example.zookeeperm.message.Notifier;
@@ -13,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class CopyPathAction extends AnAction {
+public class CopyPathAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         Object selectedObject = OperationWindow.getTree().getLastSelectedPathComponent();
@@ -25,5 +28,9 @@ public class CopyPathAction extends AnAction {
     }
     public CopyPathAction() {
         super(Bundle.getString("action.CopyPathAction.text"), Bundle.getString("action.CopyPathAction.description"), AllIcons.Actions.Copy);
+    }
+    @Override
+    protected boolean isEnabled(AnActionEvent e) {
+        return LoginData.getStatus() == StatusEnum.CONNECTED;
     }
 }

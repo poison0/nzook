@@ -2,6 +2,7 @@ package com.example.zookeeperm.gui;
 
 import com.example.zookeeperm.data.NodeData;
 import com.example.zookeeperm.util.Bundle;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
@@ -15,14 +16,13 @@ import static com.intellij.ui.components.JBTabbedPane.LABEL_FROM_TABBED_PANE;
 /**
  * @author niu
  */
-public class JBTabbedPane extends JTabbedPane {
+public class MyJBTabbedPane extends JTabbedPane {
 
-    private static final Insets myTabComponentInsets = UIUtil.PANEL_SMALL_INSETS;
     private final DataPane dataPane;
     private final ListViewPane metaPane;
     private final ListViewPane aclPane;
 
-    public JBTabbedPane(NodeData nodeData, Project project) {
+    public MyJBTabbedPane(NodeData nodeData, Project project) {
         dataPane = new DataPane(project, nodeData.getData());
         metaPane = new ListViewPane(nodeData.getMetaData().getViewData());
         aclPane = new ListViewPane(nodeData.getAclItemList());
@@ -39,7 +39,7 @@ public class JBTabbedPane extends JTabbedPane {
         //set custom label for correct work spotlighting in settings
         JLabel label = new JLabel(title);
         label.setIcon(icon);
-        label.setBorder(JBUI.Borders.empty(1));
+        label.setBorder(JBUI.Borders.empty());
         label.setFont(getFont());
         setTabComponentAt(index, label);
         label.putClientProperty(LABEL_FROM_TABBED_PANE, Boolean.TRUE);
@@ -49,8 +49,8 @@ public class JBTabbedPane extends JTabbedPane {
     }
 
     private void setInsets(Component component) {
-        if (component instanceof JComponent && myTabComponentInsets != null) {
-            UIUtil.addInsets((JComponent)component, myTabComponentInsets);
+        if (component instanceof JComponent) {
+            UIUtil.addInsets((JComponent)component, JBUI.emptyInsets());
         }
     }
 

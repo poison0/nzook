@@ -92,14 +92,9 @@ public class Login {
                     }
                     DataUtils.removeLoginData();
                     LoginData.setStatus(StatusEnum.NOT_CONNECT);
-                    try {
-                        PropertiesComponent instance = PropertiesComponent.getInstance();
-                        instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
-                        zooKeeper.close();
-                    } catch (InterruptedException ex) {
-                        Notifier.notify(e.getMessage(), MessageType.ERROR);
-                        Thread.currentThread().interrupt();
-                    }
+                    PropertiesComponent instance = PropertiesComponent.getInstance();
+                    instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
+                    close();
                 } catch (Exception e) {
                     Notifier.notify(e.getMessage(), MessageType.ERROR);
                     LoginData.setStatus(StatusEnum.NOT_CONNECT);
@@ -107,5 +102,13 @@ public class Login {
                 }
             }
         });
+    }
+    public static void close() {
+        try {
+            zooKeeper.close();
+        } catch (InterruptedException e) {
+            Notifier.notify(e.getMessage(), MessageType.ERROR);
+            Thread.currentThread().interrupt();
+        }
     }
 }
