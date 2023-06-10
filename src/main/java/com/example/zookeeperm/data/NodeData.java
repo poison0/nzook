@@ -13,7 +13,9 @@ public class NodeData {
      * 数据
      */
     private String data;
-
+    /**
+     * 节点名
+     */
     private String nodeValue;
     /**
      * 元数据

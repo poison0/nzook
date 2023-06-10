@@ -19,7 +19,7 @@ public class UpdateNode extends AbstractDialog {
     /**
      * 对话框大小
      */
-    private static final Integer WIDTH = 450;
+    private static final Integer WIDTH = 500;
     /**
      * 对话框大小
      */
@@ -58,10 +58,9 @@ public class UpdateNode extends AbstractDialog {
         JPanel advancedPanel = createCollapsibleTitledSeparator(panel, 4, Bundle.getString("updateNodeDialog.titledSeparator.advanced"));
 
         createComboBoxOption(advancedPanel, 0, Bundle.getString("updateNodeDialog.label.createMode"), Constant.CREATE_MODE_OPTIONS);
-        createFieldOption(advancedPanel, 1, Bundle.getString("updateNodeDialog.label.scheme"));
+        createFieldOption(advancedPanel, 0,0,1, Bundle.getString("updateNodeDialog.label.ttl"),"",false);
+        createComboBoxOption(advancedPanel, 1, Bundle.getString("updateNodeDialog.label.scheme"), Constant.SCHEME_OPTIONS);
         createFieldOption(advancedPanel, 2, Bundle.getString("updateNodeDialog.label.id"));
-
-
         createCheckBoxOption(advancedPanel, 3, Bundle.getString("updateNodeDialog.label.permissions"), Arrays.stream(PermissionEnum.values()).map(value->new CheckBoxOptionDto(value.getName())).collect(Collectors.toList()));
 
         return createDefaultPanel(panel);

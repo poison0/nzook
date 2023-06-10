@@ -1,5 +1,7 @@
 package com.example.zookeeperm.constant;
 
+import org.apache.zookeeper.CreateMode;
+
 /**
  * @author nss
  */
@@ -46,11 +48,17 @@ public class Constant {
     public static final String TIMER_KEY = "Loading...";
 
     public static final String[] CREATE_MODE_OPTIONS = new String[]{
-            "PERSISTENT",
-            "PERSISTENT_SEQUENTIAL",
-            "EPHEMERAL",
-            "EPHEMERAL_SEQUENTIAL"
+            CreateMode.PERSISTENT.name(),
+            CreateMode.PERSISTENT_SEQUENTIAL.name(),
+            CreateMode.EPHEMERAL.name(),
+            CreateMode.EPHEMERAL_SEQUENTIAL.name(),
+            CreateMode.CONTAINER.name(),
+            CreateMode.PERSISTENT_WITH_TTL.name(),
+            CreateMode.PERSISTENT_SEQUENTIAL_WITH_TTL.name()
     };
-
-
+    public static final String[] SCHEME_OPTIONS = new String[]{
+            "world",
+            "digest",
+            "ip"
+    };
 }

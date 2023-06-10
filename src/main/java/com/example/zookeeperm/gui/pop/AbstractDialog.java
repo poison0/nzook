@@ -35,7 +35,7 @@ public abstract class AbstractDialog extends DialogWrapper {
     /**
      * 标签和输入框的间距
      */
-    private static final Integer INSET_LEFT = 15;
+    private static final Integer INSET_LEFT = 10;
     /**
      * 多选框之间的间距
      */
@@ -152,22 +152,36 @@ public abstract class AbstractDialog extends DialogWrapper {
      * 创建基本输入选项
      */
     protected JTextField createFieldOption(JPanel panel, int gridy, String title,String defaultValue) {
+        return createFieldOption(panel,gridy,0,1,title,defaultValue);
+    }
+    /**
+     * 创建基本输入选项
+     */
+    protected JTextField createFieldOption(JPanel panel, int gridy,int firstWeightx,int secondWeightx, String title,String defaultValue) {
+        return createFieldOption(panel,gridy,firstWeightx,secondWeightx,title,defaultValue,true);
+    }
+    /**
+     * 创建基本输入选项
+     */
+    protected JTextField createFieldOption(JPanel panel, int gridy,int firstWeightx,int secondWeightx, String title,String defaultValue,boolean isEnable) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.NONE;
         c.gridy = gridy;
-        c.weightx = 0;
+        c.weightx = firstWeightx;
         c.insets = JBUI.insetsLeft(BORDER_LEFT);
         c.anchor = GridBagConstraints.WEST;
         JBLabel label = new JBLabel(title+"：");
         panel.add(label, c);
         c.insets = JBUI.insetsLeft(getInsetLeft());
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
+        c.weightx = secondWeightx;
         JTextField textField = new JTextField();
         textField.setText(defaultValue);
+        textField.setEnabled(isEnable);
         panel.add(textField, c);
         return textField;
     }
+
     /**
      * 创建基本输入选项
      */
@@ -241,6 +255,7 @@ public abstract class AbstractDialog extends DialogWrapper {
         c.insets = JBUI.insetsLeft(getInsetLeft());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         JPanel checkBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         List<JBCheckBox> checkBoxList = new ArrayList<>();
         for (CheckBoxOptionDto value : options) {

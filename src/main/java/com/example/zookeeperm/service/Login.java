@@ -6,6 +6,7 @@ import com.example.zookeeperm.constant.StatusEnum;
 import com.example.zookeeperm.data.LoginData;
 import com.example.zookeeperm.data.LoginDataDto;
 import com.example.zookeeperm.data.NodeData;
+import com.example.zookeeperm.function.ProgressConsumer;
 import com.example.zookeeperm.gui.pop.LoginDialog;
 import com.example.zookeeperm.message.Notifier;
 import com.example.zookeeperm.util.Bundle;
@@ -21,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static com.example.zookeeperm.constant.Constant.LOGIN_LOADING_TITLE;
 import static com.example.zookeeperm.data.LoginData.zooKeeper;
@@ -41,7 +44,6 @@ public class Login {
         if (ok) {
             //保存登录信息
             LoginDataDto loginData = loginDialog.getLoginData();
-            LoginData.setStatus(StatusEnum.CONNECTING);
             LoginData.loginData = loginData;
             if (Boolean.TRUE.equals(loginData.getSave())) {
                 //数据持久化
@@ -71,21 +73,29 @@ public class Login {
      * 加载数据，渲染GUI
      **/
     public static void load(Project project, LoginDataDto loginData) {
-        ProgressManager.getInstance().run(new Task.Backgroundable(project,LOGIN_LOADING_TITLE) {
+        addProgress(project,progressIndicator->{
+                LoginData.setStatus(StatusEnum.CONNECTING);
+                NodeData data = login(loginData);
+                SwingUtilities.invokeLater(() -> {
+                    ListWindowFactory.operationWindow.clearAll();
+                    // 更新GUI
+                    ListWindowFactory.operationWindow.init(data);
+                    LoginData.setStatus(StatusEnum.CONNECTED);
+                });
+        });
+    }
+
+    public static void addProgress(Project project, ProgressConsumer<ProgressIndicator> consumer) {
+
+        ProgressManager.getInstance().run(new Task.Backgroundable(project, LOGIN_LOADING_TITLE) {
             @Override
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 try {
                     LoginData.setStatus(StatusEnum.CONNECTING);
-                    NodeData data = login(loginData);
-                    SwingUtilities.invokeLater(() -> {
-                        ListWindowFactory.operationWindow.clearAll();
-                        // 更新GUI
-                        ListWindowFactory.operationWindow.init(data);
-                        LoginData.setStatus(StatusEnum.CONNECTED);
-                    });
-
+                    consumer.accept(progressIndicator);
+                    LoginData.setStatus(StatusEnum.CONNECTED);
                 } catch (IOException | InterruptedException | KeeperException e) {
-                    if (e.getMessage().contains("ConnectionLoss for /")) {
+                    if (e.getMessage().contains("ConnectionLoss")) {
                         Notifier.notify(Bundle.getString("notify.error.connection.parameters"), MessageType.ERROR);
                     } else {
                         Notifier.notify(e.getMessage(), MessageType.ERROR);
@@ -103,6 +113,7 @@ public class Login {
             }
         });
     }
+
     public static void close() {
         try {
             zooKeeper.close();

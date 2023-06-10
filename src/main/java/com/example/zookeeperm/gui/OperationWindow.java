@@ -161,7 +161,7 @@ public class OperationWindow {
         PopupHandler.installPopupMenu(tree, group, ActionPlaces.TODO_VIEW_POPUP);
     }
 
-    private DefaultMutableTreeNode getTreeNode(NodeData nodeData) {
+    public static DefaultMutableTreeNode getTreeNode(NodeData nodeData) {
         DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(nodeData);
         if (nodeData.getChildrenList() == null || nodeData.getChildrenList().isEmpty()) {
             return defaultMutableTreeNode;

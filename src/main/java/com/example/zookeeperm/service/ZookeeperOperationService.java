@@ -8,6 +8,7 @@ import com.example.zookeeperm.util.Bundle;
 import com.intellij.openapi.ui.MessageType;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
@@ -63,9 +64,10 @@ public class ZookeeperOperationService {
     /**
      * 创建节点
      */
-    public NodeData addNode(ZooKeeper zooKeeper,String path,String nodeValue,List<ACL> acl,CreateMode createMode){
+    public NodeData addNode(ZooKeeper zooKeeper,String path,String nodeValue,List<ACL> acl,CreateMode createMode,Long ttl){
         try {
-            zooKeeper.create(path, nodeValue.getBytes(), acl, createMode);
+            Stat stat = new Stat();
+            zooKeeper.create(path, nodeValue.getBytes(), acl, createMode, stat,ttl);
             NodeData nodeData = new NodeData();
             nodeData.setPath(path);
             nodeData.setNodeValue(nodeValue);
