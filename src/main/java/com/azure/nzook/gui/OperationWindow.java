@@ -9,6 +9,7 @@ import com.azure.nzook.message.Notifier;
 import com.azure.nzook.service.Login;
 import com.azure.nzook.util.Bundle;
 import com.azure.nzook.util.DataUtils;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
@@ -18,14 +19,18 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.openapi.wm.ex.ToolWindowManagerListener;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.JBSplitter;
 import com.intellij.ui.OnePixelSplitter;
 import com.intellij.ui.PopupHandler;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
+import com.intellij.util.ui.JBUI;
 import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
@@ -47,7 +52,7 @@ public class OperationWindow {
         JScrollPane leftPane = new JBScrollPane();
         setTree(createTree(nodeData));
         leftPane.setViewportView(tree);
-        leftPane.setColumnHeaderView(new JLabel(DataUtils.getCurrentLoginData().getIp()+" "+DataUtils.getCurrentLoginData().getPort()));
+        leftPane.setColumnHeaderView(getTitlePanel());
         splitter = getSplitter(toolWindow);
         splitter.setHonorComponentsMinimumSize(true);
         splitter.setSplitterProportionKey("MAIN_SPLITTER_KEY");
@@ -55,6 +60,20 @@ public class OperationWindow {
         detailsTab = new MyJBTabbedPane(nodeData, project);
         splitter.setSecondComponent(detailsTab);
         mainPanel.add(splitter, BorderLayout.CENTER);
+    }
+
+    public JPanel getTitlePanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JBLabel title = new JBLabel(DataUtils.getCurrentLoginData().getIp() + ":" + DataUtils.getCurrentLoginData().getPort());
+        title.setIcon(AllIcons.Debugger.Threads);
+        title.setPreferredSize(new Dimension(0, 30));
+        title.setBorder(JBUI.Borders.emptyLeft(15));
+        title.setVerticalAlignment(SwingConstants.CENTER);
+        title.setHorizontalAlignment(SwingConstants.LEFT);
+        panel.add(title, BorderLayout.CENTER);
+        panel.setBorder(BorderFactory.createCompoundBorder(JBUI.Borders.customLineTop(JBColor.border()),JBUI.Borders.customLineBottom(JBColor.border())));
+        panel.setBackground(JBColor.background());
+        return panel;
     }
     public OnePixelSplitter getSplitter(ToolWindow toolWindow) {
         OnePixelSplitter onePixelSplitter = new OnePixelSplitter(splitVertically(project), 0.85f, 0.01f, 0.99f);

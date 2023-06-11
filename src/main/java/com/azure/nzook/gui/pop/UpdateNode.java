@@ -34,7 +34,7 @@ public class UpdateNode extends AbstractDialog {
     /**
      * 对话框大小
      */
-    private static final Integer HEIGHT = 160;
+    private static final Integer HEIGHT = 260;
 
     private boolean isEdit = false;
 

@@ -13,6 +13,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -40,9 +41,11 @@ public class RefreshAction extends AbstractAction {
             int index = parent.getIndex(selectedNode);
             parent.remove(selectedNode);
             parent.insert(newTreeNode, index);
-            model.reload();
-            TreeNode[] pathToRoot = model.getPathToRoot(newTreeNode);
-            OperationWindow.getTree().setSelectionPath(new TreePath(pathToRoot));
+            SwingUtilities.invokeLater(() -> {
+                model.reload();
+                TreeNode[] pathToRoot = model.getPathToRoot(newTreeNode);
+                OperationWindow.getTree().setSelectionPath(new TreePath(pathToRoot));
+            });
         });
     }
     @Override

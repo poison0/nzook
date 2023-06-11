@@ -22,7 +22,7 @@ public class ExecuteAction extends AbstractAction {
 
 
     public ExecuteAction() {
-        super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.Toolbar.AddSlot);
+        super(Bundle.getString("action.ExecuteAction.text"), Bundle.getString("action.ExecuteAction.description"), AllIcons.General.Add);
     }
 
     @Override
