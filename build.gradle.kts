@@ -17,7 +17,7 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2022.1.4")
+    version.set("2023.1.2")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf(/* Plugin Dependencies */))
@@ -32,7 +32,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("221")
+        sinceBuild.set("222.4")
         untilBuild.set("231.*")
     }
 
@@ -49,7 +49,10 @@ tasks {
 dependencies {
     // Add dependencies here
     // https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
-    implementation("org.apache.zookeeper:zookeeper:3.8.1")
+    implementation("org.apache.zookeeper:zookeeper:3.8.1"){
+        exclude(group = "org.slf4j", module = "slf4j-log4j12")
+        exclude(group = "log4j", module = "log4j")
+    }
 
 }
 

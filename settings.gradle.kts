@@ -1,1 +1,1 @@
-rootProject.name = "zookeeperM"
+rootProject.name = "nzook"
