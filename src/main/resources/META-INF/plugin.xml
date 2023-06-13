@@ -1,7 +1,7 @@
 <idea-plugin url="https://www.jetbrains.com/idea">
     <id>com.azure.wind.nzook</id>
     <name>nzook</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <idea-version since-build="222.3345.118"/>
     <vendor email="1570012077@qq.com" url="https://github.com/poison0/nzook">Azure Wind</vendor>
     <description><![CDATA[
