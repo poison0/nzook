@@ -15,7 +15,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.azure.nzook.action.ListWindowFactory" id="nzook" anchor="right"/>
+        <toolWindow factoryClass="com.azure.nzook.action.ListWindowFactory" id="nzook" anchor="right" icon="Icons.nzookIcon" />
         <notificationGroup displayType="BALLOON" id="notify" />
     </extensions>
     <actions>
