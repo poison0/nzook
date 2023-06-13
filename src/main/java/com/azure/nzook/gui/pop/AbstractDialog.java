@@ -1,6 +1,7 @@
 package com.azure.nzook.gui.pop;
 
 import com.azure.nzook.data.CheckBoxOptionDto;
+import com.azure.nzook.gui.builer.CollapsibleTitledSeparatorImpl;
 import com.intellij.openapi.ui.ComboBoxWithWidePopup;
 import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -11,7 +12,6 @@ import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.fields.ExpandableTextField;
-import com.intellij.ui.dsl.builder.impl.CollapsibleTitledSeparatorImpl;
 import com.intellij.util.ui.JBUI;
 import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;

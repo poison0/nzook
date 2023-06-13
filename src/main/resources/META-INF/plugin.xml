@@ -1,19 +1,34 @@
 <idea-plugin url="https://www.jetbrains.com/idea">
-    <id>com.azure.nzook</id>
-
+    <id>com.azure.wind.nzook</id>
     <name>nzook</name>
-
-    <vendor email="1570012077@qq.com" url="">nss</vendor>
-
+    <version>1.0.0</version>
+    <idea-version since-build="222.3345.118"/>
+    <vendor email="1570012077@qq.com" url="https://github.com/poison0/nzook">Azure Wind</vendor>
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+        <ul>
+            <li>
+                <b>A zookeeper client</b>
+                <ol>
+                    <li>Provide a display of the zookeeper tree structure</li>
+                    <li>Can create, edit, delete and copy nodes</li>
+                    <li>Can view and edit node data, node metadata and control information</li>
+                </ol>
+            </li>
+            <br>
+            <a href="https://github.com/poison0/nzook">Github</a>
+            <li>
+                <b>一个 zookeeper 可视化工具</b>
+                <ol>
+                    <li>提供显示zookeeper的树结构</li>
+                    <li>可以新建、编辑、删除和拷贝节点</li>
+                    <li>可以查看和编辑节点数据、节点元数据和控制信息</li>
+                </ol>
+            </li>
+        </ul>
   ]]></description>
-    <idea-version since-build="222.4"/>
+
     <depends>com.intellij.modules.platform</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.azure.nzook.action.ListWindowFactory" id="nzook" anchor="right" icon="Icons.nzookIcon" />
         <notificationGroup displayType="BALLOON" id="notify" />

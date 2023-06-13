@@ -43,9 +43,9 @@ public class Constant {
     /**
      * 加载中标题
      */
-    public static final String LOGIN_LOADING_TITLE = "Loading...";
+    public static final String LOGIN_LOADING_TITLE = "nzook Loading...";
 
-    public static final String TIMER_KEY = "Loading...";
+    public static final String TIMER_KEY = "nzook Loading...";
 
     public static final String[] CREATE_MODE_OPTIONS = new String[]{
             CreateMode.PERSISTENT.name(),

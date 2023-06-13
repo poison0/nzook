@@ -118,7 +118,7 @@ public class TextEditor extends EditorTextField {
         final PsiFileFactory factory = PsiFileFactory.getInstance(getProject());
         final long stamp = LocalTimeCounter.currentTime();
         final PsiFile psiFile = factory.createFileFromText(
-                "zookeeperM",
+                "nzook",
                 fileType,
                 text == null ? "" : text,
                 stamp,

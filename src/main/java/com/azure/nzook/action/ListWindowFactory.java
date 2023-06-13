@@ -44,7 +44,7 @@ public class ListWindowFactory implements ToolWindowFactory {
         group.addSeparator();
         group.add(new ExpandAllAction());
         group.add(new CollapseAllAction());
-        ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("zookeeperMToolsBar", group, false);
+        ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("nzookToolsBar", group, false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.setTargetComponent(jbPanel);
         return toolbar;
