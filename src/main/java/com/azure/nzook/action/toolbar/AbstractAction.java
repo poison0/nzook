@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public abstract class AbstractAction extends AnAction {
 

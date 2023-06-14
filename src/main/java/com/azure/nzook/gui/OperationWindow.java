@@ -30,13 +30,15 @@ import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class OperationWindow {
     private static PathTree tree;
     private final ToolWindow toolWindow;

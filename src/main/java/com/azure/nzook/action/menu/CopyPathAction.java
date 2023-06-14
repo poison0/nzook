@@ -10,7 +10,10 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.MessageType;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class CopyPathAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {

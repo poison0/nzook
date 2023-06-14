@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @auth nss
+ * @author niu
+ * @version 1.0
  */
 public class UpdateNodeData {
 

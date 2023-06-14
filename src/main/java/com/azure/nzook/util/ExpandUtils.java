@@ -8,6 +8,7 @@ import java.util.Enumeration;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public class ExpandUtils {
     /**

@@ -14,7 +14,10 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class EditAction  extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {

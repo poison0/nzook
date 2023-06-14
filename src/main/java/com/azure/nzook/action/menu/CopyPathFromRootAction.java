@@ -9,7 +9,10 @@ import com.azure.nzook.util.Bundle;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.MessageType;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class CopyPathFromRootAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {

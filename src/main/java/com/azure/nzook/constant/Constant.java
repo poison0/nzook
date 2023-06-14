@@ -3,7 +3,8 @@ package com.azure.nzook.constant;
 import org.apache.zookeeper.CreateMode;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class Constant {
 

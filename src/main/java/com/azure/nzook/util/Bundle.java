@@ -12,7 +12,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class Bundle extends AbstractBundle {
     public static final String BUNDLE = "messages.ZookeeperBundle";

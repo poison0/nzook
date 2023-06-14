@@ -28,8 +28,9 @@ import static com.azure.nzook.data.LoginData.zooKeeper;
 import static com.azure.nzook.data.LoginData.zookeeperOperationService;
 
 /**
- * @author nss
- **/
+ * @author niu
+ * @version 1.0
+ */
 public class Login {
     private Login() {}
 

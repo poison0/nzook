@@ -2,8 +2,8 @@ package com.azure.nzook.constant;
 
 /**
  * @author niu
+ * @version 1.0
  */
-
 public enum StatusEnum {
     NOT_CONNECT("未连接"),
     CONNECTED("已连接"),

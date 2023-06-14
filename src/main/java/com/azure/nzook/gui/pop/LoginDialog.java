@@ -21,7 +21,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class LoginDialog extends AbstractDialog {
     /**

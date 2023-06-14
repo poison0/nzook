@@ -10,6 +10,7 @@ import com.azure.nzook.util.DataUtils;
 import com.azure.nzook.gui.OperationWindow;
 import com.azure.nzook.util.Bundle;
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +19,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class RefreshAction extends AbstractAction {
     public RefreshAction() {
         super(Bundle.getString("action.RefreshAction.text"), Bundle.getString("action.RefreshAction.description"), AllIcons.Actions.Refresh);

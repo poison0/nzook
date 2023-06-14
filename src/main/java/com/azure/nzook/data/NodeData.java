@@ -3,9 +3,10 @@ package com.azure.nzook.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/* *
- * @author nss
- **/
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class NodeData {
 
     private String path;

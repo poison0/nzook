@@ -13,7 +13,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class ListCell extends ColoredListCellRenderer<ListItem> {
     @Override

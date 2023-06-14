@@ -23,7 +23,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.border.Border;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class TextEditor extends EditorTextField {
     /**

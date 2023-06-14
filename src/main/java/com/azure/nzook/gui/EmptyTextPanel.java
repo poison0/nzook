@@ -13,7 +13,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 /**
- * @auth nss
+ * @author niu
+ * @version 1.0
  */
 public class EmptyTextPanel extends JBPanel<JBPanelWithEmptyText> implements ComponentWithEmptyText {
     private final StatusText emptyText = new StatusText(this) {

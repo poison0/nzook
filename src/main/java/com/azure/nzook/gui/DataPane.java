@@ -11,7 +11,10 @@ import com.intellij.util.ui.JBUI;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class DataPane extends JBPanel<DataPane> {
     private final TextEditor textEditor;
     public DataPane(Project project,String text) {

@@ -9,15 +9,17 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-
+/**
+ * @author nss
+ * @version 1.0
+ */
 public class TreeCell extends NodeRenderer {
 
     @Override
     public void customizeCellRenderer(@NotNull JTree jTree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         DefaultMutableTreeNode defaultMutableTreeNode = (DefaultMutableTreeNode) value;
         Object userObject = defaultMutableTreeNode.getUserObject();
-        if (userObject instanceof NodeData) {
-            NodeData nodeData = (NodeData) userObject;
+        if (userObject instanceof NodeData nodeData) {
             appendIcon(nodeData.getMetaData().getEphemeralOwner(),leaf);
             append(nodeData.getNodeName(),SimpleTextAttributes.REGULAR_ATTRIBUTES, true);
             if (!leaf) {

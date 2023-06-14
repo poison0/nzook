@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class DataUtils {
 

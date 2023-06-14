@@ -14,6 +14,7 @@ import static com.intellij.ui.components.JBTabbedPane.LABEL_FROM_TABBED_PANE;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public class MyJBTabbedPane extends JTabbedPane {
 

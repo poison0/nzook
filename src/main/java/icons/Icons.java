@@ -6,7 +6,8 @@ import com.intellij.openapi.util.IconLoader;
 import javax.swing.*;
 
 /**
- * @auth nss
+ * @author niu
+ * @version 1.0
  */
 @Presentation
 public interface Icons {

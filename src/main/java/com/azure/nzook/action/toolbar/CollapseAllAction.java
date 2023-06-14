@@ -13,6 +13,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public class CollapseAllAction extends AbstractAction {
     @Override

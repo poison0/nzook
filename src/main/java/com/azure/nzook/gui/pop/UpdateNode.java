@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public class UpdateNode extends AbstractDialog {
 

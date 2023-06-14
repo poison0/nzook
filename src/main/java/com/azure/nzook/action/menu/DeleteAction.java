@@ -16,7 +16,10 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class DeleteAction extends AbstractAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {

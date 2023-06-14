@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author niu
- **/
+ * @version 1.0
+ */
 public class ZookeeperOperationService {
     /**
      * 连接zookeeper

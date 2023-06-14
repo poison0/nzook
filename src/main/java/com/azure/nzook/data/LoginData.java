@@ -4,9 +4,10 @@ import com.azure.nzook.service.ZookeeperOperationService;
 import com.azure.nzook.constant.StatusEnum;
 import org.apache.zookeeper.ZooKeeper;
 
-/* *
- * @author nss
- **/
+/**
+ * @author niu
+ * @version 1.0
+ */
 public class LoginData {
 
     /**

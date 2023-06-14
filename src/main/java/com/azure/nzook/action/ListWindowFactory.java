@@ -18,6 +18,7 @@ import javax.swing.*;
 
 /**
  * @author niu
+ * @version 1.0
  */
 public class ListWindowFactory implements ToolWindowFactory {
 

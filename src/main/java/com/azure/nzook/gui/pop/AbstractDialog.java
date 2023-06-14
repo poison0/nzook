@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public abstract class AbstractDialog extends DialogWrapper {
 

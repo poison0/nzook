@@ -10,7 +10,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author nss
+ * @author niu
+ * @version 1.0
  */
 public class ReloadAction extends AbstractAction{
 
