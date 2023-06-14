@@ -47,7 +47,7 @@ public class TreeCell extends NodeRenderer {
             setIcon(AllIcons.Nodes.Folder);
         } else {
             // 表示临时节点
-            setIcon(AllIcons.Nodes.WebFolder);
+            setIcon(AllIcons.Modules.TestRoot);
         }
     }
 
