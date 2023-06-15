@@ -13,3 +13,6 @@
 > 2 点击`Connection`，输入host和port连接  
 
 ### 视图
+![图片1](https://github.com/poison0/nzook/blob/main/src/main/resources/images.show/20230614174953.png)
+![图片2](https://github.com/poison0/nzook/blob/main/src/main/resources/images.show/20230614175551.png)
+![图片3](https://github.com/poison0/nzook/blob/main/src/main/resources/images.show/20230614175658.png)
