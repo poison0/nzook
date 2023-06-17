@@ -3,6 +3,7 @@ package com.azure.nzook.gui;
 import com.azure.nzook.data.NodeData;
 import com.azure.nzook.util.Bundle;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.impl.content.ToolWindowContentUi;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.Nls;

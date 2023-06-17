@@ -1,5 +1,6 @@
 package com.azure.nzook.gui;
 
+import com.azure.nzook.data.LoginData;
 import com.azure.nzook.gui.editor.TextEditor;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.impl.FileTypeRenderer;
@@ -38,8 +39,7 @@ public class DataPane extends JBPanel<DataPane> {
 
         requestBodyFileType.addItemListener(e -> {
             Object selectedObject = e.getItemSelectable().getSelectedObjects()[0];
-            if (selectedObject instanceof FileType) {
-                FileType fileType = (FileType) selectedObject;
+            if (selectedObject instanceof FileType fileType) {
                 textEditor.setFileType(fileType);
             }
         });

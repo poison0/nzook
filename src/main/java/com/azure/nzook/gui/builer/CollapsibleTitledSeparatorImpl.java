@@ -21,13 +21,13 @@ public class CollapsibleTitledSeparatorImpl extends TitledSeparator {
 
     boolean expanded;
 
-    private AtomicBooleanProperty expandedProperty = new AtomicBooleanProperty(true);
+    private final AtomicBooleanProperty expandedProperty = new AtomicBooleanProperty(true);
 
     public CollapsibleTitledSeparatorImpl(String title) {
         super(title);
         updateIcon();
         expanded = expandedProperty.get();
-        expandedProperty.afterChange(var -> {
+        expandedProperty.afterChange(a -> {
             CollapsibleTitledSeparatorImpl.this.updateIcon();
             return null;
         });
