@@ -1,11 +1,12 @@
 package com.azure.nzook.gui;
 
-import com.azure.nzook.data.LoginData;
 import com.azure.nzook.gui.editor.TextEditor;
+import com.azure.nzook.util.Bundle;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.impl.FileTypeRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.util.ui.JBUI;
 
@@ -26,6 +27,12 @@ public class DataPane extends JBPanel<DataPane> {
         textEditor.setText(text);
         add(textEditor, BorderLayout.CENTER);
         JPanel bodyFileTypePanel = new JPanel(new BorderLayout());
+        bodyFileTypePanel.add(toolsBarPanel(), BorderLayout.WEST);
+        add(bodyFileTypePanel, BorderLayout.NORTH);
+    }
+    private JPanel toolsBarPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(JBUI.Borders.empty(2, 0));
         ComboBox<FileType> requestBodyFileType = new ComboBox<>(new FileType[]{
                 TextEditor.TEXT_FILE_TYPE,
                 TextEditor.JSON_FILE_TYPE,
@@ -33,18 +40,17 @@ public class DataPane extends JBPanel<DataPane> {
                 TextEditor.XML_FILE_TYPE
         });
         requestBodyFileType.setRenderer(new FileTypeRenderer());
-
         requestBodyFileType.setFocusable(false);
-        bodyFileTypePanel.add(requestBodyFileType, BorderLayout.CENTER);
-
         requestBodyFileType.addItemListener(e -> {
             Object selectedObject = e.getItemSelectable().getSelectedObjects()[0];
             if (selectedObject instanceof FileType fileType) {
                 textEditor.setFileType(fileType);
             }
         });
-
-        add(bodyFileTypePanel, BorderLayout.SOUTH);
+        panel.add(requestBodyFileType, BorderLayout.CENTER);
+        panel.add(new JBLabel(Bundle.getString("panel.data.comboBox.label")), BorderLayout.WEST);
+        panel.setBorder(JBUI.Borders.empty(2, 15));
+        return panel;
     }
 
     public void setText(String text) {
