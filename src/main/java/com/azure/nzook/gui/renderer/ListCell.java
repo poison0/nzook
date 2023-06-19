@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class ListCell extends ColoredListCellRenderer<ListItem> {
     @Override

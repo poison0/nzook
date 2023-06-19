@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class DataPane extends JBPanel<DataPane> {
     private final TextEditor textEditor;
@@ -30,6 +30,9 @@ public class DataPane extends JBPanel<DataPane> {
         bodyFileTypePanel.add(toolsBarPanel(), BorderLayout.WEST);
         add(bodyFileTypePanel, BorderLayout.NORTH);
     }
+    /**
+     * @since 1.0.2
+     */
     private JPanel toolsBarPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(JBUI.Borders.empty(2, 0));

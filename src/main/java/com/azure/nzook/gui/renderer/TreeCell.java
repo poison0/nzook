@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * @author nss
- * @version 1.0
+ * @since 1.0
  */
 public class TreeCell extends NodeRenderer {
 

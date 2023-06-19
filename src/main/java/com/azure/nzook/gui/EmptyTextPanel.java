@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class EmptyTextPanel extends JBPanel<JBPanelWithEmptyText> implements ComponentWithEmptyText {
     private final StatusText emptyText = new StatusText(this) {

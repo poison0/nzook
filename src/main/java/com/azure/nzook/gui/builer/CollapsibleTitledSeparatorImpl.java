@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * @author niu
- * @version 1.0.1
+ * @since 1.0.1
  */
 public class CollapsibleTitledSeparatorImpl extends TitledSeparator {
 

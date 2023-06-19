@@ -2,7 +2,7 @@ package com.azure.nzook.data;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class CheckBoxOptionDto {
     private String value;

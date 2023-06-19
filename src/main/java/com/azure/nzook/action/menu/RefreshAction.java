@@ -21,7 +21,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class RefreshAction extends AbstractAction {
     public RefreshAction() {

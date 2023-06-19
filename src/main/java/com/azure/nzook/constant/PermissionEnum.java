@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public enum PermissionEnum {
     READ("Read", 1),

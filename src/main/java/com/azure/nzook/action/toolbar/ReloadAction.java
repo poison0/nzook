@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class ReloadAction extends AbstractAction{
 

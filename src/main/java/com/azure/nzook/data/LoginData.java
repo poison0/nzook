@@ -6,7 +6,7 @@ import org.apache.zookeeper.ZooKeeper;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class LoginData {
 

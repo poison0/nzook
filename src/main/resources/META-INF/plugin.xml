@@ -1,11 +1,12 @@
 <idea-plugin url="https://www.jetbrains.com/idea">
     <id>com.azure.wind.nzook</id>
     <name>nzook</name>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <idea-version since-build="222.3345.118"/>
     <vendor email="1570012077@qq.com" url="https://github.com/poison0/nzook">Azure Wind</vendor>
     <description><![CDATA[
         <ul>
+         <a href="https://github.com/poison0/nzook">Github</a>
             <li>
                 <b>A zookeeper client</b>
                 <ol>
@@ -15,7 +16,6 @@
                 </ol>
             </li>
             <br>
-            <a href="https://github.com/poison0/nzook">Github</a>
             <li>
                 <b>一个 zookeeper 可视化工具</b>
                 <ol>
@@ -26,7 +26,17 @@
             </li>
         </ul>
   ]]></description>
-
+        <change-notes><![CDATA[
+        <h2>1.0.1</h2>
+        <ul>
+          <li>1.修改插件兼容性问题</li>
+        </ul>
+        <h2>1.0.2</h2>
+        <ul>
+          <li>1.添加插件市场图标</li>
+          <li>2.修改display type显示位置</li>
+        </ul>
+    ]]></change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">

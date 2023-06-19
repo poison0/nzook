@@ -9,7 +9,7 @@ import java.awt.*;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class ConfirmDialog extends DialogWrapper {
 

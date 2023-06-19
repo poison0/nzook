@@ -5,7 +5,7 @@ import org.apache.zookeeper.KeeperException;
 import java.io.IOException;
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 @FunctionalInterface
 public interface ProgressConsumer<T> {

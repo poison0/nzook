@@ -3,7 +3,6 @@ package com.azure.nzook.gui;
 import com.azure.nzook.data.NodeData;
 import com.azure.nzook.util.Bundle;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.impl.content.ToolWindowContentUi;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.Nls;
@@ -15,7 +14,7 @@ import static com.intellij.ui.components.JBTabbedPane.LABEL_FROM_TABBED_PANE;
 
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class MyJBTabbedPane extends JTabbedPane {
 

@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class DateUtils {
     public static String toAge(long time) {

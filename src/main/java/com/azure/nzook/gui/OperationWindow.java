@@ -37,7 +37,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 /**
  * @author niu
- * @version 1.0
+ * @since 1.0
  */
 public class OperationWindow {
     private static PathTree tree;
