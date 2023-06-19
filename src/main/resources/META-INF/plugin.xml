@@ -27,14 +27,14 @@
         </ul>
   ]]></description>
         <change-notes><![CDATA[
-        <h2>1.0.1</h2>
-        <ul>
-          <li>1.修改插件兼容性问题</li>
-        </ul>
         <h2>1.0.2</h2>
         <ul>
           <li>1.添加插件市场图标</li>
           <li>2.修改display type显示位置</li>
+        </ul>
+        <h2>1.0.1</h2>
+        <ul>
+          <li>1.修改插件兼容性问题</li>
         </ul>
     ]]></change-notes>
     <depends>com.intellij.modules.platform</depends>
