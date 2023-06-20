@@ -155,6 +155,25 @@ public abstract class AbstractDialog extends DialogWrapper {
     protected JTextField createFieldOption(JPanel panel, int gridy, String title,String defaultValue) {
         return createFieldOption(panel,gridy,0,1,title,defaultValue);
     }
+
+    /**
+     * 创建第二阶panel
+     * @since 1.0.3
+     **/
+    protected JPanel createSecondPanel(JPanel panel, int gridy) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridy = gridy;
+        c.weightx = 0;
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = JBUI.insetsLeft(getInsetLeft());
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        JPanel secondPanel = new JPanel(new GridBagLayout());
+        secondPanel.setBorder(JBUI.Borders.empty(0, 15));
+        panel.add(secondPanel, c);
+        return secondPanel;
+    }
     /**
      * 创建基本输入选项
      */

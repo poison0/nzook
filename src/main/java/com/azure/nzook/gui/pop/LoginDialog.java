@@ -29,11 +29,11 @@ public class LoginDialog extends AbstractDialog {
     /**
      * 对话框大小
      */
-    private static final Integer WIDTH = 300;
+    private static final Integer WIDTH = 450;
     /**
      * 对话框大小
      */
-    private static final Integer HEIGHT = 90;
+    private static final Integer HEIGHT = 200;
 
     private ComponentValidator hostValidator;
 
@@ -69,14 +69,32 @@ public class LoginDialog extends AbstractDialog {
             loginData.setPort(Constant.DEFAULT_PORT);
         }
 
-        JBRadioButton radio = createRadioButton(panel, 0, "General",true);
+        JBRadioButton general = createRadioButton(panel, 0, "General",true);
 
-        hostField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.host"),loginData.getIp());
-        portField = createFieldOption(panel, 2, Bundle.getString("loginDialog.label.port"),loginData.getPort());
+        JPanel generalPanel = createSecondPanel(panel, 1);
+        hostField = createFieldOption(generalPanel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
+        portField = createFieldOption(generalPanel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByPort(portField);
         addValidatorByHost(hostField);
+        List<JBCheckBox> remember = createCheckBoxOption(generalPanel, 2, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
 
-        List<JBCheckBox> remember = createCheckBoxOption(panel, 3, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
+        createBlackLine(panel,2);
+
+        JBRadioButton connectionStr = createRadioButton(panel, 3, "Connection string",true);
+        JPanel connectPanel = createSecondPanel(panel, 4);
+        JTextField connect = createFieldOption(connectPanel, 0, "Connect",loginData.getIp());
+        List<JBCheckBox> connectRemember = createCheckBoxOption(connectPanel, 1, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
+        for (JBCheckBox jbCheckBox : connectRemember) {
+            jbCheckBox.setEnabled(false);
+        }
+        for (Component component : connectPanel.getComponents()) {
+            component.setEnabled(false);
+        }
+
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(connectionStr);
+        bg.add(general);
+
         saveCheckBox = remember.get(0);
         return createDefaultPanel(panel);
     }
