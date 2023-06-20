@@ -11,6 +11,7 @@ import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
+import com.intellij.ui.components.JBRadioButton;
 import com.intellij.ui.components.fields.ExpandableTextField;
 import com.intellij.util.ui.JBUI;
 import kotlin.Unit;
@@ -165,6 +166,23 @@ public abstract class AbstractDialog extends DialogWrapper {
      */
     protected JTextField createFieldOption(JPanel panel, int gridy,int firstWeightx,int secondWeightx, String title,String defaultValue) {
         return createFieldOption(panel,gridy,firstWeightx,secondWeightx,title,defaultValue,true);
+    }
+
+    /**
+     * 单选框
+     * @since 1.0.3
+     */
+    protected JBRadioButton createRadioButton(JPanel panel, int gridy,String title,boolean isEnable) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = gridy;
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        c.insets = JBUI.insetsLeft(BORDER_LEFT);
+        c.anchor = GridBagConstraints.WEST;
+        JBRadioButton jbRadioButton = new JBRadioButton(title);
+        jbRadioButton.setEnabled(isEnable);
+        panel.add(jbRadioButton, c);
+        return jbRadioButton;
     }
     /**
      * 创建基本输入选项

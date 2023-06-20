@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBCheckBox;
+import com.intellij.ui.components.JBRadioButton;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -67,12 +68,15 @@ public class LoginDialog extends AbstractDialog {
         if (loginData.getPort() == null) {
             loginData.setPort(Constant.DEFAULT_PORT);
         }
-        hostField = createFieldOption(panel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
-        portField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
+
+        JBRadioButton radio = createRadioButton(panel, 0, "General",true);
+
+        hostField = createFieldOption(panel, 1, Bundle.getString("loginDialog.label.host"),loginData.getIp());
+        portField = createFieldOption(panel, 2, Bundle.getString("loginDialog.label.port"),loginData.getPort());
         addValidatorByPort(portField);
         addValidatorByHost(hostField);
 
-        List<JBCheckBox> remember = createCheckBoxOption(panel, 2, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
+        List<JBCheckBox> remember = createCheckBoxOption(panel, 3, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
         saveCheckBox = remember.get(0);
         return createDefaultPanel(panel);
     }
