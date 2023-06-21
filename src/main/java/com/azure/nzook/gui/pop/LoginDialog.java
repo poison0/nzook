@@ -69,7 +69,8 @@ public class LoginDialog extends AbstractDialog {
             loginData.setPort(Constant.DEFAULT_PORT);
         }
 
-        JBRadioButton general = createRadioButton(panel, 0, "General",true);
+        JBRadioButton generalRadio = createRadioButton(panel, 0, "General",true);
+        generalRadio.setSelected(true);
 
         JPanel generalPanel = createSecondPanel(panel, 1);
         hostField = createFieldOption(generalPanel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
@@ -80,23 +81,32 @@ public class LoginDialog extends AbstractDialog {
 
         createBlackLine(panel,2);
 
-        JBRadioButton connectionStr = createRadioButton(panel, 3, "Connection string",true);
+        JBRadioButton connectionRadio = createRadioButton(panel, 3, "Connection string",true);
         JPanel connectPanel = createSecondPanel(panel, 4);
-        JTextField connect = createFieldOption(connectPanel, 0, "Connect",loginData.getIp());
+        JTextField connect = createAreaOption(connectPanel, 0, "Connect",loginData.getIp());
         List<JBCheckBox> connectRemember = createCheckBoxOption(connectPanel, 1, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
-        for (JBCheckBox jbCheckBox : connectRemember) {
-            jbCheckBox.setEnabled(false);
-        }
-        for (Component component : connectPanel.getComponents()) {
-            component.setEnabled(false);
-        }
+
+        connectionRadio.addChangeListener(e -> grayPanel(connectPanel, !connectionRadio.isSelected()));
+        generalRadio.addChangeListener(e -> grayPanel(generalPanel, !generalRadio.isSelected()));
+
+        grayPanel(connectPanel,true);
+
 
         ButtonGroup bg = new ButtonGroup();
-        bg.add(connectionStr);
-        bg.add(general);
+        bg.add(connectionRadio);
+        bg.add(generalRadio);
 
         saveCheckBox = remember.get(0);
         return createDefaultPanel(panel);
+    }
+
+    private void grayPanel(JPanel jPanel, boolean isGray) {
+        for (Component component : jPanel.getComponents()) {
+            component.setEnabled(!isGray);
+            if (component instanceof JPanel children) {
+                grayPanel(children,isGray);
+            }
+        }
     }
 
     public LoginDataDto getLoginData() {
