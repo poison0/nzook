@@ -3,14 +3,14 @@ package com.azure.nzook.action.menu;
 import com.azure.nzook.action.toolbar.AbstractAction;
 import com.azure.nzook.constant.Constant;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.data.NodeData;
+import com.azure.nzook.data.logindata.UserLoginData;
 import com.azure.nzook.service.Login;
 import com.azure.nzook.util.DataUtils;
 import com.azure.nzook.gui.OperationWindow;
 import com.azure.nzook.util.Bundle;
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,11 +34,14 @@ public class RefreshAction extends AbstractAction {
         NodeData userObject = (NodeData)selectedNode.getUserObject();
         if(userObject.getNodeName().equals(Constant.ROOT)){
             Login.close();
-            Login.load(e.getProject(), DataUtils.getCurrentLoginData());
+            UserLoginData currentLoginData = DataUtils.getCurrentLoginData();
+            if (currentLoginData != null) {
+                Login.load(e.getProject(), currentLoginData);
+            }
             return;
         }
         Login.addProgress(e.getProject(), progressIndicator -> {
-            LoginData.zookeeperOperationService.getAllNode(userObject, LoginData.zooKeeper);
+            ZookeeperData.zookeeperOperationService.getAllNode(userObject, ZookeeperData.zooKeeper);
             DefaultTreeModel model = (DefaultTreeModel) OperationWindow.getTree().getModel();
             DefaultMutableTreeNode newTreeNode = OperationWindow.getTreeNode(userObject);
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
@@ -54,6 +57,6 @@ public class RefreshAction extends AbstractAction {
     }
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

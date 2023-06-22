@@ -26,21 +26,32 @@ public class Constant {
      */
     public static final String DEFAULT_PORT = "2181";
     /**
+     * 默认ip
+     */
+    public static final String DEFAULT_HOST = "127.0.0.1";
+    /**
      * 默认超时时间
      */
     public static final Integer DEFAULT_TIMEOUT = 10000;
     /**
      * 存储ip
      */
+    @Deprecated
     public static final String PROPERTIES_COMPONENT_IP = "zookeeper.m.ip";
     /**
      * 存储端口
      */
+    @Deprecated
     public static final String PROPERTIES_COMPONENT_PORT = "zookeeper.m.port";
     /**
      * 用于存储当前是否登录
      */
     public static final String PROPERTIES_COMPONENT_LOGIN = "zookeeper.m.login";
+    /**
+     * 用于存储当前信息
+     */
+    public static final String PROPERTIES_COMPONENT_LOGIN_DATA = "nzook.m.login.data";
+
     /**
      * 加载中标题
      */

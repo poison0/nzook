@@ -2,8 +2,9 @@ package com.azure.nzook.gui;
 
 import com.azure.nzook.action.menu.*;
 import com.azure.nzook.constant.Constant;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.data.NodeData;
+import com.azure.nzook.data.logindata.UserLoginData;
 import com.azure.nzook.gui.renderer.TreeCell;
 import com.azure.nzook.message.Notifier;
 import com.azure.nzook.service.Login;
@@ -66,7 +67,7 @@ public class OperationWindow {
 
     public JPanel getTitlePanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        JBLabel title = new JBLabel(DataUtils.getCurrentLoginData().getIp() + ":" + DataUtils.getCurrentLoginData().getPort());
+        JBLabel title = new JBLabel(ZookeeperData.getCurrentLoginString());
         title.setIcon(AllIcons.Debugger.Threads);
         title.setPreferredSize(new Dimension(0, 30));
         title.setBorder(JBUI.Borders.emptyLeft(15));
@@ -149,7 +150,7 @@ public class OperationWindow {
 
     public void switchNode(NodeData nodeData){
         try{
-            LoginData.zookeeperOperationService.setAcl(nodeData, LoginData.zooKeeper);
+            ZookeeperData.zookeeperOperationService.setAcl(nodeData, ZookeeperData.zooKeeper);
             detailsTab.setNodeData(nodeData);
         } catch (KeeperException ex) {
             Notifier.notify(ex.getMessage(), MessageType.ERROR);
@@ -194,8 +195,9 @@ public class OperationWindow {
         OperationWindow.project = project;
         this.toolWindow = toolWindow;
         setDefaultPanel();
-        if (Boolean.TRUE.equals(DataUtils.isLogin())) {
-            Login.load(project, DataUtils.getCurrentLoginData());
+        UserLoginData currentLoginData = DataUtils.getCurrentLoginData();
+        if (currentLoginData != null && DataUtils.isLogin()) {
+            Login.load(project, currentLoginData);
         }
     }
 

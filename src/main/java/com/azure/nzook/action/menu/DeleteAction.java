@@ -3,7 +3,7 @@ package com.azure.nzook.action.menu;
 import com.azure.nzook.action.toolbar.AbstractAction;
 import com.azure.nzook.constant.Constant;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.data.NodeData;
 import com.azure.nzook.message.Notifier;
 import com.azure.nzook.gui.OperationWindow;
@@ -40,7 +40,7 @@ public class DeleteAction extends AbstractAction {
         if (dialog.showAndGet()) {
             boolean success;
             try {
-                success = LoginData.zookeeperOperationService.deleteNodeRecursively(LoginData.zooKeeper, userObject.getPath());
+                success = ZookeeperData.zookeeperOperationService.deleteNodeRecursively(ZookeeperData.zooKeeper, userObject.getPath());
                 if(success){
                     deleteNode();
                 }
@@ -71,6 +71,6 @@ public class DeleteAction extends AbstractAction {
 
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

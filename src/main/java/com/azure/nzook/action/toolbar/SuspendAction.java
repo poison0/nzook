@@ -4,7 +4,7 @@ import com.azure.nzook.message.Notifier;
 import com.azure.nzook.action.ListWindowFactory;
 import com.azure.nzook.constant.Constant;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.util.Bundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.PropertiesComponent;
@@ -27,8 +27,8 @@ public class SuspendAction extends AbstractAction {
         try {
             PropertiesComponent instance = PropertiesComponent.getInstance();
             instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
-            LoginData.zooKeeper.close();
-            LoginData.setStatus(StatusEnum.NOT_CONNECT);
+            ZookeeperData.zooKeeper.close();
+            ZookeeperData.setStatus(StatusEnum.NOT_CONNECT);
             ListWindowFactory.operationWindow.clearAll();
             ListWindowFactory.operationWindow.setDefaultPanel();
         } catch (InterruptedException ex) {
@@ -39,6 +39,6 @@ public class SuspendAction extends AbstractAction {
     // 该方法用于设置Action的可用性
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

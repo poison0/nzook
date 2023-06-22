@@ -53,6 +53,9 @@ dependencies {
         exclude(group = "org.slf4j", module = "slf4j-log4j12")
         exclude(group = "log4j", module = "log4j")
     }
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation("com.alibaba:fastjson:2.0.34")
+
 
 }
 

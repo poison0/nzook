@@ -2,7 +2,7 @@ package com.azure.nzook.action.menu;
 
 import com.azure.nzook.action.toolbar.AbstractAction;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.data.NodeData;
 import com.azure.nzook.action.ListWindowFactory;
 import com.azure.nzook.data.UpdateNodeData;
@@ -34,8 +34,8 @@ public class AddAction extends AbstractAction {
         UpdateNode updateNode = new UpdateNode(Bundle.getString("updateNodeDialog.title.addNode"),updateNodeData,false);
         if(updateNode.showAndGet()){
             UpdateNodeData data = updateNode.getData();
-            NodeData newNodeData = LoginData.zookeeperOperationService.addNode(
-                    LoginData.zooKeeper,
+            NodeData newNodeData = ZookeeperData.zookeeperOperationService.addNode(
+                    ZookeeperData.zooKeeper,
                     node.getPath(),
                     data.getNodeName(),
                     data.getNodeValue(),
@@ -45,7 +45,7 @@ public class AddAction extends AbstractAction {
             );
             if (newNodeData != null) {
 
-                List<String> childNodeName = LoginData.zookeeperOperationService.getChildNodeName(node.getPath(), LoginData.zooKeeper);
+                List<String> childNodeName = ZookeeperData.zookeeperOperationService.getChildNodeName(node.getPath(), ZookeeperData.zooKeeper);
                 if(childNodeName == null){
                     return;
                 }
@@ -81,7 +81,7 @@ public class AddAction extends AbstractAction {
 
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 
 }

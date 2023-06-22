@@ -2,7 +2,7 @@ package com.azure.nzook.action.menu;
 
 import com.azure.nzook.action.toolbar.AbstractAction;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.message.Notifier;
 import com.azure.nzook.util.DataUtils;
 import com.azure.nzook.util.Bundle;
@@ -26,6 +26,6 @@ public class CopyPathAction extends AbstractAction {
     }
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

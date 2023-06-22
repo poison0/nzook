@@ -1,7 +1,7 @@
 package com.azure.nzook.action.toolbar;
 
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.service.Login;
 import com.azure.nzook.util.Bundle;
 import com.intellij.icons.AllIcons;
@@ -28,6 +28,6 @@ public class ExecuteAction extends AbstractAction {
 
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.NOT_CONNECT;
+        return ZookeeperData.getStatus() == StatusEnum.NOT_CONNECT;
     }
 }

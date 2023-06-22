@@ -2,7 +2,7 @@ package com.azure.nzook.action.toolbar;
 
 import com.azure.nzook.service.Login;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.util.Bundle;
 import com.azure.nzook.util.DataUtils;
 import com.intellij.icons.AllIcons;
@@ -27,6 +27,6 @@ public class ReloadAction extends AbstractAction{
 
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

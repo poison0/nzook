@@ -1,10 +1,12 @@
 package com.azure.nzook.util;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.azure.nzook.constant.Constant;
+import com.azure.nzook.constant.LoginTypeEnum;
 import com.azure.nzook.constant.PermissionEnum;
-import com.azure.nzook.data.LoginDataDto;
+import com.azure.nzook.data.logindata.*;
 import com.intellij.ide.util.PropertiesComponent;
-
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -34,31 +36,70 @@ public class DataUtils {
 
     public static Boolean isLogin() {
         PropertiesComponent instance = PropertiesComponent.getInstance();
-        String ip = instance.getValue(Constant.PROPERTIES_COMPONENT_IP);
-        String port = instance.getValue(Constant.PROPERTIES_COMPONENT_PORT);
-        boolean login = instance.getBoolean(Constant.PROPERTIES_COMPONENT_LOGIN);
-        return ip != null && !ip.isEmpty() && port != null && !port.isEmpty() && login;
+        return instance.getBoolean(Constant.PROPERTIES_COMPONENT_LOGIN);
     }
+
     public static void removeLoginData() {
         PropertiesComponent instance = PropertiesComponent.getInstance();
         instance.unsetValue(Constant.PROPERTIES_COMPONENT_IP);
         instance.unsetValue(Constant.PROPERTIES_COMPONENT_PORT);
         instance.unsetValue(Constant.PROPERTIES_COMPONENT_LOGIN);
+        instance.unsetValue(Constant.PROPERTIES_COMPONENT_LOGIN_DATA);
     }
 
-    public static LoginDataDto getCurrentLoginData() {
+
+    public static UserLoginData getCurrentLoginData() {
+        PropertiesComponent instance = PropertiesComponent.getInstance();
+        String value = instance.getValue(Constant.PROPERTIES_COMPONENT_LOGIN_DATA);
+        if (value == null || value.isEmpty()) {
+            GeneralLoginData oldLoginData = getOldLoginData();
+            if(oldLoginData.getIp() != null && !oldLoginData.getIp().isEmpty() && oldLoginData.getPort() != null && !oldLoginData.getPort().isEmpty()) {
+                UserLoginData loginData = new UserLoginData();
+                oldLoginData.setUse(true);
+                loginData.setGeneralLoginData(oldLoginData);
+                loginData.setConnectStringLoginData(new ConnectStringLoginData());
+                instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN_DATA, JSON.toJSONString(loginData));
+                return loginData;
+            }
+            return null;
+        }else {
+            return JSON.parseObject(value, UserLoginData.class);
+        }
+    }
+
+    public static void saveLoginData(UserLoginData loginData) {
+        PropertiesComponent instance = PropertiesComponent.getInstance();
+        if (Boolean.FALSE.equals(loginData.getConnectStringLoginData().getSave())) {
+            loginData.getConnectStringLoginData().setDefault();
+        }
+        if (Boolean.FALSE.equals(loginData.getGeneralLoginData().getSave())) {
+            loginData.getGeneralLoginData().setDefault();
+        }
+        instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN_DATA, JSON.toJSONString(loginData));
+    }
+
+    /**
+     * 获取旧的登录数据
+     * @since 1.0.3
+     * @return 旧的登录数据
+     */
+    private static GeneralLoginData getOldLoginData() {
         PropertiesComponent instance = PropertiesComponent.getInstance();
         String ip = instance.getValue(Constant.PROPERTIES_COMPONENT_IP);
         String port = instance.getValue(Constant.PROPERTIES_COMPONENT_PORT);
-        LoginDataDto loginDataDto = new LoginDataDto();
+        boolean login = instance.getBoolean(Constant.PROPERTIES_COMPONENT_LOGIN);
+        GeneralLoginData loginData = new GeneralLoginData();
         if (ip != null && !ip.isEmpty()) {
-            loginDataDto.setIp(ip);
+            loginData.setIp(ip);
         }
         if (port != null && !port.isEmpty()) {
-            loginDataDto.setPort(port);
+            loginData.setPort(port);
         }
-        loginDataDto.setTimeout(Constant.DEFAULT_TIMEOUT);
-        return loginDataDto;
+        if(login) {
+            loginData.setSave(true);
+        }
+        loginData.setTimeout(Constant.DEFAULT_TIMEOUT);
+        return loginData;
     }
 
     public static String getAclPerms(int perms) {

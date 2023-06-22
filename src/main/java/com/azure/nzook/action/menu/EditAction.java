@@ -3,7 +3,7 @@ package com.azure.nzook.action.menu;
 import com.azure.nzook.action.toolbar.AbstractAction;
 import com.azure.nzook.constant.PermissionEnum;
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.data.NodeData;
 import com.azure.nzook.data.UpdateNodeData;
 import com.azure.nzook.gui.pop.UpdateNode;
@@ -47,8 +47,8 @@ public class EditAction  extends AbstractAction {
                 isChangeAcl = true;
             }
 
-            NodeData newNodeData = LoginData.zookeeperOperationService.updateNode(
-                    LoginData.zooKeeper,
+            NodeData newNodeData = ZookeeperData.zookeeperOperationService.updateNode(
+                    ZookeeperData.zooKeeper,
                     node.getPath(),
                     afterData.getNodeValue(),
                     isChangeAcl?afterData.getAcl():null
@@ -64,6 +64,6 @@ public class EditAction  extends AbstractAction {
     }
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }

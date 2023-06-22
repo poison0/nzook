@@ -1,8 +1,8 @@
 package com.azure.nzook.gui.pop;
 
-import com.azure.nzook.constant.Constant;
+import com.azure.nzook.constant.LoginTypeEnum;
 import com.azure.nzook.data.CheckBoxOptionDto;
-import com.azure.nzook.data.LoginDataDto;
+import com.azure.nzook.data.logindata.*;
 import com.azure.nzook.util.Bundle;
 import com.azure.nzook.util.DataUtils;
 import com.intellij.openapi.ui.ComponentValidator;
@@ -39,10 +39,19 @@ public class LoginDialog extends AbstractDialog {
 
     private ComponentValidator portValidator;
 
+    private ComponentValidator connValidator;
+
     JTextField hostField;
     JTextField portField;
-    JBCheckBox saveCheckBox;
+    JBCheckBox generalSaveCheckBox;
+    JBRadioButton generalRadio;
+
+
     JTextField timeoutField;
+    JTextField connStringField;
+    JBCheckBox connSaveCheckBox;
+    JBRadioButton connectionRadio;
+
 
     public LoginDialog(String title) {
         super(title);
@@ -64,40 +73,57 @@ public class LoginDialog extends AbstractDialog {
         GridBagLayout gridBagLayout = new GridBagLayout();
         JPanel panel = new JPanel(gridBagLayout);
         panel.setBorder(JBUI.Borders.empty(0, 10));
-        LoginDataDto loginData = DataUtils.getCurrentLoginData();
-        if (loginData.getPort() == null) {
-            loginData.setPort(Constant.DEFAULT_PORT);
-        }
+        UserLoginData defaultLoginData = getDefaultLoginData();
 
-        JBRadioButton generalRadio = createRadioButton(panel, 0, "General",true);
-        generalRadio.setSelected(true);
+        GeneralLoginData generalData =  defaultLoginData.getGeneralLoginData();
+        ConnectStringLoginData connData = defaultLoginData.getConnectStringLoginData();
+
+        generalRadio = createRadioButton(panel, 0, Bundle.getString("loginDialog.label.title.general"),true);
+        generalRadio.setSelected(generalData.getUse());
 
         JPanel generalPanel = createSecondPanel(panel, 1);
-        hostField = createFieldOption(generalPanel, 0, Bundle.getString("loginDialog.label.host"),loginData.getIp());
-        portField = createFieldOption(generalPanel, 1, Bundle.getString("loginDialog.label.port"),loginData.getPort());
+        generalRadio.addChangeListener(e -> grayPanel(generalPanel, !generalRadio.isSelected()));
+
+        hostField = createFieldOption(generalPanel, 0, Bundle.getString("loginDialog.label.host"),generalData.getIp());
+        portField = createFieldOption(generalPanel, 1, Bundle.getString("loginDialog.label.port"),generalData.getPort());
         addValidatorByPort(portField);
         addValidatorByHost(hostField);
-        List<JBCheckBox> remember = createCheckBoxOption(generalPanel, 2, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
+        List<JBCheckBox> generalRemember = createCheckBoxOption(generalPanel, 2, null, Collections.singletonList(new CheckBoxOptionDto(Bundle.getString("loginDialog.label.remember"),generalData.getSave())));
+        grayPanel(generalPanel,!generalData.getUse());
 
         createBlackLine(panel,2);
 
-        JBRadioButton connectionRadio = createRadioButton(panel, 3, "Connection string",true);
+        connectionRadio = createRadioButton(panel, 3, Bundle.getString("loginDialog.label.connect"),true);
+        connectionRadio.setSelected(connData.getUse());
+
         JPanel connectPanel = createSecondPanel(panel, 4);
-        JTextField connect = createAreaOption(connectPanel, 0, "Connect",loginData.getIp());
-        List<JBCheckBox> connectRemember = createCheckBoxOption(connectPanel, 1, null, Collections.singletonList(new CheckBoxOptionDto("Remember",true)));
-
         connectionRadio.addChangeListener(e -> grayPanel(connectPanel, !connectionRadio.isSelected()));
-        generalRadio.addChangeListener(e -> grayPanel(generalPanel, !generalRadio.isSelected()));
 
-        grayPanel(connectPanel,true);
-
+        connStringField = createAreaOption(connectPanel, 0, Bundle.getString("loginDialog.label.title.connect"),connData.getConnectionString());
+        List<JBCheckBox> connectRemember = createCheckBoxOption(connectPanel, 1, null, Collections.singletonList(new CheckBoxOptionDto(Bundle.getString("loginDialog.label.remember"), connData.getSave())));
+        grayPanel(connectPanel,!connData.getUse());
+        addValidatorByConn(connStringField);
 
         ButtonGroup bg = new ButtonGroup();
         bg.add(connectionRadio);
         bg.add(generalRadio);
 
-        saveCheckBox = remember.get(0);
+        generalSaveCheckBox = generalRemember.get(0);
+        connSaveCheckBox = connectRemember.get(0);
         return createDefaultPanel(panel);
+    }
+
+    private UserLoginData getDefaultLoginData() {
+        UserLoginData loginData = DataUtils.getCurrentLoginData();
+        if(loginData == null){
+            loginData = new UserLoginData();
+            GeneralLoginData generalLoginData = new GeneralLoginData();
+            generalLoginData.setUse(true);
+            loginData.setGeneralLoginData(generalLoginData);
+            ConnectStringLoginData connectStringLoginData = new ConnectStringLoginData();
+            loginData.setConnectStringLoginData(connectStringLoginData);
+        }
+        return loginData;
     }
 
     private void grayPanel(JPanel jPanel, boolean isGray) {
@@ -109,34 +135,53 @@ public class LoginDialog extends AbstractDialog {
         }
     }
 
-    public LoginDataDto getLoginData() {
-        LoginDataDto loginData = new LoginDataDto();
-        loginData.setIp(hostField.getText());
-        loginData.setPort(portField.getText());
-        loginData.setSave(saveCheckBox.isSelected());
-        loginData.setTimeout(Constant.DEFAULT_TIMEOUT);
+    public UserLoginData getLoginData() {
+        UserLoginData loginData = new UserLoginData();
+        GeneralLoginData generalLoginData = new GeneralLoginData();
+        generalLoginData.setPort(portField.getText());
+        generalLoginData.setIp(hostField.getText());
+        generalLoginData.setUse(generalRadio.isSelected());
+        generalLoginData.setLoginTypeEnum(LoginTypeEnum.GENERAL);
+        generalLoginData.setSave(generalSaveCheckBox.isSelected());
+        loginData.setGeneralLoginData(generalLoginData);
+        ConnectStringLoginData connectStringLoginData = new ConnectStringLoginData();
+        connectStringLoginData.setConnectionString(connStringField.getText());
+        connectStringLoginData.setUse(connectionRadio.isSelected());
+        connectStringLoginData.setLoginTypeEnum(LoginTypeEnum.CONNECTION_STRING);
+        connectStringLoginData.setSave(connSaveCheckBox.isSelected());
+        loginData.setConnectStringLoginData(connectStringLoginData);
         return loginData;
     }
 
     @Override
     protected @Nullable ValidationInfo doValidate() {
-        if (StringUtil.isEmpty(hostField.getText())) {
-            return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.host.empty"), hostField);
+        if(generalRadio.isSelected()) {
+            if (StringUtil.isEmpty(hostField.getText())) {
+                return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.host.empty"), hostField);
+            }
+            if (StringUtil.isEmpty(portField.getText())) {
+                return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port.empty"), portField);
+            }
+            if (hostValidator != null && hostValidator.getValidationInfo() != null) {
+                return hostValidator.getValidationInfo();
+            }
+            if (portValidator != null && portValidator.getValidationInfo() != null) {
+                return portValidator.getValidationInfo();
+            }
         }
-        if (StringUtil.isEmpty(portField.getText())) {
-            return new ValidationInfo(Bundle.getString("validationInfo.loginDialog.port.empty"), portField);
-        }
-        if(hostValidator != null && hostValidator.getValidationInfo() != null){
-            return hostValidator.getValidationInfo();
-        }
-        if(portValidator != null && portValidator.getValidationInfo() != null){
-            return portValidator.getValidationInfo();
+        if (connectionRadio.isSelected()) {
+            if(connValidator != null && connValidator.getValidationInfo() != null){
+                return connValidator.getValidationInfo();
+            }
         }
         return null;
     }
 
     private void addValidatorByHost(JTextField host) {
         hostValidator = addValidatorEmptyByField(host, Bundle.getString("validationInfo.loginDialog.host.empty"));
+    }
+    private void addValidatorByConn(JTextField connStringField) {
+        connValidator = addValidatorEmptyByField(connStringField, Bundle.getString("validationInfo.loginDialog.conn.empty"));
     }
     private void addValidatorByPort(JTextField port) {
         portValidator = new ComponentValidator(getDisposable()).withValidator(() -> {

@@ -1,7 +1,7 @@
 package com.azure.nzook.action.toolbar;
 
 import com.azure.nzook.constant.StatusEnum;
-import com.azure.nzook.data.LoginData;
+import com.azure.nzook.data.ZookeeperData;
 import com.azure.nzook.gui.OperationWindow;
 import com.azure.nzook.util.Bundle;
 import com.azure.nzook.util.ExpandUtils;
@@ -29,6 +29,6 @@ public class ExpandAllAction extends AbstractAction {
 
     @Override
     protected boolean isEnabled(AnActionEvent e) {
-        return LoginData.getStatus() == StatusEnum.CONNECTED;
+        return ZookeeperData.getStatus() == StatusEnum.CONNECTED;
     }
 }
