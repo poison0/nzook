@@ -30,15 +30,22 @@
          <h2>1.0.3</h2>
         <ul>
           <li>1.登录时可选择用连接字符串信息登录</li>
+          </br>
+          <li>1.When logging in, you can choose to log in with connection string information</li>
         </ul>
         <h2>1.0.2</h2>
         <ul>
-          <li>1.添加插件市场图标</li>
           <li>2.修改display type显示位置</li>
+          <li>1.添加插件市场图标</li>
+          </br>
+          <li>1.Add a plugin market icon</li>
+          <li>2.Modify the display type display position</li>
         </ul>
         <h2>1.0.1</h2>
         <ul>
           <li>1.修改插件兼容性问题</li>
+          </br>
+          <li>1.Modify plug-in compatibility issues</li>
         </ul>
     ]]></change-notes>
     <depends>com.intellij.modules.platform</depends>
