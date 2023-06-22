@@ -1,7 +1,7 @@
 <idea-plugin url="https://www.jetbrains.com/idea">
     <id>com.azure.wind.nzook</id>
     <name>nzook</name>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <idea-version since-build="222.3345.118"/>
     <vendor email="1570012077@qq.com" url="https://github.com/poison0/nzook">Azure Wind</vendor>
     <description><![CDATA[
@@ -27,6 +27,10 @@
         </ul>
   ]]></description>
         <change-notes><![CDATA[
+         <h2>1.0.3</h2>
+        <ul>
+          <li>1.登录时可选择用连接字符串信息登录</li>
+        </ul>
         <h2>1.0.2</h2>
         <ul>
           <li>1.添加插件市场图标</li>
