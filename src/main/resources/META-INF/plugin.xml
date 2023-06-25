@@ -27,19 +27,19 @@
         </ul>
   ]]></description>
         <change-notes><![CDATA[
-       <h3>1.0.4</h3>
+       <h4>1.0.4</h4>
         <ul>
           <li>1.修改连接断掉可能未刷新页面的bug</li>
           </br>
           <li>1.Modify the bug that the connection is broken and the page may not be refreshed</li>
         </ul>
-         <h3>1.0.3</h3>
+         <h4>1.0.3</h4>
         <ul>
           <li>1.登录时可选择用连接字符串信息登录</li>
           </br>
           <li>1.When logging in, you can choose to log in with connection string information</li>
         </ul>
-        <h3>1.0.2</h3>
+        <h4>1.0.2</h4>
         <ul>
           <li>2.修改display type显示位置</li>
           <li>1.添加插件市场图标</li>
@@ -47,7 +47,7 @@
           <li>1.Add a plugin market icon</li>
           <li>2.Modify the display type display position</li>
         </ul>
-        <h3>1.0.1</h3>
+        <h4>1.0.1</h4>
         <ul>
           <li>1.修改插件兼容性问题</li>
           </br>
