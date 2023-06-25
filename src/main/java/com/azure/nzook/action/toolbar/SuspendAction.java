@@ -29,11 +29,11 @@ public class SuspendAction extends AbstractAction {
             instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
             ZookeeperData.zooKeeper.close();
             ZookeeperData.setStatus(StatusEnum.NOT_CONNECT);
-            ListWindowFactory.operationWindow.clearAll();
-            ListWindowFactory.operationWindow.setDefaultPanel();
         } catch (InterruptedException ex) {
             Notifier.notify(ex.getMessage(), MessageType.ERROR);
         }
+        ListWindowFactory.operationWindow.clearAll();
+        ListWindowFactory.operationWindow.setDefaultPanel();
     }
 
     // 该方法用于设置Action的可用性
