@@ -15,6 +15,7 @@ import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MessageType;
+import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
@@ -36,6 +37,9 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import static com.azure.nzook.constant.Constant.TOOL_WINDOW_ID;
+
 /**
  * @author niu
  * @since 1.0
@@ -45,7 +49,7 @@ public class OperationWindow {
     private final ToolWindow toolWindow;
 
     private static Project project;
-    private final JPanel mainPanel = new JPanel(new BorderLayout());
+    private final MainPanel mainPanel = new MainPanel(new BorderLayout());
     private JBSplitter splitter;
     private JComponent parentPanel;
 
@@ -194,7 +198,9 @@ public class OperationWindow {
     public OperationWindow(@NotNull Project project,ToolWindow toolWindow) {
         OperationWindow.project = project;
         this.toolWindow = toolWindow;
-        setDefaultPanel();
+        EmptyTextPanel emptyText = new EmptyTextPanel();
+        emptyText.withEmptyText(Bundle.getString("panel.empty.description")+" ",Bundle.getString("panel.empty.link"), e -> Login.popupLoginDialog(project));
+        mainPanel.add(emptyText, BorderLayout.CENTER);
         UserLoginData currentLoginData = DataUtils.getCurrentLoginData();
         if (currentLoginData != null && DataUtils.isLogin()) {
             Login.load(project, currentLoginData);
@@ -208,12 +214,40 @@ public class OperationWindow {
     public void setDefaultPanel() {
         EmptyTextPanel emptyText = new EmptyTextPanel();
         emptyText.withEmptyText(Bundle.getString("panel.empty.description")+" ",Bundle.getString("panel.empty.link"), e -> Login.popupLoginDialog(project));
-        mainPanel.add(emptyText, BorderLayout.CENTER);
+        MainPanel projectMainPanel = getMainPanel(project);
+        if (projectMainPanel != null) {
+            projectMainPanel.add(emptyText, BorderLayout.CENTER);
+        }
     }
 
     public void clearAll() {
-        mainPanel.removeAll();
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        MainPanel projectMainPanel = getMainPanel(project);
+        if (projectMainPanel != null) {
+            projectMainPanel.removeAll();
+            projectMainPanel.revalidate();
+            projectMainPanel.repaint();
+        }
+    }
+
+    /**
+     * 获取主面板
+     * @since 1.0.4
+     */
+    public static MainPanel getMainPanel(Project project) {
+        if (project == null) {
+            return null;
+        }
+        ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow(TOOL_WINDOW_ID);
+        if (toolWindow != null) {
+            for (Component component : toolWindow.getComponent().getComponents()) {
+                if (component instanceof SimpleToolWindowPanel windowPanel) {
+                    JComponent content = windowPanel.getContent();
+                    if(content instanceof MainPanel mainContent){
+                        return mainContent;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

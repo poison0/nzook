@@ -1,6 +1,7 @@
 package com.azure.nzook.action;
 
 import com.azure.nzook.action.toolbar.*;
+import com.azure.nzook.gui.MainPanel;
 import com.azure.nzook.gui.OperationWindow;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
@@ -9,12 +10,17 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+
+import java.awt.*;
+
+import static com.azure.nzook.constant.Constant.TOOL_WINDOW_ID;
 
 /**
  * @author niu
@@ -50,5 +56,6 @@ public class ListWindowFactory implements ToolWindowFactory {
         toolbar.setTargetComponent(jbPanel);
         return toolbar;
     }
+
 
 }

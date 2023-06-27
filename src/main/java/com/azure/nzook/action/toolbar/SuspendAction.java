@@ -10,7 +10,10 @@ import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.MessageType;
+import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
 
 /**
  * @author niu
@@ -28,10 +31,13 @@ public class SuspendAction extends AbstractAction {
             PropertiesComponent instance = PropertiesComponent.getInstance();
             instance.setValue(Constant.PROPERTIES_COMPONENT_LOGIN, false);
             ZookeeperData.zooKeeper.close();
-            ZookeeperData.setStatus(StatusEnum.NOT_CONNECT);
         } catch (InterruptedException ex) {
             Notifier.notify(ex.getMessage(), MessageType.ERROR);
         }
+        ToolWindowManager instance = ToolWindowManager.getInstance(e.getProject());
+        JComponent component = instance.getToolWindow(Constant.TOOL_WINDOW_ID).getComponent();
+        component.getComponents();
+        ZookeeperData.setStatus(StatusEnum.NOT_CONNECT);
         ListWindowFactory.operationWindow.clearAll();
         ListWindowFactory.operationWindow.setDefaultPanel();
     }

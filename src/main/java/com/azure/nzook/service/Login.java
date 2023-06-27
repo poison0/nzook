@@ -17,6 +17,7 @@ import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MessageType;
+import com.intellij.openapi.wm.ToolWindowManager;
 import org.apache.zookeeper.KeeperException;
 import org.jetbrains.annotations.NotNull;
 
@@ -76,6 +77,7 @@ public class Login {
                 ZookeeperData.setStatus(StatusEnum.CONNECTING);
                 NodeData data = login(loginData);
                 SwingUtilities.invokeLater(() -> {
+
                     ListWindowFactory.operationWindow.clearAll();
                     // 更新GUI
                     ListWindowFactory.operationWindow.init(data);
