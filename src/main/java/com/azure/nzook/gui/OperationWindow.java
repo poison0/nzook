@@ -35,6 +35,8 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -136,19 +138,17 @@ public class OperationWindow {
     }
 
     /**
-     * 添加鼠标点击事件
+     * 添加选择切换事件
+     * @since 1.0.5
      */
     private void addMouseClicked(PathTree fieldTree) {
-        fieldTree.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) fieldTree.getLastSelectedPathComponent();
-                if(node == null){
-                    return;
-                }
-                NodeData userObject = (NodeData)node.getUserObject();
-                switchNode(userObject);
+        fieldTree.addTreeSelectionListener(e -> {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) fieldTree.getLastSelectedPathComponent();
+            if (node == null) {
+                return;
             }
+            NodeData userObject = (NodeData) node.getUserObject();
+            switchNode(userObject);
         });
     }
 
