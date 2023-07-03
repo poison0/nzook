@@ -110,14 +110,19 @@ public class OperationWindow {
     }
 
     public static boolean splitVertically(Project project) {
-        ToolWindowManager instance = ToolWindowManager.getInstance(project);
-        final var toolWindow = instance.getToolWindow(Constant.TOOL_WINDOW_ID);
-        var splitVertically = false;
-        if (toolWindow != null) {
-            final var anchor = toolWindow.getAnchor();
-            splitVertically = anchor == ToolWindowAnchor.LEFT || anchor == ToolWindowAnchor.RIGHT;
+        try{
+            ToolWindowManager instance = ToolWindowManager.getInstance(project);
+            final var toolWindow = instance.getToolWindow(Constant.TOOL_WINDOW_ID);
+            var splitVertically = false;
+            if (toolWindow != null) {
+                final var anchor = toolWindow.getAnchor();
+                splitVertically = anchor == ToolWindowAnchor.LEFT || anchor == ToolWindowAnchor.RIGHT;
+            }
+            return splitVertically;
+        }catch (Exception e){
+            Notifier.notify(e.getMessage(),MessageType.ERROR);
+            return true;
         }
-        return splitVertically;
     }
 
     /**

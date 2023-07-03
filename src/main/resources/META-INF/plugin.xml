@@ -30,8 +30,10 @@
        <h4>1.0.5</h4>
         <ul>
           <li>1.把鼠标点击事件改成选择切换事件，使用键盘切换节点数据也能更新</li>
+          <li>2.修改可能会工具栏关不掉的问题</li>
           </br>
           <li>1.Change the mouse click event to a selection switch event, and use the keyboard to switch node data can also be updated</li>
+          <li>2.Modify the problem that the toolbar may not be closed</li>
         </ul>
        <h4>1.0.4</h4>
         <ul>
