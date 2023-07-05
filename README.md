@@ -1,5 +1,5 @@
 # nzook
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/poison0/nzook/blob/main/LICENSE)
 [![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/com.azure.wind.nzook?color=FD8836)](https://plugins.jetbrains.com/plugin/22051)
 [![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/d/com.azure.wind.nzook)](https://plugins.jetbrains.com/plugin/22051)
  > 一个zookeeper可视化IDE 工具插件，可以新建、编辑和删除节点，选择节点都能查看数据、控制信息和权限信息  
