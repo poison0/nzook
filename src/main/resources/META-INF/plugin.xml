@@ -1,7 +1,7 @@
 <idea-plugin url="https://www.jetbrains.com/idea">
     <id>com.azure.wind.nzook</id>
     <name>nzook</name>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <idea-version since-build="222.3345.118"/>
     <vendor email="1570012077@qq.com" url="https://github.com/poison0/nzook">Azure Wind</vendor>
     <description><![CDATA[
@@ -27,6 +27,10 @@
         </ul>
   ]]></description>
         <change-notes><![CDATA[
+        <h4>1.0.6</h4>
+        <ul>
+          <li>1.241版本兼容</li>
+        </ul>
        <h4>1.0.5</h4>
         <ul>
           <li>1.把鼠标点击事件改成选择切换事件，使用键盘切换节点数据也能更新</li>
